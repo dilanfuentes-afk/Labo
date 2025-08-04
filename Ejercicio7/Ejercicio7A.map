@@ -1,0 +1,57 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Mon May 19 16:59:04 2025
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000074
+.config_2007_EJERCICIO7A.O       code   0x002007    program   0x000002
+.config_2008_EJERCICIO7A.O       code   0x002008    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000039      
+                            0x002007    0x002008      
+            60 out of 8455 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    BUCLE   0x000018    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   INICIO   0x000000    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PDelL1   0x00002e    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PDelL2   0x00002f    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PDelL3   0x000030    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PDelL4   0x000035    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PDelL5   0x000036    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PDelL6   0x000037    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PDelL7   0x000038    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PLoop1   0x00002b    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PLoop2   0x00002d    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   TIEMPO   0x000029    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x000000    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                    BUCLE   0x000018    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   TIEMPO   0x000029    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PLoop1   0x00002b    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PLoop2   0x00002d    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PDelL1   0x00002e    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PDelL2   0x00002f    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PDelL3   0x000030    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PDelL4   0x000035    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PDelL5   0x000036    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PDelL6   0x000037    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+                   PDelL7   0x000038    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7A.asm
+
+

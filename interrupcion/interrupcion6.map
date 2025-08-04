@@ -1,0 +1,97 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Mon May 19 00:55:15 2025
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x00014c
+.config_2007_INTERRUPCION6.O       code   0x002007    program   0x000002
+.config_2008_INTERRUPCION6.O       code   0x002008    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x0000a9      
+                            0x002007    0x002008      
+            169 out of 8455 program addresses used, program memory utilization is 1%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                       AA   0x000074    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                       BB   0x00007c    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    BUCLE   0x000097    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                     CERO   0x000078    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    CINCO   0x000060    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   CUATRO   0x00005c    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                      DOS   0x000054    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    FILA1   0x000010    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    FILA2   0x000020    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    FILA3   0x000030    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    FILA4   0x000040    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   INICIO   0x000080    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    INTER   0x000004    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    NUEVE   0x000070    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                     OCHO   0x00006c    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PDelL1   0x00009e    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PDelL2   0x00009f    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PDelL3   0x0000a0    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PDelL4   0x0000a5    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PDelL5   0x0000a6    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PDelL6   0x0000a7    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PDelL7   0x0000a8    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PLoop1   0x00009b    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PLoop2   0x00009d    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                 PREGUNTA   0x000007    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                 RESETEAR   0x000005    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                     SEIS   0x000064    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    SIETE   0x000068    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   TIEMPO   0x000099    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                     TRES   0x000058    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                      UNO   0x000050    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    INTER   0x000004    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                 RESETEAR   0x000005    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                 PREGUNTA   0x000007    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    FILA1   0x000010    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    FILA2   0x000020    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    FILA3   0x000030    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    FILA4   0x000040    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                      UNO   0x000050    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                      DOS   0x000054    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                     TRES   0x000058    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   CUATRO   0x00005c    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    CINCO   0x000060    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                     SEIS   0x000064    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    SIETE   0x000068    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                     OCHO   0x00006c    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    NUEVE   0x000070    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                       AA   0x000074    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                     CERO   0x000078    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                       BB   0x00007c    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   INICIO   0x000080    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                    BUCLE   0x000097    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   TIEMPO   0x000099    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PLoop1   0x00009b    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PLoop2   0x00009d    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PDelL1   0x00009e    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PDelL2   0x00009f    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PDelL3   0x0000a0    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PDelL4   0x0000a5    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PDelL5   0x0000a6    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PDelL6   0x0000a7    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+                   PDelL7   0x0000a8    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion6.asm
+
+

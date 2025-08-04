@@ -1,0 +1,6 @@
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO8.ASM 19 : Found opcode in column 1. (GOTO)
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO8.ASM 43 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO8.ASM 44 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO8.ASM 47 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO8.ASM 48 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO8.ASM 114 : Found directive in column 1. (END)

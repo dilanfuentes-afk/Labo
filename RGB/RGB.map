@@ -1,0 +1,117 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Mon Apr 21 13:38:47 2025
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x0002a6
+       .config_2007_RGB.O       code   0x002007    program   0x000002
+       .config_2008_RGB.O       code   0x002008    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000152      
+                            0x002007    0x002008      
+            341 out of 8455 program addresses used, program memory utilization is 4%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                ALEATORIO   0x00007b    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    AZUL1   0x0000c5    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    AZUL2   0x0000e0    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    AZUL3   0x0000fb    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    AZUL4   0x000116    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                     BIEN   0x000139    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    BUCLE   0x000052    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                  CENTENA   0x000063    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                  COMPARO   0x00011f    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   DECENA   0x00006b    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+             DESCOMPONER1   0x00005a    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+             DESCOMPONER2   0x00005d    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+             DESCOMPONER3   0x000060    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                INGRESOV1   0x000097    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                INGRESOV2   0x00009e    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                INGRESOV3   0x0000a5    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                INGRESOV4   0x0000ac    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   INICIO   0x000035    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                      MAL   0x000130    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PDelL1   0x000147    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PDelL2   0x000148    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PDelL3   0x000149    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PDelL4   0x00014e    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PDelL5   0x00014f    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PDelL6   0x000150    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PDelL7   0x000151    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PLoop1   0x000144    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PLoop2   0x000146    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    ROJO1   0x0000b3    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    ROJO2   0x0000ce    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    ROJO3   0x0000e9    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    ROJO4   0x000104    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   TABLA1   0x000001    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   TABLA2   0x00000e    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   TABLA3   0x00001b    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   TABLA4   0x000028    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   TIEMPO   0x000142    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   UNIDAD   0x000073    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   VERDE1   0x0000bc    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   VERDE2   0x0000d7    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   VERDE3   0x0000f2    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   VERDE4   0x00010d    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   TABLA1   0x000001    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   TABLA2   0x00000e    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   TABLA3   0x00001b    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   TABLA4   0x000028    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   INICIO   0x000035    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    BUCLE   0x000052    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+             DESCOMPONER1   0x00005a    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+             DESCOMPONER2   0x00005d    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+             DESCOMPONER3   0x000060    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                  CENTENA   0x000063    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   DECENA   0x00006b    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   UNIDAD   0x000073    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                ALEATORIO   0x00007b    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                INGRESOV1   0x000097    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                INGRESOV2   0x00009e    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                INGRESOV3   0x0000a5    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                INGRESOV4   0x0000ac    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    ROJO1   0x0000b3    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   VERDE1   0x0000bc    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    AZUL1   0x0000c5    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    ROJO2   0x0000ce    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   VERDE2   0x0000d7    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    AZUL2   0x0000e0    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    ROJO3   0x0000e9    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   VERDE3   0x0000f2    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    AZUL3   0x0000fb    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    ROJO4   0x000104    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   VERDE4   0x00010d    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                    AZUL4   0x000116    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                  COMPARO   0x00011f    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                      MAL   0x000130    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                     BIEN   0x000139    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   TIEMPO   0x000142    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PLoop1   0x000144    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PLoop2   0x000146    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PDelL1   0x000147    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PDelL2   0x000148    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PDelL3   0x000149    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PDelL4   0x00014e    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PDelL5   0x00014f    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PDelL6   0x000150    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+                   PDelL7   0x000151    program     static C:\Users\dilan\Desktop\LABORATORIO\RGB.asm
+
+

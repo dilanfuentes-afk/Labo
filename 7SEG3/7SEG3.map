@@ -1,0 +1,71 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Thu Apr 03 14:14:18 2025
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x0000c2
+     .config_2007_7SEG3.O       code   0x002007    program   0x000002
+     .config_2008_7SEG3.O       code   0x002008    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000060      
+                            0x002007    0x002008      
+            99 out of 8455 program addresses used, program memory utilization is 1%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   BOTTON   0x000023    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+               DECREMENTO   0x000032    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+               INCREMENTO   0x000026    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   INICIO   0x00000d    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+             MENOS_DECENA   0x000038    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                  MUESTRA   0x000010    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PDelL1   0x000055    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PDelL2   0x000056    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PDelL3   0x000057    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PDelL4   0x00005c    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PDelL5   0x00005d    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PDelL6   0x00005e    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PDelL7   0x00005f    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PLoop1   0x000052    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PLoop2   0x000054    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+           RESET_CONTADOR   0x000040    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                     SIGO   0x000012    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                    TABLA   0x000045    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   TIEMPO   0x000050    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x00000d    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                  MUESTRA   0x000010    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                     SIGO   0x000012    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   BOTTON   0x000023    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+               INCREMENTO   0x000026    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+               DECREMENTO   0x000032    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+             MENOS_DECENA   0x000038    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+           RESET_CONTADOR   0x000040    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                    TABLA   0x000045    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   TIEMPO   0x000050    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PLoop1   0x000052    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PLoop2   0x000054    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PDelL1   0x000055    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PDelL2   0x000056    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PDelL3   0x000057    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PDelL4   0x00005c    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PDelL5   0x00005d    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PDelL6   0x00005e    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+                   PDelL7   0x00005f    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG3.asm
+
+

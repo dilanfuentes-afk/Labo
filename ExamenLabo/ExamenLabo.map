@@ -1,0 +1,67 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Thu Jun 26 16:56:15 2025
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x0001f4
+.config_2007_EXAMENLABO.O       code   0x002007    program   0x000002
+.config_2008_EXAMENLABO.O       code   0x002008    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x0000f9      
+                            0x002007    0x002008      
+            252 out of 8455 program addresses used, program memory utilization is 2%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                CONVERTIR   0x000028    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+               DelayInner   0x0000f3    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+               DelayOuter   0x0000f1    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+                   ENABLE   0x0000e2    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+                   INICIO   0x000024    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+               LCD_CONFIG   0x000018    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+                     LOOP   0x0000ea    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+           MENSAJE_MANANA   0x000099    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+            MENSAJE_MEDIO   0x000050    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+            MENSAJE_NOCHE   0x0000bd    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+            MENSAJE_TARDE   0x000075    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+                NOT_MEDIO   0x00004b    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+                NOT_NOCHE   0x00003e    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+               PREGUNTA_H   0x000035    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+                    SALTO   0x000001    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+                   TIEMPO   0x0000e6    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+              TIEMPO250MS   0x0000ef    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    SALTO   0x000001    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+               LCD_CONFIG   0x000018    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+                   INICIO   0x000024    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+                CONVERTIR   0x000028    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+               PREGUNTA_H   0x000035    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+                NOT_NOCHE   0x00003e    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+                NOT_MEDIO   0x00004b    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+            MENSAJE_MEDIO   0x000050    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+            MENSAJE_TARDE   0x000075    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+           MENSAJE_MANANA   0x000099    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+            MENSAJE_NOCHE   0x0000bd    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+                   ENABLE   0x0000e2    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+                   TIEMPO   0x0000e6    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+                     LOOP   0x0000ea    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+              TIEMPO250MS   0x0000ef    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+               DelayOuter   0x0000f1    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+               DelayInner   0x0000f3    program     static C:\Users\dilan\Desktop\LABORATORIO\ExamenLabo.asm
+
+

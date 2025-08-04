@@ -1,0 +1,9 @@
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\7SEG1.ASM 10 : Found directive in column 1. (ORG)
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\7SEG1.ASM 12 : Found directive in column 1. (BANKSEL)
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\7SEG1.ASM 13 : Found opcode in column 1. (CLRF)
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\7SEG1.ASM 13 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\7SEG1.ASM 14 : Found opcode in column 1. (CLRF)
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\7SEG1.ASM 14 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\7SEG1.ASM 18 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\7SEG1.ASM 19 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\7SEG1.ASM 89 : Found directive in column 1. (END)

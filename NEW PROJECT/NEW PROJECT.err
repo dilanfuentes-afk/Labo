@@ -1,0 +1,6 @@
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\NEW PROJECT.ASM 8 : Found directive in column 1. (ORG)
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\NEW PROJECT.ASM 10 : Found directive in column 1. (BANKSEL)
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\NEW PROJECT.ASM 11 : Found opcode in column 1. (BCF)
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\NEW PROJECT.ASM 11 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\NEW PROJECT.ASM 12 : Found directive in column 1. (BANKSEL)
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\NEW PROJECT.ASM 29 : Found directive in column 1. (END)

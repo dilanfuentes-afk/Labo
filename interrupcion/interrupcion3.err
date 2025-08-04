@@ -1,0 +1,6 @@
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION3.ASM 10 : Found directive in column 1. (ORG)
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION3.ASM 13 : Found directive in column 1. (ORG)
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION3.ASM 24 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION3.ASM 25 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION3.ASM 28 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION3.ASM 32 : Register in operand not in bank 0.  Ensure that bank bits are correct.

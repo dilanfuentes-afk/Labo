@@ -1,0 +1,59 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Mon May 26 17:25:24 2025
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x00008a
+.config_2007_EJERCICIO8.O       code   0x002007    program   0x000002
+.config_2008_EJERCICIO8.O       code   0x002008    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000044      
+                            0x002007    0x002008      
+            71 out of 8455 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    BUCLE   0x000038    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                COMANDOS1   0x000009    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                COMANDOS2   0x000006    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                COMANDOS3   0x000003    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                   ENABLE   0x000034    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                 ESCRIBIR   0x00001c    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                   INICIO   0x00000d    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+               LCD_CONFIG   0x000001    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                   PDelL1   0x000043    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                   PDelL2   0x000044    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                   PLoop1   0x00003b    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                   PLoop2   0x00003d    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                   TIEMPO   0x000039    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+               LCD_CONFIG   0x000001    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                COMANDOS3   0x000003    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                COMANDOS2   0x000006    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                COMANDOS1   0x000009    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                   INICIO   0x00000d    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                 ESCRIBIR   0x00001c    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                   ENABLE   0x000034    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                    BUCLE   0x000038    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                   TIEMPO   0x000039    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                   PLoop1   0x00003b    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                   PLoop2   0x00003d    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                   PDelL1   0x000043    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+                   PDelL2   0x000044    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio8.asm
+
+

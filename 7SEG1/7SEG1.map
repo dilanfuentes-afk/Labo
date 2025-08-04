@@ -1,0 +1,43 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Mon Mar 31 15:05:50 2025
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000070
+     .config_2007_7SEG1.O       code   0x002007    program   0x000002
+     .config_2008_7SEG1.O       code   0x002008    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000037      
+                            0x002007    0x002008      
+            58 out of 8455 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                      Dos   0x000031    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG1.asm
+                   Inicio   0x000004    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG1.asm
+                     Sigo   0x00002d    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG1.asm
+                   Tiempo   0x00002b    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG1.asm
+                      Uno   0x00002f    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG1.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   Inicio   0x000004    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG1.asm
+                   Tiempo   0x00002b    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG1.asm
+                     Sigo   0x00002d    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG1.asm
+                      Uno   0x00002f    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG1.asm
+                      Dos   0x000031    program     static C:\Users\dilan\Desktop\LABORATORIO\7SEG1.asm
+
+

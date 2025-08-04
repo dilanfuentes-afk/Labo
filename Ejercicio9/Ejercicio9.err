@@ -1,0 +1,41 @@
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 3 : Found directive in column 1. (__CONFIG)
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 4 : Found directive in column 1. (__CONFIG)
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 13 : Found directive in column 1. (ORG)
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 14 : Found directive in column 1. (BANKSEL)
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 15 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 16 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 17 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 19 : Found directive in column 1. (BANKSEL)
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 20 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 21 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 22 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 23 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 25 : Found directive in column 1. (BANKSEL)
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 29 : Found directive in column 1. (BANKSEL)
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 30 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 31 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 32 : Found opcode in column 1. (GOTO)
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 37 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Error[113]   C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 68 : Symbol not previously defined (CONVERTIR)
+Error[113]   C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 154 : Symbol not previously defined (TABLAASC)
+Error[113]   C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 160 : Symbol not previously defined (TABLAASC)
+Error[113]   C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 176 : Symbol not previously defined (REGC)
+Error[113]   C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 177 : Symbol not previously defined (REGD)
+Error[113]   C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 178 : Symbol not previously defined (REGU)
+Error[113]   C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 179 : Symbol not previously defined (REGM)
+Message[305] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 186 : Using default destination of 1 (file).
+Message[305] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 196 : Using default destination of 1 (file).
+Error[124]   C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 225 : Illegal argument (expected single character)
+Error[108]   C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 225 : Illegal character ( )
+Error[124]   C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 237 : Illegal argument (expected single character)
+Error[108]   C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 237 : Illegal character ( )
+Error[113]   C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 275 : Symbol not previously defined (TIEMPO1)
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 280 : Found opcode in column 1. (MOVLW)
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 281 : Found opcode in column 1. (MOVWF)
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 282 : Found opcode in column 1. (MOVLW)
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 283 : Found opcode in column 1. (MOVWF)
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 285 : Found opcode in column 1. (DECFSZ)
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 286 : Found opcode in column 1. (GOTO)
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 287 : Found opcode in column 1. (DECFSZ)
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 288 : Found opcode in column 1. (GOTO)
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJERCICIO9.ASM 289 : Found opcode in column 1. (RETURN)

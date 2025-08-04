@@ -1,0 +1,91 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Mon Aug 04 14:37:12 2025
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x0001cc
+.config_2007_EJEMPLOEEPROM.O       code   0x002007    program   0x000002
+.config_2008_EJEMPLOEEPROM.O       code   0x002008    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x0000e5      
+                            0x002007    0x002008      
+            232 out of 8455 program addresses used, program memory utilization is 2%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   CHECK1   0x000084    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   CHECK2   0x000086    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                CHECK_AUM   0x0000ce    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                 COMANDO1   0x00003d    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                 COMANDO2   0x00003a    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                 COMANDO3   0x000037    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                      CON   0x000023    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   ENABLE   0x000041    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+           ENVIAR_COMANDO   0x000045    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+               INCREMENTO   0x0000c4    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   INICIO   0x00004a    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                     LCD1   0x000073    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                     LCD2   0x0000c1    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+               LCD_CONFIG   0x000035    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+               MANTENERSE   0x00007e    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+              MANTENERSE2   0x000081    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+             MOVER_CURSOR   0x00007b    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                PANTALLA1   0x00004a    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+            PANTALLA_LEER   0x000089    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   PDelL1   0x0000e4    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   PDelL2   0x0000e5    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   PLoop1   0x0000dc    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   PLoop2   0x0000de    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                  POS_ESC   0x000075    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                 POS_LEER   0x000078    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                     SIGO   0x0000c6    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+               TABLA_HEXA   0x000001    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+              TABLA_HEXA2   0x000012    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   TIEMPO   0x0000da    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+               TABLA_HEXA   0x000001    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+              TABLA_HEXA2   0x000012    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                      CON   0x000023    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+               LCD_CONFIG   0x000035    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                 COMANDO3   0x000037    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                 COMANDO2   0x00003a    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                 COMANDO1   0x00003d    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   ENABLE   0x000041    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+           ENVIAR_COMANDO   0x000045    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   INICIO   0x00004a    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                PANTALLA1   0x00004a    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                     LCD1   0x000073    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                  POS_ESC   0x000075    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                 POS_LEER   0x000078    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+             MOVER_CURSOR   0x00007b    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+               MANTENERSE   0x00007e    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+              MANTENERSE2   0x000081    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   CHECK1   0x000084    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   CHECK2   0x000086    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+            PANTALLA_LEER   0x000089    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                     LCD2   0x0000c1    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+               INCREMENTO   0x0000c4    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                     SIGO   0x0000c6    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                CHECK_AUM   0x0000ce    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   TIEMPO   0x0000da    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   PLoop1   0x0000dc    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   PLoop2   0x0000de    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   PDelL1   0x0000e4    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+                   PDelL2   0x0000e5    program     static C:\Users\dilan\Desktop\LABORATORIO\EjemploEEPROM.asm
+
+

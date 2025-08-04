@@ -1,0 +1,1072 @@
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 #INCLUDE "P16F887.INC"
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F887 processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2013 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00809         LIST
+                      00002         
+2007   2FE1           00003         __CONFIG _CONFIG1,(_CP_OFF & _WDT_OFF & _PWRTE_ON & _XT_OSC & _LVP_OFF)
+2008   3EFF           00004         __CONFIG _CONFIG2, _BOR21V
+                      00005 
+  0000000C            00006 DCounter1 EQU 0X0C
+  0000000D            00007 DCounter2 EQU 0X0D
+  00000020            00008 BIT_CT EQU 0X20         
+  00000021            00009 PDel0 EQU 0X21  ; defino reg GPR para rutina de tiempo
+  00000022            00010 PDel1 EQU 0X22  ; defino reg GPR para rutina de tiempo
+  00000023            00011 PDel2 EQU 0X23  ; defino reg GPR para rutina de tiempo
+  00000024            00012 RESL EQU 0X24
+  00000025            00013 RESH EQU 0X25
+                      00014 
+                      00015 
+0000                  00016         ORG 0X00
+                      00017 
+0000   2801           00018         GOTO SALTO
+                      00019 ;==============================INICIO SALTO========================================
+0001                  00020 SALTO
+                      00021 ;===Anulamos las entradas analogicas menos la AN0===
+0001   1683 1703      00022         BANKSEL ANSEL 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0003   0189           00023         CLRF ANSELH
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0004   0188           00024         CLRF ANSEL
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0005   1408           00025         BSF ANSEL,0
+                      00026 
+                      00027 
+                      00028 ;===Configuramos los Pines como salidas, menos el pin 0 de tris a (AN0)===
+0006   1683 1303      00029         BANKSEL TRISA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0008   0185           00030         CLRF TRISA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0009   1405           00031         BSF TRISA,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000A   0189           00032         CLRF TRISE     ; Configura PORTE como salida (control del LCD)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000B   0188           00033         CLRF TRISD     ; Configura PORTD como salida (datos del LCD)
+                      00034 
+                      00035 
+                      00036 ;===Configuramos ADCON0 y ADCON1===
+000C   1283 1303      00037         BANKSEL ADCON0
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000E   3041           00038         MOVLW B'01000001';Fosc 8,adon
+000F   009F           00039         MOVWF ADCON0
+                      00040 
+0010   1683 1303      00041         BANKSEL ADCON1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0012   019F           00042         CLRF ADCON1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0013   179F           00043         BSF ADCON1,7;JUSTIFICACION DERECHA 
+0014   1283 1303      00044         BANKSEL PORTA 
+0016   2018           00045         CALL LCD_CONFIG
+0017   2824           00046         GOTO  INICIO
+                      00047 
+                      00048 ;===CONFIGURAMOS LCD===
+0018                  00049 LCD_CONFIG
+0018   1009           00050     BCF PORTE,0         ; RS = 0  Instruccion o comando 
+0019   1089           00051     BCF PORTE,1         ; RW = 0  Escribir
+                      00052 
+                      00053     ; Modo de entrada de caracteres (El texto no se desplaza, incrementa la posicion)
+001A   3006           00054     MOVLW B'00000110'
+001B   0088           00055     MOVWF PORTD
+001C   20E2           00056     CALL ENABLE
+                      00057 
+                      00058     ; Apagado y encendido de la pantalla (Intermitencia del cursor apagado, cursor apagado, pantalla enc
+                            endida)
+001D   300C           00059     MOVLW B'00001100'
+001E   0088           00060     MOVWF PORTD
+001F   20E2           00061     CALL ENABLE
+                      00062 
+                      00063     ; Funtion set (Matriz para el caracter de 5x10,activacion de dos lineas, bus de datos de 8 bits
+0020   303C           00064     MOVLW B'00111100'
+0021   0088           00065     MOVWF PORTD
+0022   20E2           00066     CALL ENABLE
+0023   0008           00067         RETURN
+                      00068 ;==============================FIN SALTO========================================
+                      00069 
+                      00070 ;==============================INICIO "INICIO"========================================
+0024                  00071 INICIO
+0024   149F           00072         BSF ADCON0,1;GO/DONE
+0025   189F           00073         BTFSC ADCON0,1
+0026   2825           00074         GOTO $-.1
+0027   2828           00075         GOTO CONVERTIR  
+                      00076 
+                      00077 ;==============================FIN "INICIO"========================================
+                      00078 
+                      00079 ;==============================INICIO PREGUNTA HORA========================================
+0028                  00080 CONVERTIR
+                      00081         ; Copiar ADRESL y ADRESH a RESL/RESH
+0028   1683 1303      00082     BANKSEL ADRESL
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+002A   081E           00083     MOVF ADRESL,W
+002B   1283 1303      00084     BANKSEL PORTA
+002D   00A4           00085     MOVWF RESL
+                      00086 
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+002E   1283 1303      00087     BANKSEL ADRESH
+0030   081E           00088     MOVF ADRESH,W
+0031   1283 1303      00089     BANKSEL PORTA
+0033   00A5           00090     MOVWF RESH
+                      00091         
+0034   2835           00092     GOTO PREGUNTA_H
+                      00093 
+                      00094 ;==============================FIN PREGUNTA HORA========================================
+                      00095 
+                      00096 ;==============================INICIO CONVERTIR========================================
+0035                  00097 PREGUNTA_H
+                      00098         
+                      00099         ; === NOCHE ===
+                      00100         ; RESH = 0 y RESL <= 93
+0035   0825           00101         MOVF RESH, W
+0036   3A00           00102         XORLW .0
+0037   1D03           00103         BTFSS STATUS, Z
+0038   283E           00104         GOTO NOT_NOCHE
+0039   0824           00105         MOVF RESL, W
+003A   3C5D           00106         SUBLW .93
+003B   1C03           00107         BTFSS STATUS, C
+003C   283E           00108         GOTO NOT_NOCHE
+003D   28BD           00109         GOTO MENSAJE_NOCHE
+                      00110         
+003E                  00111 NOT_NOCHE
+                      00112         
+                      00113         ; === MEDIODIA ===
+                      00114         ; RESH = 3 y RESL 84-206
+003E   3A03           00115         XORLW .3
+003F   1D03           00116         BTFSS STATUS, Z
+0040   284B           00117         GOTO NOT_MEDIO
+0041   0824           00118         MOVF RESL, W
+0042   3C54           00119         SUBLW .84
+0043   1803           00120         BTFSC STATUS, C
+0044   284B           00121         GOTO NOT_MEDIO
+0045   3E54           00122         ADDLW .84
+0046   0824           00123         MOVF RESL,W
+0047   3CCE           00124         SUBLW .206
+0048   1C03           00125         BTFSS STATUS, C
+0049   284B           00126         GOTO NOT_MEDIO
+004A   2850           00127         GOTO MENSAJE_MEDIO
+                      00128         
+004B                  00129 NOT_MEDIO:
+                      00130         ; === MAÑANA/TARDE ===
+                      00131         ; Todo lo que no sea noche o mediodía
+                      00132         ; Decide dirección con Bit de control
+004B   0820           00133         MOVFW BIT_CT
+004C   3A01           00134         XORLW .1
+004D   1D03           00135         BTFSS STATUS,Z
+004E   2875           00136         GOTO MENSAJE_TARDE
+004F   2899           00137         GOTO MENSAJE_MANANA
+                      00138 
+                      00139 ;==============================FIN CONVERTIR========================================
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00140 
+                      00141 ;==============================INICIO MENSAJES========================================
+                      00142 
+0050                  00143 MENSAJE_MEDIO
+0050   1020           00144     BCF BIT_CT,0 ;Desactivo el Bit de control
+                      00145 
+0051   1409           00146         BSF PORTE,0 ;Rs
+0052   1089           00147     BCF PORTE,1 ;Rw
+0053   20EF           00148         CALL TIEMPO250MS
+                      00149 
+0054   304D           00150     MOVLW 'M'
+0055   0088           00151     MOVWF PORTD
+0056   20E2           00152     CALL ENABLE
+0057   3045           00153     MOVLW 'E'
+0058   0088           00154     MOVWF PORTD
+0059   20E2           00155     CALL ENABLE
+005A   3044           00156     MOVLW 'D'
+005B   0088           00157     MOVWF PORTD
+005C   20E2           00158     CALL ENABLE
+005D   3049           00159     MOVLW 'I'
+005E   0088           00160     MOVWF PORTD
+005F   20E2           00161     CALL ENABLE
+0060   304F           00162     MOVLW 'O'
+0061   0088           00163     MOVWF PORTD
+0062   20E2           00164     CALL ENABLE
+0063   302D           00165     MOVLW '-'
+0064   0088           00166     MOVWF PORTD
+0065   20E2           00167     CALL ENABLE
+0066   3044           00168     MOVLW 'D'
+0067   0088           00169     MOVWF PORTD
+0068   20E2           00170     CALL ENABLE
+0069   3049           00171     MOVLW 'I'
+006A   0088           00172     MOVWF PORTD
+006B   20E2           00173     CALL ENABLE
+006C   3041           00174     MOVLW 'A'
+006D   0088           00175     MOVWF PORTD
+006E   20E2           00176     CALL ENABLE
+                      00177 
+006F   1009           00178         BCF PORTE,0
+0070   1089           00179         BCF PORTE,1
+                      00180         
+0071   3002           00181         MOVLW B'00000010'; Curso Home 
+0072   0088           00182         MOVWF PORTD
+0073   20E2           00183         CALL ENABLE
+                      00184 
+0074   2824           00185     GOTO INICIO
+                      00186 
+0075                  00187 MENSAJE_TARDE
+                      00188 
+0075   1409           00189     BSF PORTE,0 ;RS
+0076   1089           00190     BCF PORTE,1 ;RW
+0077   20E6           00191         CALL TIEMPO
+                      00192 
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0078   3054           00193     MOVLW 'T'
+0079   0088           00194     MOVWF PORTD
+007A   20E2           00195     CALL ENABLE
+007B   3041           00196     MOVLW 'A'
+007C   0088           00197     MOVWF PORTD
+007D   20E2           00198     CALL ENABLE
+007E   3052           00199     MOVLW 'R'
+007F   0088           00200     MOVWF PORTD
+0080   20E2           00201     CALL ENABLE
+0081   3044           00202     MOVLW 'D'
+0082   0088           00203     MOVWF PORTD
+0083   20E2           00204     CALL ENABLE
+0084   3045           00205     MOVLW 'E'
+0085   0088           00206     MOVWF PORTD
+0086   20E2           00207     CALL ENABLE
+                      00208 
+0087   3020           00209     MOVLW ' '
+0088   0088           00210     MOVWF PORTD
+0089   20E2           00211     CALL ENABLE
+008A   3020           00212     MOVLW ' ' ;         
+008B   0088           00213     MOVWF PORTD
+008C   20E2           00214     CALL ENABLE
+008D   3020           00215     MOVLW ' '
+008E   0088           00216     MOVWF PORTD
+008F   20E2           00217     CALL ENABLE
+0090   3020           00218     MOVLW ' '
+0091   0088           00219     MOVWF PORTD
+0092   20E2           00220     CALL ENABLE
+                      00221 
+0093   1009           00222         BCF PORTE,0
+0094   1089           00223         BCF PORTE,1
+                      00224 
+0095   3002           00225         MOVLW B'00000010' ;Curso home 
+0096   0088           00226         MOVWF PORTD
+0097   20E2           00227         CALL ENABLE 
+                      00228 
+0098   2824           00229         GOTO INICIO
+                      00230 
+0099                  00231 MENSAJE_MANANA
+                      00232 
+0099   1409           00233         BSF PORTE,0
+009A   1089           00234     BCF PORTE,1
+009B   20E6           00235         CALL TIEMPO
+                      00236 
+009C   304D           00237     MOVLW 'M'
+009D   0088           00238     MOVWF PORTD
+009E   20E2           00239     CALL ENABLE
+009F   3041           00240     MOVLW 'A'
+00A0   0088           00241     MOVWF PORTD
+00A1   20E2           00242     CALL ENABLE
+00A2   304E           00243     MOVLW 'N'
+00A3   0088           00244     MOVWF PORTD
+00A4   20E2           00245     CALL ENABLE
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00A5   3041           00246     MOVLW 'A'
+00A6   0088           00247     MOVWF PORTD
+00A7   20E2           00248     CALL ENABLE
+00A8   304E           00249     MOVLW 'N'
+00A9   0088           00250     MOVWF PORTD
+00AA   20E2           00251     CALL ENABLE
+00AB   3041           00252     MOVLW 'A'
+00AC   0088           00253     MOVWF PORTD
+00AD   20E2           00254     CALL ENABLE
+                      00255 
+                      00256 
+00AE   3020           00257     MOVLW ' '
+00AF   0088           00258     MOVWF PORTD
+00B0   20E2           00259     CALL ENABLE
+00B1   3020           00260     MOVLW ' '
+00B2   0088           00261     MOVWF PORTD
+00B3   20E2           00262     CALL ENABLE
+00B4   3020           00263     MOVLW ' '
+00B5   0088           00264     MOVWF PORTD
+00B6   20E2           00265     CALL ENABLE
+                      00266 
+                      00267 
+00B7   1009           00268         BCF PORTE,0
+00B8   1089           00269         BCF PORTE,1
+                      00270 
+00B9   3002           00271         MOVLW B'00000010'
+00BA   0088           00272         MOVWF PORTD
+00BB   20E2           00273         CALL ENABLE 
+                      00274 
+00BC   2824           00275         GOTO INICIO
+                      00276 
+                      00277 
+00BD                  00278 MENSAJE_NOCHE
+00BD   1420           00279         BSF BIT_CT,0 ;activo el Bit de control
+                      00280 
+00BE   1409           00281         BSF PORTE,0
+00BF   1089           00282     BCF PORTE,1
+                      00283 
+00C0   20EF           00284         CALL TIEMPO250MS
+                      00285         
+00C1   304E           00286     MOVLW 'N'
+00C2   0088           00287     MOVWF PORTD
+00C3   20E2           00288     CALL ENABLE
+                      00289 
+00C4   304F           00290     MOVLW 'O'
+00C5   0088           00291     MOVWF PORTD
+00C6   20E2           00292     CALL ENABLE
+                      00293 
+00C7   3043           00294     MOVLW 'C'
+00C8   0088           00295     MOVWF PORTD
+00C9   20E2           00296     CALL ENABLE
+                      00297 
+00CA   3048           00298     MOVLW 'H'
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00CB   0088           00299     MOVWF PORTD
+00CC   20E2           00300     CALL ENABLE
+                      00301 
+00CD   3045           00302     MOVLW 'E'
+00CE   0088           00303     MOVWF PORTD
+00CF   20E2           00304     CALL ENABLE
+                      00305 
+00D0   3020           00306         MOVLW ' '
+00D1   0088           00307     MOVWF PORTD
+00D2   20E2           00308     CALL ENABLE
+00D3   3020           00309     MOVLW ' '
+00D4   0088           00310     MOVWF PORTD
+00D5   20E2           00311     CALL ENABLE
+00D6   3020           00312     MOVLW ' '
+00D7   0088           00313     MOVWF PORTD
+00D8   20E2           00314     CALL ENABLE
+00D9   3020           00315     MOVLW ' '
+00DA   0088           00316     MOVWF PORTD
+00DB   20E2           00317     CALL ENABLE
+                      00318 
+00DC   1009           00319         BCF PORTE,0
+00DD   1089           00320         BCF PORTE,1
+                      00321 
+00DE   3002           00322         MOVLW B'00000010'
+00DF   0088           00323         MOVWF PORTD
+00E0   20E2           00324         CALL ENABLE
+                      00325 
+00E1   2824           00326         GOTO INICIO
+                      00327 ;==============================FIN MENSAJE========================================
+                      00328 
+                      00329 ;==============================INICIO ENABLE========================================
+00E2                  00330 ENABLE
+00E2   1509           00331     BSF PORTE,2
+00E3   20E6           00332     CALL TIEMPO
+00E4   1109           00333     BCF PORTE,2
+00E5   0008           00334     RETURN
+                      00335 
+                      00336 ;==============================FIN ENABLE========================================
+                      00337 
+                      00338 ;==============================INICIO TIEMPO========================================
+00E6                  00339 TIEMPO ; 4 mili-segundos
+00E6   302F           00340         MOVLW 0X2f
+00E7   008C           00341         MOVWF DCounter1
+00E8   3006           00342         MOVLW 0X06
+00E9   008D           00343         MOVWF DCounter2
+00EA                  00344 LOOP
+00EA   0B8C           00345         DECFSZ DCounter1, 1
+00EB   28EA           00346         GOTO LOOP
+00EC   0B8D           00347         DECFSZ DCounter2, 1
+00ED   28EA           00348         GOTO LOOP
+00EE   0008           00349         RETURN
+                      00350 
+                      00351 
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00EF                  00352 TIEMPO250MS      
+00EF   3028           00353     movlw   .40        ; Bucle externo: ~40
+00F0   00A1           00354     movwf   PDel0
+00F1                  00355 DelayOuter
+00F1   30FA           00356     movlw   .250       ; Bucle interno: ~250
+00F2   00A2           00357     movwf   PDel1
+00F3                  00358 DelayInner
+00F3   0064           00359     clrwdt
+00F4   0064           00360     clrwdt
+00F5   0BA2           00361     decfsz  PDel1, 1
+00F6   28F3           00362     goto    DelayInner
+00F7   0BA1           00363     decfsz  PDel0, 1
+00F8   28F1           00364     goto    DelayOuter
+00F9   0008           00365     return
+                      00366 ;==============================FIN TIEMPO========================================
+                      00367         END
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ABDEN                             00000000
+ABDOVF                            00000007
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+ANS0                              00000000
+ANS1                              00000001
+ANS10                             00000002
+ANS11                             00000003
+ANS12                             00000004
+ANS13                             00000005
+ANS2                              00000002
+ANS3                              00000003
+ANS4                              00000004
+ANS5                              00000005
+ANS6                              00000006
+ANS7                              00000007
+ANS8                              00000000
+ANS9                              00000001
+ANSEL                             00000188
+ANSELH                            00000189
+BAUDCTL                           00000187
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BIT_CT                            00000020
+BRG0                              00000000
+BRG1                              00000001
+BRG10                             00000002
+BRG11                             00000003
+BRG12                             00000004
+BRG13                             00000005
+BRG14                             00000006
+BRG15                             00000007
+BRG16                             00000003
+BRG2                              00000002
+BRG3                              00000003
+BRG4                              00000004
+BRG5                              00000005
+BRG6                              00000006
+BRG7                              00000007
+BRG8                              00000000
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+BRG9                              00000001
+BRGH                              00000002
+C                                 00000000
+C1CH0                             00000000
+C1CH1                             00000001
+C1IE                              00000005
+C1IF                              00000005
+C1OE                              00000005
+C1ON                              00000007
+C1OUT                             00000006
+C1POL                             00000004
+C1R                               00000002
+C1RSEL                            00000005
+C1SEN                             00000005
+C2CH0                             00000000
+C2CH1                             00000001
+C2IE                              00000006
+C2IF                              00000006
+C2OE                              00000005
+C2ON                              00000007
+C2OUT                             00000006
+C2POL                             00000004
+C2R                               00000002
+C2REN                             00000004
+C2RSEL                            00000004
+C2SYNC                            00000000
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2                             0000001B
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHS0                              00000002
+CHS1                              00000003
+CHS2                              00000004
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CHS3                              00000005
+CKE                               00000006
+CKP                               00000004
+CM1CON0                           00000107
+CM2CON0                           00000108
+CM2CON1                           00000109
+CONVERTIR                         00000028
+CREN                              00000004
+CSRC                              00000007
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+DC1B0                             00000004
+DC1B1                             00000005
+DC2B0                             00000004
+DC2B1                             00000005
+DCounter1                         0000000C
+DCounter2                         0000000D
+D_A                               00000005
+D_NOT_A                           00000005
+DelayInner                        000000F3
+DelayOuter                        000000F1
+ECCPAS                            0000009C
+ECCPAS0                           00000004
+ECCPAS1                           00000005
+ECCPAS2                           00000006
+ECCPASE                           00000007
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDAT                             0000010C
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+ENABLE                            000000E2
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+FVREN                             00000000
+GCEN                              00000007
+GIE                               00000007
+GO                                00000001
+GO_DONE                           00000001
+GO_NOT_DONE                       00000001
+HTS                               00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+INDF                              00000000
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+INICIO                            00000024
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IOCB                              00000096
+IOCB0                             00000000
+IOCB1                             00000001
+IOCB2                             00000002
+IOCB3                             00000003
+IOCB4                             00000004
+IOCB5                             00000005
+IOCB6                             00000006
+IOCB7                             00000007
+IRCF0                             00000004
+IRCF1                             00000005
+IRCF2                             00000006
+IRP                               00000007
+LCD_CONFIG                        00000018
+LOOP                              000000EA
+LTS                               00000001
+MC1OUT                            00000007
+MC2OUT                            00000006
+MENSAJE_MANANA                    00000099
+MENSAJE_MEDIO                     00000050
+MENSAJE_NOCHE                     000000BD
+MENSAJE_TARDE                     00000075
+MSK                               00000093
+MSK0                              00000000
+MSK1                              00000001
+MSK2                              00000002
+MSK3                              00000003
+MSK4                              00000004
+MSK5                              00000005
+MSK6                              00000006
+MSK7                              00000007
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000001
+NOT_MEDIO                         0000004B
+NOT_NOCHE                         0000003E
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OERR                              00000001
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+OPTION_REG                        00000081
+OSCCON                            0000008F
+OSCTUNE                           00000090
+OSFIE                             00000007
+OSFIF                             00000007
+OSTS                              00000003
+P                                 00000004
+P1M0                              00000006
+P1M1                              00000007
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PDC0                              00000000
+PDC1                              00000001
+PDC2                              00000002
+PDC3                              00000003
+PDC4                              00000004
+PDC5                              00000005
+PDC6                              00000006
+PDel0                             00000021
+PDel1                             00000022
+PDel2                             00000023
+PEIE                              00000006
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PREGUNTA_H                        00000035
+PRSEN                             00000007
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSSAC0                            00000002
+PSSAC1                            00000003
+PSSBD0                            00000000
+PSSBD1                            00000001
+PSTRCON                           0000009D
+PULSR                             00000002
+PULSS                             00000003
+PWM1CON                           0000009B
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE 14
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RA4                               00000004
+RA5                               00000005
+RA6                               00000006
+RA7                               00000007
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIDL                             00000006
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RE0                               00000000
+RE1                               00000001
+RE2                               00000002
+RE3                               00000003
+READ_WRITE                        00000002
+RESH                              00000025
+RESL                              00000024
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+RX9                               00000006
+RX9D                              00000000
+R_NOT_W                           00000002
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+R_W                               00000002
+S                                 00000003
+SALTO                             00000001
+SBOREN                            00000004
+SCKP                              00000004
+SCS                               00000000
+SEN                               00000000
+SENDB                             00000003
+SMP                               00000007
+SPBRG                             00000099
+SPBRGH                            0000009A
+SPEN                              00000007
+SR0                               00000006
+SR1                               00000007
+SRCON                             00000185
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPMSK                            00000093
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+STRA                              00000000
+STRB                              00000001
+STRC                              00000002
+STRD                              00000003
+STRSYNC                           00000004
+SWDTEN                            00000000
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1GINV                            00000007
+T1GIV                             00000007
+T1GSS                             00000001
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+T2CON                             00000012
+TIEMPO                            000000E6
+TIEMPO250MS                       000000EF
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1GE                            00000006
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISA6                            00000006
+TRISA7                            00000007
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+TRISC6                            00000006
+TRISC7                            00000007
+TRISD                             00000088
+TRISD0                            00000000
+TRISD1                            00000001
+TRISD2                            00000002
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TRISD3                            00000003
+TRISD4                            00000004
+TRISD5                            00000005
+TRISD6                            00000006
+TRISD7                            00000007
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRISE3                            00000003
+TRMT                              00000001
+TUN0                              00000000
+TUN1                              00000001
+TUN2                              00000002
+TUN3                              00000003
+TUN4                              00000004
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+ULPWUE                            00000005
+ULPWUIE                           00000002
+ULPWUIF                           00000002
+VCFG0                             00000004
+VCFG1                             00000005
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             00000097
+VREN                              00000007
+VROE                              00000006
+VRR                               00000005
+VRSS                              00000004
+W                                 00000000
+WCOL                              00000007
+WDTCON                            00000105
+WDTPS0                            00000001
+WDTPS1                            00000002
+WDTPS2                            00000003
+WDTPS3                            00000004
+WPUB                              00000095
+WPUB0                             00000000
+WPUB1                             00000001
+WPUB2                             00000002
+WPUB3                             00000003
+WPUB4                             00000004
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+WPUB5                             00000005
+WPUB6                             00000006
+WPUB7                             00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+WUE                               00000001
+Z                                 00000002
+_BOR21V                           00003EFF
+_BOR40V                           00003FFF
+_BOR4V_BOR21V                     00003EFF
+_BOR4V_BOR40V                     00003FFF
+_BOREN_NSLEEP                     00003EFF
+_BOREN_OFF                        00003CFF
+_BOREN_ON                         00003FFF
+_BOREN_SBODEN                     00003DFF
+_BOR_NSLEEP                       00003EFF
+_BOR_OFF                          00003CFF
+_BOR_ON                           00003FFF
+_BOR_SBODEN                       00003DFF
+_CONFIG1                          00002007
+_CONFIG2                          00002008
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003F7F
+_CP_OFF                           00003FFF
+_CP_ON                            00003FBF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         00001FFF
+_DEVID1                           00002006
+_EC_OSC                           00003FFB
+_EXTRC                            00003FFF
+_EXTRCIO                          00003FFE
+_EXTRC_OSC_CLKOUT                 00003FFF
+_EXTRC_OSC_NOCLKOUT               00003FFE
+_FCMEN_OFF                        000037FF
+_FCMEN_ON                         00003FFF
+_FOSC_EC                          00003FFB
+_FOSC_EXTRC_CLKOUT                00003FFF
+_FOSC_EXTRC_NOCLKOUT              00003FFE
+_FOSC_HS                          00003FFA
+_FOSC_INTRC_CLKOUT                00003FFD
+_FOSC_INTRC_NOCLKOUT              00003FFC
+_FOSC_LP                          00003FF8
+_FOSC_XT                          00003FF9
+_HS_OSC                           00003FFA
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_IESO_OFF                         00003BFF
+_IESO_ON                          00003FFF
+_INTOSC                           00003FFD
+_INTOSCIO                         00003FFC
+MPASM  5.51                    EXAMENLABO.ASM   6-26-2025  16:56:14         PAGE 19
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FF8
+_LVP_OFF                          00002FFF
+_LVP_ON                           00003FFF
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FEF
+_WDTE_OFF                         00003FF7
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FF7
+_WDT_ON                           00003FFF
+_WRT_1FOURTH                      00003BFF
+_WRT_256                          00003DFF
+_WRT_HALF                         000039FF
+_WRT_OFF                          00003FFF
+_XT_OSC                           00003FF9
+__16F887                          00000001
+__DEBUG                           1
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXX------
+2000 : -------XX------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   250
+Program Memory Words Free:  7942
+
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :    10 reported,     0 suppressed
+
+

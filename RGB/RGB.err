@@ -1,0 +1,13 @@
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\RGB.ASM 21 : Found directive in column 1. (ORG)
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\RGB.ASM 22 : Found opcode in column 1. (GOTO)
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\RGB.ASM 83 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\RGB.ASM 84 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\RGB.ASM 91 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\RGB.ASM 92 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\RGB.ASM 93 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\RGB.ASM 94 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\RGB.ASM 95 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[305] C:\USERS\DILAN\DESKTOP\LABORATORIO\RGB.ASM 350 : Using default destination of 1 (file).
+Message[305] C:\USERS\DILAN\DESKTOP\LABORATORIO\RGB.ASM 354 : Using default destination of 1 (file).
+Message[305] C:\USERS\DILAN\DESKTOP\LABORATORIO\RGB.ASM 358 : Using default destination of 1 (file).
+Message[305] C:\USERS\DILAN\DESKTOP\LABORATORIO\RGB.ASM 362 : Using default destination of 1 (file).

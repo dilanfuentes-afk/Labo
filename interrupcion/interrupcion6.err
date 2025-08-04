@@ -1,0 +1,10 @@
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION6.ASM 10 : Found directive in column 1. (ORG)
+Warning[205] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION6.ASM 13 : Found directive in column 1. (ORG)
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION6.ASM 15 : Found opcode in column 1. (GOTO)
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION6.ASM 191 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION6.ASM 192 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION6.ASM 200 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION6.ASM 201 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION6.ASM 202 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION6.ASM 204 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\INTERRUPCION6.ASM 206 : Register in operand not in bank 0.  Ensure that bank bits are correct.

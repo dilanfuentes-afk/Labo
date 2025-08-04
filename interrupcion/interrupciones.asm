@@ -1,0 +1,90 @@
+#INCLUDE "P16F887.INC"
+
+    __CONFIG _CONFIG1, (_CP_OFF & _WDT_OFF & _PWRTE_ON & _XT_OSC & _LVP_OFF)
+    __CONFIG _CONFIG2, _BOR21V
+
+PDel0 EQU 0x25
+PDel1 EQU 0x26
+REG5 EQU 0X28
+
+ORG 0X00
+	GOTO INICIO
+;=========INTERRUPCION=========
+ORG 0X04
+INTER
+	CLRF PORTA 
+	DECFSZ REG5,1 
+	GOTO $+.2
+	GOTO BUCLE1
+	BSF PORTA,0
+	CALL TIEMPO
+	BCF PORTA,0
+	CALL TIEMPO
+	MOVF REG5,W
+	MOVWF PORTC
+	BCF INTCON,1 ;Limpia Bandera
+	RETFIE
+BUCLE1
+	CLRF PORTA
+	CALL TIEMPO
+	MOVF REG5,W
+	MOVWF PORTC
+	GOTO BUCLE1
+;=========INICIALIZACION==========
+INICIO
+	BANKSEL ANSEL
+	CLRF ANSEL
+	CLRF ANSELH
+
+	BANKSEL TRISB
+	BSF TRISB,0
+	CLRF TRISA
+	CLRF TRISC
+
+	BANKSEL OPTION_REG
+	BCF OPTION_REG,6
+	
+    BSF INTCON,4 ; Activa interrupción externa por RB0 (INTE = 1)
+    BSF INTCON,7 ; Activa interrupciones globales (GIE = 1)
+
+	BANKSEL PORTA
+	BCF PORTC,0
+	MOVLW .5
+	MOVWF REG5
+	MOVWF PORTC
+
+BUCLE
+	BSF PORTA,0
+	CALL TIEMPO
+	BCF PORTA,0
+	CALL TIEMPO
+	GOTO BUCLE
+ 
+TIEMPO
+    movlw     .239
+    movwf     PDel0
+PLoop1
+    movlw     .232
+    movwf     PDel1
+PLoop2
+    clrwdt
+PDelL1
+    goto PDelL2
+PDelL2
+    goto PDelL3
+PDelL3
+    clrwdt
+    decfsz     PDel1, 1
+    goto      PLoop2
+    decfsz     PDel0, 1
+    goto      PLoop1
+PDelL4
+    goto PDelL5
+PDelL5
+    goto PDelL6
+PDelL6
+    goto PDelL7
+PDelL7
+    clrwdt
+    return
+    END

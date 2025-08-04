@@ -1,0 +1,97 @@
+#INCLUDE "P16F887.INC"
+
+    __CONFIG _CONFIG1, (_CP_OFF & _WDT_OFF & _PWRTE_ON & _XT_OSC & _LVP_OFF)
+    __CONFIG _CONFIG2, _BOR21V
+
+PDel0 EQU 0x25
+PDel1 EQU 0x26
+
+ORG 0X00
+;=== ======INICIALIZACION==========
+INICIO
+	BANKSEL ANSEL
+	CLRF ANSEL
+	CLRF ANSELH
+	BSF ANSEL,0 ;Esta entrada va a hacer analogica (toma valores analogicos)
+
+	BANKSEL TRISA
+	CLRF TRISC
+	CLRF TRISD
+	CLRF TRISA
+	BSF TRISA,0  ;Ponemos el IN0 como entrada
+
+	BANKSEL PORTA
+	CLRF PORTA
+
+;CONFIGURACION DEL ADC
+	BANKSEL ADCON0
+	MOVLW B'01000001'
+	MOVWF ADCON0
+
+	BANKSEL ADCON1
+	CLRF ADCON1
+
+	BCF ADCON1,7
+	BANKSEL ADCON0
+BUCLE
+	BSF ADCON0,1	
+	BTFSC ADCON0,1
+	GOTO $-.1
+
+	CENTENA
+	MOVLW .100
+	SUBWF REGCONTADOR,F
+	BTFSC STATUS,C
+	GOTO $+.3
+	ADDWF REGCONTADOR,F
+	GOTO DECENA
+	INCF REGC,F
+	GOTO $-.6
+DECENA
+	MOVLW .10
+	SUBWF REGCONTADOR,F
+	BTFSC STATUS,C
+	GOTO $+.3
+	ADDWF REGCONTADOR,F
+	GOTO UNIDAD
+	INCF REGD,F
+	GOTO $-.6 
+UNIDAD
+	MOVLW .1
+	SUBWF REGCONTADOR,F
+	BTFSC STATUS,C
+	GOTO $+.3
+	ADDWF REGCONTADOR,F
+	GOTO ALEATORIO
+	INCF REGU,F
+	GOTO $-.6
+
+ 
+TIEMPO
+    movlw     .239
+    movwf     PDel0
+PLoop1
+    movlw     .232
+    movwf     PDel1
+PLoop2
+    clrwdt
+PDelL1
+    goto PDelL2
+PDelL2
+    goto PDelL3
+PDelL3
+    clrwdt
+    decfsz     PDel1, 1
+    goto      PLoop2
+    decfsz     PDel0, 1
+    goto      PLoop1
+PDelL4
+    goto PDelL5
+PDelL5
+    goto PDelL6
+PDelL6
+    goto PDelL7
+PDelL7
+    clrwdt
+    return
+    END

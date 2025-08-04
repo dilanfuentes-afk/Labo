@@ -1,0 +1,1156 @@
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 #INCLUDE "P16F887.INC"
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F887 processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2013 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00809         LIST
+                      00002 
+2007   2FE1           00003         __CONFIG _CONFIG1, (_CP_OFF & _WDT_OFF & _PWRTE_ON & _XT_OSC & _LVP_OFF)
+2008   3EFF           00004         __CONFIG _CONFIG2, _BOR21V
+  00000023            00005 PDel0 EQU 0X23  ; defino reg GPR para rutina de tiempo
+  00000024            00006 PDel1 EQU 0X24  ; defino reg GPR para rutina de tiempo
+  00000025            00007 PDel2 EQU 0X25  ; defino reg GPR para rutina de tiempo
+  00000026            00008 REGCONTADOR EQU 0X26
+  00000027            00009 REGC EQU 0X27
+  00000028            00010 REGD EQU 0X28
+  00000029            00011 REGU EQU 0X29
+  0000002A            00012 REG1 EQU 0X2A
+  0000002B            00013 REG2 EQU 0X2B
+  0000002C            00014 REG3 EQU 0X2C
+  0000002D            00015 REG4 EQU 0X2D
+  00000020            00016 REG11 EQU 0X20
+  00000021            00017 REG22 EQU 0X21
+  00000022            00018 REG33 EQU 0X22
+  0000002E            00019 REG44 EQU 0X2E
+                      00020 
+Warning[205]: Found directive in column 1. (ORG)
+0000                  00021 ORG 0X00
+Warning[203]: Found opcode in column 1. (GOTO)
+0000   2835           00022 GOTO INICIO
+                      00023 
+0001                  00024 TABLA1
+0001   0782           00025         ADDWF PCL,F
+0002   3401           00026         RETLW B'00000001'
+0003   3402           00027         RETLW B'00000010'
+0004   3404           00028         RETLW B'00000100'
+0005   3402           00029         RETLW B'00000010'
+0006   3402           00030         RETLW B'00000010'
+0007   3401           00031         RETLW B'00000001'
+0008   3404           00032         RETLW B'00000100'
+0009   3401           00033         RETLW B'00000001'
+000A   3404           00034         RETLW B'00000100'
+000B   3402           00035         RETLW B'00000010'
+000C   3401           00036         RETLW B'00000001'
+000D   3401           00037         RETLW B'00000001'
+000E                  00038 TABLA2
+000E   0782           00039         ADDWF PCL,F
+000F   3404           00040         RETLW B'00000100'
+0010   3401           00041         RETLW B'00000001'
+0011   3402           00042         RETLW B'00000010'
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0012   3401           00043         RETLW B'00000001'
+0013   3404           00044         RETLW B'00000100'
+0014   3402           00045         RETLW B'00000010'
+0015   3404           00046         RETLW B'00000100'
+0016   3401           00047         RETLW B'00000001'
+0017   3402           00048         RETLW B'00000010'
+0018   3402           00049         RETLW B'00000010'
+0019   3404           00050         RETLW B'00000100'
+001A   3401           00051         RETLW B'00000001'
+001B                  00052 TABLA3
+001B   0782           00053         ADDWF PCL,F
+001C   3401           00054         RETLW B'00000001'
+001D   3402           00055         RETLW B'00000010'
+001E   3404           00056         RETLW B'00000100'
+001F   3402           00057         RETLW B'00000010'
+0020   3402           00058         RETLW B'00000010'
+0021   3401           00059         RETLW B'00000001'
+0022   3404           00060         RETLW B'00000100'
+0023   3401           00061         RETLW B'00000001'
+0024   3404           00062         RETLW B'00000100'
+0025   3402           00063         RETLW B'00000010'
+0026   3401           00064         RETLW B'00000001'
+0027   3401           00065         RETLW B'00000001'
+0028                  00066 TABLA4
+0028   0782           00067         ADDWF PCL,F
+0029   3402           00068         RETLW B'00000010'
+002A   3401           00069         RETLW B'00000001'
+002B   3404           00070         RETLW B'00000100'
+002C   3402           00071         RETLW B'00000010'
+002D   3404           00072         RETLW B'00000100'
+002E   3401           00073         RETLW B'00000001'
+002F   3402           00074         RETLW B'00000010'
+0030   3401           00075         RETLW B'00000001'
+0031   3404           00076         RETLW B'00000100'
+0032   3404           00077         RETLW B'00000100'
+0033   3402           00078         RETLW B'00000010'
+0034   3401           00079         RETLW B'00000001'
+                      00080 
+0035                  00081 INICIO
+0035   1683 1703      00082         BANKSEL ANSEL
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0037   0188           00083         CLRF ANSEL
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0038   0189           00084         CLRF ANSELH
+                      00085 
+0039   1283 1303      00086         BANKSEL PORTB
+003B   0186           00087         CLRF PORTB
+003C   0189           00088         CLRF PORTE
+                      00089 
+003D   1683 1303      00090         BANKSEL TRISB
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+003F   0186           00091         CLRF TRISB
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0040   1406           00092         BSF TRISB,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0041   1486           00093         BSF TRISB,1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0042   1506           00094         BSF TRISB,2
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0043   0189           00095         CLRF TRISE
+0044   1283 1303      00096         BANKSEL PORTA
+0046   01A9           00097         CLRF REGU
+0047   01A8           00098         CLRF REGD
+0048   01A7           00099         CLRF REGC
+0049   01A6           00100         CLRF REGCONTADOR
+004A   01AA           00101         CLRF REG1
+004B   01AB           00102         CLRF REG2
+004C   01AC           00103         CLRF REG3
+004D   01AD           00104         CLRF REG4
+004E   01A0           00105         CLRF REG11
+004F   01A1           00106         CLRF REG22
+0050   01A2           00107         CLRF REG33
+0051   01AE           00108         CLRF REG44
+                      00109 
+0052                  00110 BUCLE
+0052   0AA6           00111         INCF REGCONTADOR,1
+0053   1806           00112         BTFSC PORTB,0
+0054   285A           00113         GOTO DESCOMPONER1
+0055   1886           00114         BTFSC PORTB,1
+0056   285D           00115         GOTO DESCOMPONER2
+0057   1906           00116         BTFSC PORTB,2
+0058   2860           00117         GOTO DESCOMPONER3
+0059   2852           00118         GOTO BUCLE
+005A                  00119 DESCOMPONER1
+005A   1806           00120         BTFSC PORTB,0
+005B   285A           00121         GOTO $-.1
+005C   2863           00122         GOTO CENTENA
+005D                  00123 DESCOMPONER2
+005D   1886           00124         BTFSC PORTB,1
+005E   285D           00125         GOTO $-.1
+005F   2863           00126         GOTO CENTENA
+0060                  00127 DESCOMPONER3
+0060   1906           00128         BTFSC PORTB,2
+0061   2860           00129         GOTO $-.1
+0062   2863           00130         GOTO CENTENA
+0063                  00131 CENTENA
+0063   3064           00132         MOVLW .100
+0064   02A6           00133         SUBWF REGCONTADOR,F
+0065   1803           00134         BTFSC STATUS,C
+0066   2869           00135         GOTO $+.3
+0067   07A6           00136         ADDWF REGCONTADOR,F
+0068   286B           00137         GOTO DECENA
+0069   0AA7           00138         INCF REGC,F
+006A   2864           00139         GOTO $-.6
+006B                  00140 DECENA
+006B   300A           00141         MOVLW .10
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+006C   02A6           00142         SUBWF REGCONTADOR,F
+006D   1803           00143         BTFSC STATUS,C
+006E   2871           00144         GOTO $+.3
+006F   07A6           00145         ADDWF REGCONTADOR,F
+0070   2873           00146         GOTO UNIDAD
+0071   0AA8           00147         INCF REGD,F
+0072   286C           00148         GOTO $-.6 
+0073                  00149 UNIDAD
+0073   3001           00150         MOVLW .1
+0074   02A6           00151         SUBWF REGCONTADOR,F
+0075   1803           00152         BTFSC STATUS,C
+0076   2879           00153         GOTO $+.3
+0077   07A6           00154         ADDWF REGCONTADOR,F
+0078   287B           00155         GOTO ALEATORIO
+0079   0AA9           00156         INCF REGU,F
+007A   2874           00157         GOTO $-.6
+                      00158 
+007B                  00159 ALEATORIO
+007B   0829           00160         MOVF REGU,W
+007C   2001           00161         CALL TABLA1
+007D   00AA           00162         MOVWF REG1
+007E   0089           00163         MOVWF PORTE
+007F   2142           00164         CALL TIEMPO
+0080   0189           00165         CLRF PORTE
+0081   2142           00166         CALL TIEMPO
+                      00167 
+0082   0829           00168         MOVF REGU,W
+0083   200E           00169         CALL TABLA2
+0084   00AB           00170         MOVWF REG2
+0085   0089           00171         MOVWF PORTE
+0086   2142           00172         CALL TIEMPO
+0087   0189           00173         CLRF PORTE 
+0088   2142           00174         CALL TIEMPO
+                      00175 
+0089   0828           00176         MOVF REGD,W
+008A   201B           00177         CALL TABLA3
+008B   00AC           00178         MOVWF REG3
+008C   0089           00179         MOVWF PORTE
+008D   2142           00180         CALL TIEMPO
+008E   0189           00181         CLRF PORTE
+008F   2142           00182         CALL TIEMPO
+                      00183 
+0090   0827           00184         MOVF REGC,W
+0091   2028           00185         CALL TABLA4
+0092   00AD           00186         MOVWF REG4
+0093   0089           00187         MOVWF PORTE
+0094   2142           00188         CALL TIEMPO
+0095   0189           00189         CLRF PORTE
+0096   2142           00190         CALL TIEMPO
+0097                  00191 INGRESOV1
+0097   1806           00192         BTFSC PORTB,0 
+0098   28B3           00193         GOTO ROJO1
+0099   1886           00194         BTFSC PORTB,1
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+009A   28BC           00195         GOTO VERDE1
+009B   1906           00196         BTFSC PORTB,2
+009C   28C5           00197         GOTO AZUL1
+009D   2897           00198         GOTO INGRESOV1
+009E                  00199 INGRESOV2
+009E   1806           00200         BTFSC PORTB,0 
+009F   28CE           00201         GOTO ROJO2
+00A0   1886           00202         BTFSC PORTB,1
+00A1   28D7           00203         GOTO VERDE2
+00A2   1906           00204         BTFSC PORTB,2
+00A3   28E0           00205         GOTO AZUL2
+00A4   289E           00206         GOTO INGRESOV2
+00A5                  00207 INGRESOV3
+00A5   1806           00208         BTFSC PORTB,0 
+00A6   28E9           00209         GOTO ROJO3
+00A7   1886           00210         BTFSC PORTB,1
+00A8   28F2           00211         GOTO VERDE3
+00A9   1906           00212         BTFSC PORTB,2
+00AA   28FB           00213         GOTO AZUL3
+00AB   28A5           00214         GOTO INGRESOV3
+00AC                  00215 INGRESOV4
+00AC   1806           00216         BTFSC PORTB,0 
+00AD   2904           00217         GOTO ROJO4
+00AE   1886           00218         BTFSC PORTB,1
+00AF   290D           00219         GOTO VERDE4
+00B0   1906           00220         BTFSC PORTB,2
+00B1   2916           00221         GOTO AZUL4
+00B2   28AC           00222         GOTO INGRESOV4
+                      00223 
+00B3                  00224 ROJO1
+00B3   1C06           00225     BTFSS PORTB,0
+00B4   28B6           00226     GOTO $+.2
+00B5   3001           00227     MOVLW B'00000001'
+00B6   0089           00228     MOVWF PORTE
+00B7   00A0           00229     MOVWF REG11
+00B8   2142           00230     CALL TIEMPO
+00B9   0189           00231     CLRF PORTE
+00BA   2142           00232     CALL TIEMPO
+00BB   289E           00233     GOTO INGRESOV2
+00BC                  00234 VERDE1
+00BC   1C86           00235     BTFSS PORTB,1
+00BD   28BF           00236     GOTO $+.2
+00BE   3002           00237     MOVLW B'00000010'
+00BF   0089           00238     MOVWF PORTE
+00C0   00A0           00239     MOVWF REG11
+00C1   2142           00240     CALL TIEMPO
+00C2   0189           00241     CLRF PORTE
+00C3   2142           00242     CALL TIEMPO
+00C4   289E           00243     GOTO INGRESOV2
+00C5                  00244 AZUL1
+00C5   1D06           00245     BTFSS PORTB,2
+00C6   28C8           00246     GOTO $+.2
+00C7   3004           00247     MOVLW B'00000100'
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00C8   0089           00248     MOVWF PORTE
+00C9   00A0           00249     MOVWF REG11
+00CA   2142           00250     CALL TIEMPO
+00CB   0189           00251     CLRF PORTE
+00CC   2142           00252     CALL TIEMPO
+00CD   289E           00253     GOTO INGRESOV2
+                      00254 
+00CE                  00255 ROJO2
+00CE   1C06           00256     BTFSS PORTB,0
+00CF   28D1           00257     GOTO $+.2
+00D0   3001           00258     MOVLW B'00000001'
+00D1   0089           00259     MOVWF PORTE
+00D2   00A1           00260     MOVWF REG22
+00D3   2142           00261     CALL TIEMPO
+00D4   0189           00262     CLRF PORTE
+00D5   2142           00263     CALL TIEMPO
+00D6   28A5           00264     GOTO INGRESOV3
+00D7                  00265 VERDE2
+00D7   1C86           00266     BTFSS PORTB,1
+00D8   28DA           00267     GOTO $+.2
+00D9   3002           00268     MOVLW B'00000010'
+00DA   0089           00269     MOVWF PORTE
+00DB   00A1           00270     MOVWF REG22
+00DC   2142           00271     CALL TIEMPO
+00DD   0189           00272     CLRF PORTE
+00DE   2142           00273     CALL TIEMPO
+00DF   28A5           00274     GOTO INGRESOV3
+00E0                  00275 AZUL2
+00E0   1D06           00276     BTFSS PORTB,2
+00E1   28E3           00277     GOTO $+.2
+00E2   3004           00278     MOVLW B'00000100'
+00E3   0089           00279     MOVWF PORTE
+00E4   00A1           00280     MOVWF REG22
+00E5   2142           00281     CALL TIEMPO
+00E6   0189           00282     CLRF PORTE
+00E7   2142           00283     CALL TIEMPO
+00E8   28A5           00284     GOTO INGRESOV3
+                      00285 
+00E9                  00286 ROJO3
+00E9   1C06           00287     BTFSS PORTB,0
+00EA   28EC           00288     GOTO $+.2
+00EB   3001           00289     MOVLW B'00000001'
+00EC   0089           00290     MOVWF PORTE
+00ED   00A2           00291     MOVWF REG33
+00EE   2142           00292     CALL TIEMPO
+00EF   0189           00293     CLRF PORTE
+00F0   2142           00294     CALL TIEMPO
+00F1   28AC           00295     GOTO INGRESOV4
+00F2                  00296 VERDE3
+00F2   1C86           00297     BTFSS PORTB,1
+00F3   28F5           00298     GOTO $+.2
+00F4   3002           00299     MOVLW B'00000010'
+00F5   0089           00300     MOVWF PORTE
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00F6   00A2           00301     MOVWF REG33
+00F7   2142           00302     CALL TIEMPO
+00F8   0189           00303     CLRF PORTE
+00F9   2142           00304     CALL TIEMPO
+00FA   28AC           00305     GOTO INGRESOV4
+00FB                  00306 AZUL3
+00FB   1D06           00307     BTFSS PORTB,2
+00FC   28FE           00308     GOTO $+.2
+00FD   3004           00309     MOVLW B'00000100'
+00FE   0089           00310     MOVWF PORTE
+00FF   00A2           00311     MOVWF REG33
+0100   2142           00312     CALL TIEMPO
+0101   0189           00313     CLRF PORTE
+0102   2142           00314     CALL TIEMPO
+0103   28AC           00315     GOTO INGRESOV4
+                      00316 
+0104                  00317 ROJO4
+0104   1C06           00318     BTFSS PORTB,0
+0105   2907           00319     GOTO $+.2
+0106   3001           00320     MOVLW B'00000001'
+0107   0089           00321     MOVWF PORTE
+0108   00AE           00322     MOVWF REG44
+0109   2142           00323     CALL TIEMPO
+010A   0189           00324     CLRF PORTE
+010B   2142           00325     CALL TIEMPO
+010C   291F           00326     GOTO COMPARO
+010D                  00327 VERDE4
+010D   1C86           00328     BTFSS PORTB,1
+010E   2910           00329     GOTO $+.2
+010F   3002           00330     MOVLW B'00000010'
+0110   0089           00331     MOVWF PORTE
+0111   00AE           00332     MOVWF REG44
+0112   2142           00333     CALL TIEMPO
+0113   0189           00334     CLRF PORTE
+0114   2142           00335     CALL TIEMPO
+0115   291F           00336     GOTO COMPARO
+0116                  00337 AZUL4
+0116   1D06           00338     BTFSS PORTB,2
+0117   2919           00339     GOTO $+.2
+0118   3004           00340     MOVLW B'00000100'
+0119   0089           00341     MOVWF PORTE
+011A   00AE           00342     MOVWF REG44
+011B   2142           00343     CALL TIEMPO
+011C   0189           00344     CLRF PORTE
+011D   2142           00345     CALL TIEMPO
+011E   291F           00346     GOTO COMPARO
+                      00347 
+011F                  00348 COMPARO
+011F   082A           00349         MOVF REG1,W
+Message[305]: Using default destination of 1 (file).
+0120   06A0           00350         XORWF REG11
+0121   1D03           00351         BTFSS STATUS,Z
+0122   2930           00352         GOTO MAL
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0123   082B           00353         MOVF REG2,W
+Message[305]: Using default destination of 1 (file).
+0124   06A1           00354         XORWF REG22
+0125   1D03           00355         BTFSS STATUS,Z
+0126   2930           00356         GOTO MAL
+0127   082C           00357         MOVF REG3,W
+Message[305]: Using default destination of 1 (file).
+0128   06A2           00358         XORWF REG33
+0129   1D03           00359         BTFSS STATUS,Z
+012A   2930           00360         GOTO MAL
+012B   082D           00361         MOVF REG4,W
+Message[305]: Using default destination of 1 (file).
+012C   06AE           00362         XORWF REG44
+012D   1D03           00363         BTFSS STATUS,Z
+012E   2930           00364         GOTO MAL
+012F   2939           00365         GOTO BIEN
+                      00366 
+0130                  00367 MAL
+0130   1409           00368         BSF PORTE,0
+0131   2142           00369         CALL TIEMPO
+0132   1009           00370         BCF PORTE,0
+0133   2142           00371         CALL TIEMPO
+0134   1409           00372         BSF PORTE,0
+0135   2142           00373         CALL TIEMPO
+0136   1009           00374         BCF PORTE,0
+0137   2142           00375         CALL TIEMPO 
+0138   2835           00376         GOTO INICIO
+                      00377 
+0139                  00378 BIEN  
+0139   1489           00379         BSF PORTE,1
+013A   2142           00380         CALL TIEMPO
+013B   1089           00381         BCF PORTE,1
+013C   2142           00382         CALL TIEMPO
+013D   1489           00383         BSF PORTE,1
+013E   2142           00384         CALL TIEMPO
+013F   1089           00385         BCF PORTE,1
+0140   2142           00386         CALL TIEMPO 
+0141   2835           00387         GOTO INICIO
+                      00388 
+0142                  00389 TIEMPO
+0142   30EF           00390         movlw     .239      ; 1 set numero de repeticion  (B)
+0143   00A3           00391         movwf     PDel0     ; 1 |
+0144   30E8           00392 PLoop1  movlw     .232      ; 1 set numero de repeticion  (A)
+0145   00A4           00393         movwf     PDel1     ; 1 |
+0146   0064           00394 PLoop2  clrwdt              ; 1 clear watchdog
+0147   2948           00395 PDelL1  goto PDelL2         ; 2 ciclos delay
+0148   2949           00396 PDelL2  goto PDelL3         ; 2 ciclos delay
+0149   0064           00397 PDelL3  clrwdt              ; 1 ciclo delay
+014A   0BA4           00398         decfsz    PDel1, 1  ; 1 + (1) es el tiempo 0  ? (A)
+014B   2946           00399         goto      PLoop2    ; 2 no, loop
+014C   0BA3           00400         decfsz    PDel0,  1 ; 1 + (1) es el tiempo 0  ? (B)
+014D   2944           00401         goto      PLoop1    ; 2 no, loop
+014E   294F           00402 PDelL4  goto PDelL5         ; 2 ciclos delay
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+014F   2950           00403 PDelL5  goto PDelL6         ; 2 ciclos delay
+0150   2951           00404 PDelL6  goto PDelL7         ; 2 ciclos delay
+0151   0064           00405 PDelL7  clrwdt              ; 1 ciclo delay
+0152   0008           00406         return              ; 2+2 Fin.
+                      00407         END
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ABDEN                             00000000
+ABDOVF                            00000007
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+ALEATORIO                         0000007B
+ANS0                              00000000
+ANS1                              00000001
+ANS10                             00000002
+ANS11                             00000003
+ANS12                             00000004
+ANS13                             00000005
+ANS2                              00000002
+ANS3                              00000003
+ANS4                              00000004
+ANS5                              00000005
+ANS6                              00000006
+ANS7                              00000007
+ANS8                              00000000
+ANS9                              00000001
+ANSEL                             00000188
+ANSELH                            00000189
+AZUL1                             000000C5
+AZUL2                             000000E0
+AZUL3                             000000FB
+AZUL4                             00000116
+BAUDCTL                           00000187
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BIEN                              00000139
+BRG0                              00000000
+BRG1                              00000001
+BRG10                             00000002
+BRG11                             00000003
+BRG12                             00000004
+BRG13                             00000005
+BRG14                             00000006
+BRG15                             00000007
+BRG16                             00000003
+BRG2                              00000002
+BRG3                              00000003
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+BRG4                              00000004
+BRG5                              00000005
+BRG6                              00000006
+BRG7                              00000007
+BRG8                              00000000
+BRG9                              00000001
+BRGH                              00000002
+BUCLE                             00000052
+C                                 00000000
+C1CH0                             00000000
+C1CH1                             00000001
+C1IE                              00000005
+C1IF                              00000005
+C1OE                              00000005
+C1ON                              00000007
+C1OUT                             00000006
+C1POL                             00000004
+C1R                               00000002
+C1RSEL                            00000005
+C1SEN                             00000005
+C2CH0                             00000000
+C2CH1                             00000001
+C2IE                              00000006
+C2IF                              00000006
+C2OE                              00000005
+C2ON                              00000007
+C2OUT                             00000006
+C2POL                             00000004
+C2R                               00000002
+C2REN                             00000004
+C2RSEL                            00000004
+C2SYNC                            00000000
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CCPR2                             0000001B
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CENTENA                           00000063
+CHS0                              00000002
+CHS1                              00000003
+CHS2                              00000004
+CHS3                              00000005
+CKE                               00000006
+CKP                               00000004
+CM1CON0                           00000107
+CM2CON0                           00000108
+CM2CON1                           00000109
+COMPARO                           0000011F
+CREN                              00000004
+CSRC                              00000007
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+DC1B0                             00000004
+DC1B1                             00000005
+DC2B0                             00000004
+DC2B1                             00000005
+DECENA                            0000006B
+DESCOMPONER1                      0000005A
+DESCOMPONER2                      0000005D
+DESCOMPONER3                      00000060
+D_A                               00000005
+D_NOT_A                           00000005
+ECCPAS                            0000009C
+ECCPAS0                           00000004
+ECCPAS1                           00000005
+ECCPAS2                           00000006
+ECCPASE                           00000007
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDAT                             0000010C
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+FVREN                             00000000
+GCEN                              00000007
+GIE                               00000007
+GO                                00000001
+GO_DONE                           00000001
+GO_NOT_DONE                       00000001
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+HTS                               00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+INDF                              00000000
+INGRESOV1                         00000097
+INGRESOV2                         0000009E
+INGRESOV3                         000000A5
+INGRESOV4                         000000AC
+INICIO                            00000035
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IOCB                              00000096
+IOCB0                             00000000
+IOCB1                             00000001
+IOCB2                             00000002
+IOCB3                             00000003
+IOCB4                             00000004
+IOCB5                             00000005
+IOCB6                             00000006
+IOCB7                             00000007
+IRCF0                             00000004
+IRCF1                             00000005
+IRCF2                             00000006
+IRP                               00000007
+LTS                               00000001
+MAL                               00000130
+MC1OUT                            00000007
+MC2OUT                            00000006
+MSK                               00000093
+MSK0                              00000000
+MSK1                              00000001
+MSK2                              00000002
+MSK3                              00000003
+MSK4                              00000004
+MSK5                              00000005
+MSK6                              00000006
+MSK7                              00000007
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000001
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE 14
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OERR                              00000001
+OPTION_REG                        00000081
+OSCCON                            0000008F
+OSCTUNE                           00000090
+OSFIE                             00000007
+OSFIF                             00000007
+OSTS                              00000003
+P                                 00000004
+P1M0                              00000006
+P1M1                              00000007
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PDC0                              00000000
+PDC1                              00000001
+PDC2                              00000002
+PDC3                              00000003
+PDC4                              00000004
+PDC5                              00000005
+PDC6                              00000006
+PDel0                             00000023
+PDel1                             00000024
+PDel2                             00000025
+PDelL1                            00000147
+PDelL2                            00000148
+PDelL3                            00000149
+PDelL4                            0000014E
+PDelL5                            0000014F
+PDelL6                            00000150
+PDelL7                            00000151
+PEIE                              00000006
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PLoop1                            00000144
+PLoop2                            00000146
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PRSEN                             00000007
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSSAC0                            00000002
+PSSAC1                            00000003
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PSSBD0                            00000000
+PSSBD1                            00000001
+PSTRCON                           0000009D
+PULSR                             00000002
+PULSS                             00000003
+PWM1CON                           0000009B
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RA6                               00000006
+RA7                               00000007
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIDL                             00000006
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RE0                               00000000
+RE1                               00000001
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RE2                               00000002
+RE3                               00000003
+READ_WRITE                        00000002
+REG1                              0000002A
+REG11                             00000020
+REG2                              0000002B
+REG22                             00000021
+REG3                              0000002C
+REG33                             00000022
+REG4                              0000002D
+REG44                             0000002E
+REGC                              00000027
+REGCONTADOR                       00000026
+REGD                              00000028
+REGU                              00000029
+ROJO1                             000000B3
+ROJO2                             000000CE
+ROJO3                             000000E9
+ROJO4                             00000104
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+RX9                               00000006
+RX9D                              00000000
+R_NOT_W                           00000002
+R_W                               00000002
+S                                 00000003
+SBOREN                            00000004
+SCKP                              00000004
+SCS                               00000000
+SEN                               00000000
+SENDB                             00000003
+SMP                               00000007
+SPBRG                             00000099
+SPBRGH                            0000009A
+SPEN                              00000007
+SR0                               00000006
+SR1                               00000007
+SRCON                             00000185
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPMSK                            00000093
+SSPOV                             00000006
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+SSPSTAT                           00000094
+STATUS                            00000003
+STRA                              00000000
+STRB                              00000001
+STRC                              00000002
+STRD                              00000003
+STRSYNC                           00000004
+SWDTEN                            00000000
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1GINV                            00000007
+T1GIV                             00000007
+T1GSS                             00000001
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TABLA1                            00000001
+TABLA2                            0000000E
+TABLA3                            0000001B
+TABLA4                            00000028
+TIEMPO                            00000142
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1GE                            00000006
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISA6                            00000006
+TRISA7                            00000007
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+TRISC6                            00000006
+TRISC7                            00000007
+TRISD                             00000088
+TRISD0                            00000000
+TRISD1                            00000001
+TRISD2                            00000002
+TRISD3                            00000003
+TRISD4                            00000004
+TRISD5                            00000005
+TRISD6                            00000006
+TRISD7                            00000007
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRISE3                            00000003
+TRMT                              00000001
+TUN0                              00000000
+TUN1                              00000001
+TUN2                              00000002
+TUN3                              00000003
+TUN4                              00000004
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE 19
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ULPWUE                            00000005
+ULPWUIE                           00000002
+ULPWUIF                           00000002
+UNIDAD                            00000073
+VCFG0                             00000004
+VCFG1                             00000005
+VERDE1                            000000BC
+VERDE2                            000000D7
+VERDE3                            000000F2
+VERDE4                            0000010D
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             00000097
+VREN                              00000007
+VROE                              00000006
+VRR                               00000005
+VRSS                              00000004
+W                                 00000000
+WCOL                              00000007
+WDTCON                            00000105
+WDTPS0                            00000001
+WDTPS1                            00000002
+WDTPS2                            00000003
+WDTPS3                            00000004
+WPUB                              00000095
+WPUB0                             00000000
+WPUB1                             00000001
+WPUB2                             00000002
+WPUB3                             00000003
+WPUB4                             00000004
+WPUB5                             00000005
+WPUB6                             00000006
+WPUB7                             00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+WUE                               00000001
+Z                                 00000002
+_BOR21V                           00003EFF
+_BOR40V                           00003FFF
+_BOR4V_BOR21V                     00003EFF
+_BOR4V_BOR40V                     00003FFF
+_BOREN_NSLEEP                     00003EFF
+_BOREN_OFF                        00003CFF
+_BOREN_ON                         00003FFF
+_BOREN_SBODEN                     00003DFF
+_BOR_NSLEEP                       00003EFF
+_BOR_OFF                          00003CFF
+_BOR_ON                           00003FFF
+_BOR_SBODEN                       00003DFF
+_CONFIG1                          00002007
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE 20
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_CONFIG2                          00002008
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003F7F
+_CP_OFF                           00003FFF
+_CP_ON                            00003FBF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         00001FFF
+_DEVID1                           00002006
+_EC_OSC                           00003FFB
+_EXTRC                            00003FFF
+_EXTRCIO                          00003FFE
+_EXTRC_OSC_CLKOUT                 00003FFF
+_EXTRC_OSC_NOCLKOUT               00003FFE
+_FCMEN_OFF                        000037FF
+_FCMEN_ON                         00003FFF
+_FOSC_EC                          00003FFB
+_FOSC_EXTRC_CLKOUT                00003FFF
+_FOSC_EXTRC_NOCLKOUT              00003FFE
+_FOSC_HS                          00003FFA
+_FOSC_INTRC_CLKOUT                00003FFD
+_FOSC_INTRC_NOCLKOUT              00003FFC
+_FOSC_LP                          00003FF8
+_FOSC_XT                          00003FF9
+_HS_OSC                           00003FFA
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_IESO_OFF                         00003BFF
+_IESO_ON                          00003FFF
+_INTOSC                           00003FFD
+_INTOSCIO                         00003FFC
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FF8
+_LVP_OFF                          00002FFF
+_LVP_ON                           00003FFF
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FEF
+_WDTE_OFF                         00003FF7
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FF7
+_WDT_ON                           00003FFF
+_WRT_1FOURTH                      00003BFF
+_WRT_256                          00003DFF
+_WRT_HALF                         000039FF
+_WRT_OFF                          00003FFF
+_XT_OSC                           00003FF9
+__16F887                          00000001
+__DEBUG                           1
+MPASM  5.51                           RGB.ASM   4-21-2025  13:38:45         PAGE 21
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+
+0000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0100 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0140 : XXXXXXXXXXXXXXXX XXX------------- ---------------- ----------------
+2000 : -------XX------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   339
+Program Memory Words Free:  7853
+
+
+Errors   :     0
+Warnings :     2 reported,     0 suppressed
+Messages :    11 reported,     0 suppressed
+
+

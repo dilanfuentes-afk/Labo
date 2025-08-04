@@ -1,0 +1,63 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Mon May 05 16:55:37 2025
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x000056
+.config_2007_INTERRUPCION3.O       code   0x002007    program   0x000002
+.config_2008_INTERRUPCION3.O       code   0x002008    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x00002e      
+                            0x002007    0x002008      
+            46 out of 8455 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    BUCLE   0x00001c    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   BUCLE1   0x000004    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   INICIO   0x000009    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                    INTER   0x000004    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PDelL1   0x000023    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PDelL2   0x000024    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PDelL3   0x000025    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PDelL4   0x00002a    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PDelL5   0x00002b    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PDelL6   0x00002c    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PDelL7   0x00002d    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PLoop1   0x000020    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PLoop2   0x000022    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   TIEMPO   0x00001e    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   BUCLE1   0x000004    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                    INTER   0x000004    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   INICIO   0x000009    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                    BUCLE   0x00001c    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   TIEMPO   0x00001e    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PLoop1   0x000020    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PLoop2   0x000022    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PDelL1   0x000023    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PDelL2   0x000024    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PDelL3   0x000025    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PDelL4   0x00002a    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PDelL5   0x00002b    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PDelL6   0x00002c    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+                   PDelL7   0x00002d    program     static C:\Users\dilan\Desktop\LABORATORIO\interrupcion3.asm
+
+

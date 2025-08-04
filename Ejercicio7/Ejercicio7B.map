@@ -1,0 +1,83 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Mon Jun 09 12:09:35 2025
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x00019e
+.config_2007_EJERCICIO7B.O       code   0x002007    program   0x000002
+.config_2008_EJERCICIO7B.O       code   0x002008    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x0000ce      
+                            0x002007    0x002008      
+            209 out of 8455 program addresses used, program memory utilization is 2%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                  ARREGLO   0x00008e    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                     CAS0   0x000072    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                     CAS1   0x000079    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                     CAS2   0x000080    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                     CAS3   0x000087    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                  CENTENA   0x000049    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                COMANDOS1   0x000028    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                COMANDOS2   0x000025    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                COMANDOS3   0x000022    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                  CORREXC   0x0000a5    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                  CORREXD   0x0000a0    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                  CORREXU   0x00009b    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                   DECENA   0x000051    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                  DESCOMP   0x000045    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                   ENABLE   0x0000c2    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                 ESCRIBIR   0x0000aa    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                   INICIO   0x00002c    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+               LCD_CONFIG   0x000020    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                     LOOP   0x0000ca    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                     MAPE   0x000036    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                   REVCAS   0x000061    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                    SALTO   0x00000c    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                    TABLA   0x000001    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                  TIEMPO1   0x0000c6    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                   UNIDAD   0x000059    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    TABLA   0x000001    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                    SALTO   0x00000c    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+               LCD_CONFIG   0x000020    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                COMANDOS3   0x000022    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                COMANDOS2   0x000025    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                COMANDOS1   0x000028    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                   INICIO   0x00002c    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                     MAPE   0x000036    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                  DESCOMP   0x000045    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                  CENTENA   0x000049    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                   DECENA   0x000051    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                   UNIDAD   0x000059    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                   REVCAS   0x000061    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                     CAS0   0x000072    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                     CAS1   0x000079    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                     CAS2   0x000080    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                     CAS3   0x000087    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                  ARREGLO   0x00008e    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                  CORREXU   0x00009b    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                  CORREXD   0x0000a0    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                  CORREXC   0x0000a5    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                 ESCRIBIR   0x0000aa    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                   ENABLE   0x0000c2    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                  TIEMPO1   0x0000c6    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+                     LOOP   0x0000ca    program     static C:\Users\dilan\Desktop\LABORATORIO\Ejercicio7B.asm
+
+

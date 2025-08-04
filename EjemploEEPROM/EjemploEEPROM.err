@@ -1,0 +1,6 @@
+Warning[203] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJEMPLOEEPROM.ASM 17 : Found opcode in column 1. (GOTO)
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJEMPLOEEPROM.ASM 61 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJEMPLOEEPROM.ASM 62 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJEMPLOEEPROM.ASM 65 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJEMPLOEEPROM.ASM 66 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\DESKTOP\LABORATORIO\EJEMPLOEEPROM.ASM 68 : Register in operand not in bank 0.  Ensure that bank bits are correct.
