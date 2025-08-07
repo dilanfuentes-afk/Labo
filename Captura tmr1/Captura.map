@@ -1,0 +1,51 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Thu Aug 07 17:36:11 2025
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x000066
+   .config_2007_CAPTURA.O       code   0x002007    program   0x000002
+   .config_2008_CAPTURA.O       code   0x002008    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x000036      
+                            0x002007    0x002008      
+            54 out of 8455 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    BUCLE   0x000025    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+                   INICIO   0x00000b    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+                   PDelL1   0x000034    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+                   PDelL2   0x000035    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+                   PLoop0   0x000029    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+                   PLoop1   0x00002b    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+                   PLoop2   0x00002d    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+                   TIEMPO   0x000027    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x00000b    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+                    BUCLE   0x000025    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+                   TIEMPO   0x000027    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+                   PLoop0   0x000029    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+                   PLoop1   0x00002b    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+                   PLoop2   0x00002d    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+                   PDelL1   0x000034    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+                   PDelL2   0x000035    program     static C:\Users\dilan\Desktop\Labo\Captura tmr1\Captura.asm
+
+
