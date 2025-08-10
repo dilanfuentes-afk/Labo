@@ -1,4 +1,4 @@
-MPASM  5.51                       CAPTURA.ASM   8-7-2025  17:36:09         PAGE  1
+MPASM  5.51                       CAPTURA.ASM   8-10-2025  18:40:51         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -23,84 +23,89 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
   00000022            00008 PDel2 EQU 0X22  ; defino reg GPR para rutina de tiempo
                       00009 
 0000                  00010         ORG 0X00
-0000   280B           00011         GOTO INICIO
+0000   280D           00011         GOTO INICIO
                       00012         
 0004                  00013         ORG 0X04
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0004   1406           00014         BSF TRISB,0
-0005   2027           00015         CALL TIEMPO     
-0006   2027           00016         CALL TIEMPO
-0007   2027           00017         CALL TIEMPO
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0008   1406           00018         BSF TRISB,0
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0009   110C           00019         BCF PIE1,CCP1IF
-000A   0009           00020         RETFIE 
-                      00021 
+0004   1406           00014         BSF PORTB,0
+                      00015 
+0005   202E           00016         CALL TIEMPO
+0006   1006           00017         BCF PORTB,0
+0007   1283 1303      00018         BANKSEL PIR1
+0009   110C           00019         BCF PIR1,CCP1IF
+000A   1283 1303      00020         BANKSEL PORTA
+000C   0009           00021         RETFIE
                       00022 
-000B                  00023 INICIO
-000B   1683 1703      00024         BANKSEL ANSEL
+                      00023 
+                      00024 
+000D                  00025 INICIO
+000D   1683 1703      00026         BANKSEL ANSEL
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-000D   0188           00025         CLRF ANSEL
+000F   0188           00027         CLRF ANSEL
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-000E   0189           00026         CLRF ANSELH
-                      00027         
-000F   1683 1303      00028         BANKSEL TRISB
+0010   0189           00028         CLRF ANSELH
+                      00029         
+0011   1683 1303      00030         BANKSEL TRISB
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0011   1006           00029         BCF TRISB,0
+0013   1006           00031         BCF TRISB,0
+                      00032 
+                      00033 
+0014   1283 1303      00034         BANKSEL CCP1CON
+0016   3006           00035         MOVLW B'00000110'
+0017   0097           00036         MOVWF CCP1CON
+                      00037 
+0018   1683 1303      00038         BANKSEL TRISC
+001A   3004           00039         MOVLW B'00000100'
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0012   1507           00030         BSF TRISC,2
-                      00031 
-0013   1283 1303      00032         BANKSEL CCP1CON
-0015   3006           00033         MOVLW B'00000110'
-0016   0097           00034         MOVWF CCP1CON
-                      00035         
-0017   1683 1303      00036         BANKSEL PIE1
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-MPASM  5.51                       CAPTURA.ASM   8-7-2025  17:36:09         PAGE  2
+001B   0087           00040         MOVWF TRISC
+MPASM  5.51                       CAPTURA.ASM   8-10-2025  18:40:51         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0019   150C           00037         BSF PIE1,CCP1IE
-                      00038 
-001A   1283 1303      00039         BANKSEL T1CON
-001C   3001           00040         MOVLW B'00000001'
-001D   0090           00041         MOVWF T1CON
-                      00042 
-001E   1283 1303      00043         BANKSEL INTCON
-0020   170B           00044         BSF INTCON,PEIE
-0021   178B           00045         BSF INTCON,GIE
-                      00046 
-0022   1283 1303      00047         BANKSEL PORTA
-0024   0186           00048         CLRF PORTB
-                      00049 
-0025                  00050 BUCLE
-0025   0000           00051         NOP
-0026   2825           00052         GOTO BUCLE
-                      00053 
-                      00054 
-0027                  00055 TIEMPO
-0027   300E           00056         movlw     .14       ; 1 set numero de repeticion  (C)
-0028   00A0           00057         movwf     PDel0     ; 1 |
-0029   3048           00058 PLoop0  movlw     .72       ; 1 set numero de repeticion  (B)
-002A   00A1           00059         movwf     PDel1     ; 1 |
-002B   30F7           00060 PLoop1  movlw     .247      ; 1 set numero de repeticion  (A)
-002C   00A2           00061         movwf     PDel2     ; 1 |
-002D   0064           00062 PLoop2  clrwdt              ; 1 clear watchdog
-002E   0BA2           00063         decfsz    PDel2, 1  ; 1 + (1) es el tiempo 0  ? (A)
-002F   282D           00064         goto      PLoop2    ; 2 no, loop
-0030   0BA1           00065         decfsz    PDel1,  1 ; 1 + (1) es el tiempo 0  ? (B)
-0031   282B           00066         goto      PLoop1    ; 2 no, loop
-0032   0BA0           00067         decfsz    PDel0,  1 ; 1 + (1) es el tiempo 0  ? (C)
-0033   2829           00068         goto      PLoop0    ; 2 no, loop
-0034   2835           00069 PDelL1  goto PDelL2         ; 2 ciclos delay
-0035   0064           00070 PDelL2  clrwdt              ; 1 ciclo delay
-0036   0008           00071         return              ; 2+2 Fin.
-                      00072 
-                      00073         END
-MPASM  5.51                       CAPTURA.ASM   8-7-2025  17:36:09         PAGE  3
+                      00041         
+001C   1283 1303      00042         BANKSEL T1CON
+001E   3001           00043         MOVLW   B'00000001'      ; TMR1ON=1
+001F   0090           00044         MOVWF   T1CON
+                      00045 
+0020   1683 1303      00046         BANKSEL PIE1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0022   150C           00047         BSF PIE1,CCP1IE
+                      00048 
+0023   1283 1303      00049         BANKSEL INTCON
+0025   170B           00050         BSF INTCON,PEIE
+0026   178B           00051         BSF INTCON,GIE
+                      00052 
+0027   1283 1303      00053         BANKSEL PORTA
+0029   0186           00054         CLRF PORTB
+                      00055 
+002A                  00056 BUCLE
+002A   0000           00057         NOP
+002B   0000           00058         NOP 
+002C   0000           00059         NOP
+002D   282A           00060         GOTO BUCLE
+                      00061 
+                      00062 
+002E                  00063 TIEMPO
+002E   300E           00064         movlw     .14       ; 1 set numero de repeticion  (C)
+002F   00A0           00065         movwf     PDel0     ; 1 |
+0030   3048           00066 PLoop0  movlw     .72       ; 1 set numero de repeticion  (B)
+0031   00A1           00067         movwf     PDel1     ; 1 |
+0032   30F7           00068 PLoop1  movlw     .247      ; 1 set numero de repeticion  (A)
+0033   00A2           00069         movwf     PDel2     ; 1 |
+0034   0064           00070 PLoop2  clrwdt              ; 1 clear watchdog
+0035   0BA2           00071         decfsz    PDel2, 1  ; 1 + (1) es el tiempo 0  ? (A)
+0036   2834           00072         goto      PLoop2    ; 2 no, loop
+0037   0BA1           00073         decfsz    PDel1,  1 ; 1 + (1) es el tiempo 0  ? (B)
+0038   2832           00074         goto      PLoop1    ; 2 no, loop
+0039   0BA0           00075         decfsz    PDel0,  1 ; 1 + (1) es el tiempo 0  ? (C)
+003A   2830           00076         goto      PLoop0    ; 2 no, loop
+003B   283C           00077 PDelL1  goto PDelL2         ; 2 ciclos delay
+003C   0064           00078 PDelL2  clrwdt              ; 1 ciclo delay
+003D   0008           00079         return              ; 2+2 Fin.
+                      00080 
+                      00081         END
+MPASM  5.51                       CAPTURA.ASM   8-10-2025  18:40:51         PAGE  3
 
 
 SYMBOL TABLE
@@ -159,14 +164,14 @@ BRG6                              00000006
 BRG7                              00000007
 BRG8                              00000000
 BRG9                              00000001
-MPASM  5.51                       CAPTURA.ASM   8-7-2025  17:36:09         PAGE  4
+MPASM  5.51                       CAPTURA.ASM   8-10-2025  18:40:51         PAGE  4
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
 BRGH                              00000002
-BUCLE                             00000025
+BUCLE                             0000002A
 C                                 00000000
 C1CH0                             00000000
 C1CH1                             00000001
@@ -218,7 +223,7 @@ CCPR2L                            0000001B
 CHS0                              00000002
 CHS1                              00000003
 CHS2                              00000004
-MPASM  5.51                       CAPTURA.ASM   8-7-2025  17:36:09         PAGE  5
+MPASM  5.51                       CAPTURA.ASM   8-10-2025  18:40:51         PAGE  5
 
 
 SYMBOL TABLE
@@ -271,13 +276,13 @@ I2C_READ                          00000002
 I2C_START                         00000003
 I2C_STOP                          00000004
 INDF                              00000000
-INICIO                            0000000B
+INICIO                            0000000D
 INTCON                            0000000B
 INTE                              00000004
 INTEDG                            00000006
 INTF                              00000001
 IOCB                              00000096
-MPASM  5.51                       CAPTURA.ASM   8-7-2025  17:36:09         PAGE  6
+MPASM  5.51                       CAPTURA.ASM   8-10-2025  18:40:51         PAGE  6
 
 
 SYMBOL TABLE
@@ -336,7 +341,7 @@ PCLATH                            0000000A
 PCON                              0000008E
 PDC0                              00000000
 PDC1                              00000001
-MPASM  5.51                       CAPTURA.ASM   8-7-2025  17:36:09         PAGE  7
+MPASM  5.51                       CAPTURA.ASM   8-10-2025  18:40:51         PAGE  7
 
 
 SYMBOL TABLE
@@ -350,17 +355,17 @@ PDC6                              00000006
 PDel0                             00000020
 PDel1                             00000021
 PDel2                             00000022
-PDelL1                            00000034
-PDelL2                            00000035
+PDelL1                            0000003B
+PDelL2                            0000003C
 PEIE                              00000006
 PEN                               00000002
 PIE1                              0000008C
 PIE2                              0000008D
 PIR1                              0000000C
 PIR2                              0000000D
-PLoop0                            00000029
-PLoop1                            0000002B
-PLoop2                            0000002D
+PLoop0                            00000030
+PLoop1                            00000032
+PLoop2                            00000034
 PORTA                             00000005
 PORTB                             00000006
 PORTC                             00000007
@@ -395,7 +400,7 @@ RB2                               00000002
 RB3                               00000003
 RB4                               00000004
 RB5                               00000005
-MPASM  5.51                       CAPTURA.ASM   8-7-2025  17:36:09         PAGE  8
+MPASM  5.51                       CAPTURA.ASM   8-10-2025  18:40:51         PAGE  8
 
 
 SYMBOL TABLE
@@ -454,7 +459,7 @@ SPBRG                             00000099
 SPBRGH                            0000009A
 SPEN                              00000007
 SR0                               00000006
-MPASM  5.51                       CAPTURA.ASM   8-7-2025  17:36:09         PAGE  9
+MPASM  5.51                       CAPTURA.ASM   8-10-2025  18:40:51         PAGE  9
 
 
 SYMBOL TABLE
@@ -501,7 +506,7 @@ T1SYNC                            00000002
 T2CKPS0                           00000000
 T2CKPS1                           00000001
 T2CON                             00000012
-TIEMPO                            00000027
+TIEMPO                            0000002E
 TMR0                              00000001
 TMR0IE                            00000005
 TMR0IF                            00000002
@@ -513,7 +518,7 @@ TMR1IE                            00000000
 TMR1IF                            00000000
 TMR1L                             0000000E
 TMR1ON                            00000000
-MPASM  5.51                       CAPTURA.ASM   8-7-2025  17:36:09         PAGE 10
+MPASM  5.51                       CAPTURA.ASM   8-10-2025  18:40:51         PAGE 10
 
 
 SYMBOL TABLE
@@ -572,7 +577,7 @@ TRMT                              00000001
 TUN0                              00000000
 TUN1                              00000001
 TUN2                              00000002
-MPASM  5.51                       CAPTURA.ASM   8-7-2025  17:36:09         PAGE 11
+MPASM  5.51                       CAPTURA.ASM   8-10-2025  18:40:51         PAGE 11
 
 
 SYMBOL TABLE
@@ -631,7 +636,7 @@ _BOR4V_BOR21V                     00003EFF
 _BOR4V_BOR40V                     00003FFF
 _BOREN_NSLEEP                     00003EFF
 _BOREN_OFF                        00003CFF
-MPASM  5.51                       CAPTURA.ASM   8-7-2025  17:36:09         PAGE 12
+MPASM  5.51                       CAPTURA.ASM   8-10-2025  18:40:51         PAGE 12
 
 
 SYMBOL TABLE
@@ -690,7 +695,7 @@ _WDTE_ON                          00003FFF
 _WDT_OFF                          00003FF7
 _WDT_ON                           00003FFF
 _WRT_1FOURTH                      00003BFF
-MPASM  5.51                       CAPTURA.ASM   8-7-2025  17:36:09         PAGE 13
+MPASM  5.51                       CAPTURA.ASM   8-10-2025  18:40:51         PAGE 13
 
 
 SYMBOL TABLE
@@ -706,17 +711,17 @@ __DEBUG                           1
 
 MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
 
-0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXX---------
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXX--
 2000 : -------XX------- ---------------- ---------------- ----------------
 
 All other memory blocks unused.
 
-Program Memory Words Used:    52
-Program Memory Words Free:  8140
+Program Memory Words Used:    59
+Program Memory Words Free:  8133
 
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed
-Messages :     8 reported,     0 suppressed
+Messages :     5 reported,     0 suppressed
 
 
