@@ -1,0 +1,1056 @@
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 #INCLUDE "P16F887.INC"
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F887 processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2013 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00809         LIST
+                      00002         
+2007   2FE1           00003         __CONFIG _CONFIG1,(_CP_OFF & _WDT_OFF & _PWRTE_ON & _XT_OSC & _LVP_OFF)
+2008   3EFF           00004         __CONFIG _CONFIG2, _BOR21V
+                      00005 
+                      00006 ; === DIRECCIONES DE VARIABLES EN RAM (BANCO 0) ===
+  00000020            00007 ADC_RESULT      EQU 0X20    ; RESULTADO DEL ADC (BYTE ALTO)
+  00000021            00008 HUMEDAD_MIN     EQU 0X21    ; UMBRAL MÍNIMO DE HUMEDAD
+  00000022            00009 HUMEDAD_MAX     EQU 0X22    ; UMBRAL MÁXIMO DE HUMEDAD
+  00000023            00010 PWM_DUTY        EQU 0X23    ; VALOR DEL DUTY CYCLE (0–255)
+  00000024            00011 FORZADO_TIMER   EQU 0X24    ; CONTADOR PARA MODO FORZADO (100 = 10 SEG)
+  00000025            00012 MODO_FORZADO    EQU 0X25    ; FLAG: 0 = AUTOMÁTICO, 1 = FORZADO
+  00000026            00013 TEMP_W          EQU 0X26    ; RESPALDO DE W EN LA ISR
+  00000027            00014 TEMP_STATUS     EQU 0X27    ; RESPALDO DE STATUS EN LA ISR
+                      00015 
+                      00016 ; === DIRECCIONES EN EEPROM ===
+  00000000            00017 EEPROM_MIN_ADDR EQU 0X00
+  00000001            00018 EEPROM_MAX_ADDR EQU 0X01
+                      00019 
+                      00020 ; === VALORES POR DEFECTO ===
+  0000001E            00021 DEFAULT_MIN     EQU 0X1E    ; 30 DECIMAL
+  00000046            00022 DEFAULT_MAX     EQU 0X46    ; 70 DECIMAL
+                      00023 
+0000                  00024     ORG 0X0000
+0000   288F           00025     GOTO    INICIO
+                      00026 
+0004                  00027     ORG 0X0004
+0004   287D           00028     GOTO    ISR
+                      00029 
+                      00030 ; ===================================================================
+                      00031 ; SUBRUTINA: LEER UN BYTE DE EEPROM
+                      00032 ; ENTRADA: W = DIRECCIÓN
+                      00033 ; SALIDA: W = DATO LEÍDO
+                      00034 ; ===================================================================
+0005                  00035 READ_EEPROM_BYTE
+0005   1283 1703      00036     BANKSEL EEADR
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0007   008D           00037     MOVWF   EEADR
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0008   140C           00038     BSF     EECON1, RD
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0009   080C           00039     MOVF    EEDAT, W
+000A   1283 1303      00040     BANKSEL 0
+000C   0008           00041     RETURN
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00042 
+                      00043 ; ===================================================================
+                      00044 ; SUBRUTINA: ESCRIBIR HUMEDAD_MIN EN EEPROM
+                      00045 ; ===================================================================
+000D                  00046 WRITE_MIN_TO_EEPROM
+000D   1283 1703      00047     BANKSEL EEADR
+000F   3000           00048     MOVLW   EEPROM_MIN_ADDR
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0010   008D           00049     MOVWF   EEADR
+0011   0821           00050     MOVF    HUMEDAD_MIN, W
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0012   008C           00051     MOVWF   EEDAT
+0013   201D           00052     CALL    DO_EEPROM_WRITE
+0014   0008           00053     RETURN
+                      00054 
+                      00055 ; ===================================================================
+                      00056 ; SUBRUTINA: ESCRIBIR HUMEDAD_MAX EN EEPROM
+                      00057 ; ===================================================================
+0015                  00058 WRITE_MAX_TO_EEPROM
+0015   1283 1703      00059     BANKSEL EEADR
+0017   3001           00060     MOVLW   EEPROM_MAX_ADDR
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0018   008D           00061     MOVWF   EEADR
+0019   0822           00062     MOVF    HUMEDAD_MAX, W
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+001A   008C           00063     MOVWF   EEDAT
+001B   201D           00064     CALL    DO_EEPROM_WRITE
+001C   0008           00065     RETURN
+                      00066 
+                      00067 ; ===================================================================
+                      00068 ; SUBRUTINA: SECUENCIA DE ESCRITURA EN EEPROM
+                      00069 ; ===================================================================
+001D                  00070 DO_EEPROM_WRITE
+001D   1683 1703      00071     BANKSEL EECON1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+001F   138C           00072     BCF     EECON1, EEPGD
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0020   150C           00073     BSF     EECON1, WREN
+0021   3055           00074     MOVLW   0X55
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0022   008D           00075     MOVWF   EECON2
+0023   30AA           00076     MOVLW   0XAA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0024   008D           00077     MOVWF   EECON2
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0025   148C           00078     BSF     EECON1, WR
+0026                  00079 WAIT_EEPROM_WRITE
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0026   188C           00080     BTFSC   EECON1, WR
+0027   2826           00081     GOTO    WAIT_EEPROM_WRITE
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0028   110C           00082     BCF     EECON1, WREN
+0029   1283 1303      00083     BANKSEL 0
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+002B   0008           00084     RETURN
+                      00085 
+                      00086 ; ===================================================================
+                      00087 ; SUBRUTINA: LEER ADC EN AN0
+                      00088 ; RESULTADO EN ADC_RESULT (0–255)
+                      00089 ; ===================================================================
+002C                  00090 READ_ADC
+002C   1283 1303      00091     BANKSEL ADCON0
+002E   149F           00092     BSF     ADCON0, GO
+002F                  00093 WAIT_ADC_DONE
+002F   189F           00094     BTFSC   ADCON0, GO
+0030   282F           00095     GOTO    WAIT_ADC_DONE
+0031   1283 1303      00096     BANKSEL ADRESH
+0033   081E           00097     MOVF    ADRESH, W
+0034   00A0           00098     MOVWF   ADC_RESULT
+0035   1283 1303      00099     BANKSEL 0
+0037   0008           00100     RETURN
+                      00101 
+                      00102 ; ===================================================================
+                      00103 ; SUBRUTINA: CONFIGURAR PWM EN CCP1
+                      00104 ; ===================================================================
+0038                  00105 SET_PWM
+0038   1283 1303      00106     BANKSEL CCPR1L
+003A   0823           00107     MOVF    PWM_DUTY, W
+003B   0095           00108     MOVWF   CCPR1L
+003C   1283 1303      00109     BANKSEL CCP1CON
+003E   300C           00110     MOVLW   B'00001100'
+003F   0097           00111     MOVWF   CCP1CON
+0040   0008           00112     RETURN
+                      00113 
+                      00114 ; ===================================================================
+                      00115 ; SUBRUTINA: RETARDO DE ~100MS
+                      00116 ; ===================================================================
+0041                  00117 DELAY_100MS
+0041   3064           00118     MOVLW   .100
+0042   00F0           00119     MOVWF   0X70
+0043   30FA           00120 D1  MOVLW   .250
+0044   00F1           00121     MOVWF   0X71
+0045   0BF1           00122 D2  DECFSZ  0X71, F
+0046   2845           00123     GOTO    D2
+0047   0BF0           00124     DECFSZ  0X70, F
+0048   2843           00125     GOTO    D1
+0049   0008           00126     RETURN
+                      00127 
+                      00128 ; ===================================================================
+                      00129 ; SUBRUTINA: VERIFICAR BOTONES RB1 (SUBIR) Y RB2 (BAJAR)
+                      00130 ; ===================================================================
+004A                  00131 CHECK_CONFIG_BUTTONS
+004A   1283 1303      00132     BANKSEL PORTB
+004C   1C86           00133     BTFSS   PORTB, 1
+004D   2851           00134     GOTO    BUTTON_UP
+004E   1D06           00135     BTFSS   PORTB, 2
+004F   285B           00136     GOTO    BUTTON_DOWN
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0050   0008           00137     RETURN
+                      00138 
+0051                  00139 BUTTON_UP
+0051   2041           00140     CALL    DELAY_100MS
+0052   0AA1           00141     INCF    HUMEDAD_MIN, F
+0053   0AA2           00142     INCF    HUMEDAD_MAX, F
+0054   200D           00143     CALL    WRITE_MIN_TO_EEPROM
+0055   2015           00144     CALL    WRITE_MAX_TO_EEPROM
+0056                  00145 WAIT_UP_RELEASE
+0056   1283 1303      00146     BANKSEL PORTB
+0058   1886           00147     BTFSC   PORTB, 1
+0059   284A           00148     GOTO    CHECK_CONFIG_BUTTONS
+005A   2856           00149     GOTO    WAIT_UP_RELEASE
+                      00150 
+005B                  00151 BUTTON_DOWN
+005B   2041           00152     CALL    DELAY_100MS
+005C   0821           00153     MOVF    HUMEDAD_MIN, W
+005D   1D03           00154     BTFSS   STATUS, Z
+005E   03A1           00155     DECF    HUMEDAD_MIN, F
+005F   0822           00156     MOVF    HUMEDAD_MAX, W
+0060   1D03           00157     BTFSS   STATUS, Z
+0061   03A2           00158     DECF    HUMEDAD_MAX, F
+0062   200D           00159     CALL    WRITE_MIN_TO_EEPROM
+0063   2015           00160     CALL    WRITE_MAX_TO_EEPROM
+0064                  00161 WAIT_DOWN_RELEASE
+0064   1283 1303      00162     BANKSEL PORTB
+0066   1906           00163     BTFSC   PORTB, 2
+0067   284A           00164     GOTO    CHECK_CONFIG_BUTTONS
+0068   2864           00165     GOTO    WAIT_DOWN_RELEASE
+                      00166 
+                      00167 ; ===================================================================
+                      00168 ; SUBRUTINA: CONTROL AUTOMÁTICO DE RIEGO
+                      00169 ; ===================================================================
+0069                  00170 CONTROL_AUTOMATICO
+0069   202C           00171     CALL    READ_ADC
+                      00172 
+                      00173     ; ¿ADC < HUMEDAD_MIN?
+006A   0821           00174     MOVF    HUMEDAD_MIN, W
+006B   0220           00175     SUBWF   ADC_RESULT, W
+006C   1C03           00176     BTFSS   STATUS, C
+006D   2876           00177     GOTO    RIEGO_FUERTE
+                      00178 
+                      00179     ; ¿ADC > HUMEDAD_MAX?
+006E   0820           00180     MOVF    ADC_RESULT, W
+006F   0222           00181     SUBWF   HUMEDAD_MAX, W
+0070   1C03           00182     BTFSS   STATUS, C
+0071   287A           00183     GOTO    RIEGO_APAGADO
+                      00184 
+                      00185     ; ZONA INTERMEDIA: PWM MEDIO
+0072   3080           00186     MOVLW   .128
+0073   00A3           00187     MOVWF   PWM_DUTY
+0074   2038           00188     CALL    SET_PWM
+0075   0008           00189     RETURN
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00190 
+0076                  00191 RIEGO_FUERTE
+0076   30C8           00192     MOVLW   .200
+0077   00A3           00193     MOVWF   PWM_DUTY
+0078   2038           00194     CALL    SET_PWM
+0079   0008           00195     RETURN
+                      00196 
+007A                  00197 RIEGO_APAGADO
+007A   01A3           00198     CLRF    PWM_DUTY
+007B   2038           00199     CALL    SET_PWM
+007C   0008           00200     RETURN
+                      00201 
+                      00202 ; ===================================================================
+                      00203 ; INTERRUPCIÓN EXTERNA (RB0) – MODO FORZADO
+                      00204 ; ===================================================================
+007D                  00205 ISR
+007D   00A6           00206     MOVWF   TEMP_W
+007E   0803           00207     MOVF    STATUS, W
+007F   00A7           00208     MOVWF   TEMP_STATUS
+                      00209 
+0080   1283 1303      00210     BANKSEL INTCON
+0082   108B           00211     BCF     INTCON, INTF
+                      00212 
+0083   1283 1303      00213     BANKSEL 0
+0085   30C8           00214     MOVLW   .200
+0086   00A3           00215     MOVWF   PWM_DUTY
+0087   2038           00216     CALL    SET_PWM
+0088   3064           00217     MOVLW   .100
+0089   00A4           00218     MOVWF   FORZADO_TIMER
+008A   1425           00219     BSF     MODO_FORZADO, 0
+                      00220 
+008B   0827           00221     MOVF    TEMP_STATUS, W
+008C   0083           00222     MOVWF   STATUS
+008D   0826           00223     MOVF    TEMP_W, W
+008E   0009           00224     RETFIE
+                      00225 
+                      00226 ; ===================================================================
+                      00227 ; INICIALIZACIÓN
+                      00228 ; ===================================================================
+008F                  00229 INICIO
+                      00230     ; OSCILADOR INTERNO 4 MHZ
+008F   1683 1303      00231     BANKSEL OSCCON
+0091   3060           00232     MOVLW   B'01100000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0092   008F           00233     MOVWF   OSCCON
+                      00234 
+                      00235     ; CONFIGURAR PUERTOS
+0093   1683 1303      00236     BANKSEL TRISA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0095   1405           00237     BSF     TRISA, 0        ; RA0 = ENTRADA
+                      00238 
+0096   1683 1303      00239     BANKSEL TRISC
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0098   1107           00240     BCF     TRISC, 2        ; RC2 = SALIDA
+                      00241 
+0099   1683 1303      00242     BANKSEL TRISB
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+009B   1406           00243     BSF     TRISB, 0        ; RB0 = ENTRADA (INT)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+009C   1486           00244     BSF     TRISB, 1        ; RB1 = ENTRADA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+009D   1506           00245     BSF     TRISB, 2        ; RB2 = ENTRADA
+                      00246 
+                      00247     ; PULL-UPS EN PUERTO B
+009E   1683 1303      00248     BANKSEL OPTION_REG
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00A0   1381           00249     BCF     OPTION_REG, NOT_RBPU
+                      00250 
+                      00251     ; CONFIGURAR ADC
+00A1   1683 1703      00252     BANKSEL ANSEL
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00A3   1408           00253     BSF     ANSEL, 0
+00A4   1683 1303      00254     BANKSEL ADCON1
+00A6   3000           00255     MOVLW   B'00000000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00A7   009F           00256     MOVWF   ADCON1
+00A8   1283 1303      00257     BANKSEL ADCON0
+00AA   30C1           00258     MOVLW   B'11000001'
+00AB   009F           00259     MOVWF   ADCON0
+                      00260 
+                      00261     ; CONFIGURAR PWM
+00AC   1683 1303      00262     BANKSEL PR2
+00AE   30FF           00263     MOVLW   .255
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00AF   0092           00264     MOVWF   PR2
+00B0   1283 1303      00265     BANKSEL T2CON
+00B2   3004           00266     MOVLW   B'00000100'
+00B3   0092           00267     MOVWF   T2CON
+00B4   01A3           00268     CLRF    PWM_DUTY
+00B5   2038           00269     CALL    SET_PWM
+                      00270 
+                      00271     ; LEER EEPROM
+00B6   3000           00272     MOVLW   EEPROM_MIN_ADDR
+00B7   2005           00273     CALL    READ_EEPROM_BYTE
+00B8   00A1           00274     MOVWF   HUMEDAD_MIN
+                      00275 
+00B9   3001           00276     MOVLW   EEPROM_MAX_ADDR
+00BA   2005           00277     CALL    READ_EEPROM_BYTE
+00BB   00A2           00278     MOVWF   HUMEDAD_MAX
+                      00279 
+                      00280     ; INICIALIZAR EEPROM SI ESTÁ VACÍA
+00BC   30FF           00281     MOVLW   0XFF
+00BD   0221           00282     SUBWF   HUMEDAD_MIN, W
+00BE   1D03           00283     BTFSS   STATUS, Z
+00BF   28C6           00284     GOTO    SKIP_EEPROM_INIT
+00C0   301E           00285     MOVLW   DEFAULT_MIN
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00C1   00A1           00286     MOVWF   HUMEDAD_MIN
+00C2   3046           00287     MOVLW   DEFAULT_MAX
+00C3   00A2           00288     MOVWF   HUMEDAD_MAX
+00C4   200D           00289     CALL    WRITE_MIN_TO_EEPROM
+00C5   2015           00290     CALL    WRITE_MAX_TO_EEPROM
+00C6                  00291 SKIP_EEPROM_INIT
+                      00292 
+                      00293     ; HABILITAR INTERRUPCIÓN EXTERNA
+00C6   1283 1303      00294     BANKSEL INTCON
+00C8   160B           00295     BSF     INTCON, INTE
+00C9   178B           00296     BSF     INTCON, GIE
+                      00297 
+                      00298     ; INICIALIZAR VARIABLES
+00CA   01A5           00299     CLRF    MODO_FORZADO
+00CB   01A4           00300     CLRF    FORZADO_TIMER
+                      00301 
+                      00302 ; ===================================================================
+                      00303 ; BUCLE PRINCIPAL
+                      00304 ; ===================================================================
+00CC                  00305 MAIN_LOOP
+00CC   1825           00306     BTFSC   MODO_FORZADO, 0
+00CD   28D2           00307     GOTO    MODO_FORZADO_ACTIVO
+                      00308 
+00CE   2069           00309     CALL    CONTROL_AUTOMATICO
+00CF   204A           00310     CALL    CHECK_CONFIG_BUTTONS
+00D0   2041           00311     CALL    DELAY_100MS
+00D1   28CC           00312     GOTO    MAIN_LOOP
+                      00313 
+00D2                  00314 MODO_FORZADO_ACTIVO
+00D2   0BA4           00315     DECFSZ  FORZADO_TIMER, F
+00D3   28D7           00316     GOTO    ESPERA_FORZADO
+                      00317 
+00D4   1025           00318     BCF     MODO_FORZADO, 0
+00D5   01A3           00319     CLRF    PWM_DUTY
+00D6   2038           00320     CALL    SET_PWM
+                      00321 
+00D7                  00322 ESPERA_FORZADO
+00D7   2041           00323     CALL    DELAY_100MS
+00D8   28CC           00324     GOTO    MAIN_LOOP
+                      00325 
+                      00326         END
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ABDEN                             00000000
+ABDOVF                            00000007
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADC_RESULT                        00000020
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+ANS0                              00000000
+ANS1                              00000001
+ANS10                             00000002
+ANS11                             00000003
+ANS12                             00000004
+ANS13                             00000005
+ANS2                              00000002
+ANS3                              00000003
+ANS4                              00000004
+ANS5                              00000005
+ANS6                              00000006
+ANS7                              00000007
+ANS8                              00000000
+ANS9                              00000001
+ANSEL                             00000188
+ANSELH                            00000189
+BAUDCTL                           00000187
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRG0                              00000000
+BRG1                              00000001
+BRG10                             00000002
+BRG11                             00000003
+BRG12                             00000004
+BRG13                             00000005
+BRG14                             00000006
+BRG15                             00000007
+BRG16                             00000003
+BRG2                              00000002
+BRG3                              00000003
+BRG4                              00000004
+BRG5                              00000005
+BRG6                              00000006
+BRG7                              00000007
+BRG8                              00000000
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+BRG9                              00000001
+BRGH                              00000002
+BUTTON_DOWN                       0000005B
+BUTTON_UP                         00000051
+C                                 00000000
+C1CH0                             00000000
+C1CH1                             00000001
+C1IE                              00000005
+C1IF                              00000005
+C1OE                              00000005
+C1ON                              00000007
+C1OUT                             00000006
+C1POL                             00000004
+C1R                               00000002
+C1RSEL                            00000005
+C1SEN                             00000005
+C2CH0                             00000000
+C2CH1                             00000001
+C2IE                              00000006
+C2IF                              00000006
+C2OE                              00000005
+C2ON                              00000007
+C2OUT                             00000006
+C2POL                             00000004
+C2R                               00000002
+C2REN                             00000004
+C2RSEL                            00000004
+C2SYNC                            00000000
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2                             0000001B
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHECK_CONFIG_BUTTONS              0000004A
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CHS0                              00000002
+CHS1                              00000003
+CHS2                              00000004
+CHS3                              00000005
+CKE                               00000006
+CKP                               00000004
+CM1CON0                           00000107
+CM2CON0                           00000108
+CM2CON1                           00000109
+CONTROL_AUTOMATICO                00000069
+CREN                              00000004
+CSRC                              00000007
+D                                 00000005
+D1                                00000043
+D2                                00000045
+DATA_ADDRESS                      00000005
+DC                                00000001
+DC1B0                             00000004
+DC1B1                             00000005
+DC2B0                             00000004
+DC2B1                             00000005
+DEFAULT_MAX                       00000046
+DEFAULT_MIN                       0000001E
+DELAY_100MS                       00000041
+DO_EEPROM_WRITE                   0000001D
+D_A                               00000005
+D_NOT_A                           00000005
+ECCPAS                            0000009C
+ECCPAS0                           00000004
+ECCPAS1                           00000005
+ECCPAS2                           00000006
+ECCPASE                           00000007
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDAT                             0000010C
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+EEPROM_MAX_ADDR                   00000001
+EEPROM_MIN_ADDR                   00000000
+ESPERA_FORZADO                    000000D7
+F                                 00000001
+FERR                              00000002
+FORZADO_TIMER                     00000024
+FSR                               00000004
+FVREN                             00000000
+GCEN                              00000007
+GIE                               00000007
+GO                                00000001
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+GO_DONE                           00000001
+GO_NOT_DONE                       00000001
+HTS                               00000002
+HUMEDAD_MAX                       00000022
+HUMEDAD_MIN                       00000021
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+INDF                              00000000
+INICIO                            0000008F
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IOCB                              00000096
+IOCB0                             00000000
+IOCB1                             00000001
+IOCB2                             00000002
+IOCB3                             00000003
+IOCB4                             00000004
+IOCB5                             00000005
+IOCB6                             00000006
+IOCB7                             00000007
+IRCF0                             00000004
+IRCF1                             00000005
+IRCF2                             00000006
+IRP                               00000007
+ISR                               0000007D
+LTS                               00000001
+MAIN_LOOP                         000000CC
+MC1OUT                            00000007
+MC2OUT                            00000006
+MODO_FORZADO                      00000025
+MODO_FORZADO_ACTIVO               000000D2
+MSK                               00000093
+MSK0                              00000000
+MSK1                              00000001
+MSK2                              00000002
+MSK3                              00000003
+MSK4                              00000004
+MSK5                              00000005
+MSK6                              00000006
+MSK7                              00000007
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000001
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OERR                              00000001
+OPTION_REG                        00000081
+OSCCON                            0000008F
+OSCTUNE                           00000090
+OSFIE                             00000007
+OSFIF                             00000007
+OSTS                              00000003
+P                                 00000004
+P1M0                              00000006
+P1M1                              00000007
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PDC0                              00000000
+PDC1                              00000001
+PDC2                              00000002
+PDC3                              00000003
+PDC4                              00000004
+PDC5                              00000005
+PDC6                              00000006
+PEIE                              00000006
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PRSEN                             00000007
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSSAC0                            00000002
+PSSAC1                            00000003
+PSSBD0                            00000000
+PSSBD1                            00000001
+PSTRCON                           0000009D
+PULSR                             00000002
+PULSS                             00000003
+PWM1CON                           0000009B
+PWM_DUTY                          00000023
+R                                 00000002
+RA0                               00000000
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RA6                               00000006
+RA7                               00000007
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIDL                             00000006
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RE0                               00000000
+RE1                               00000001
+RE2                               00000002
+RE3                               00000003
+READ_ADC                          0000002C
+READ_EEPROM_BYTE                  00000005
+READ_WRITE                        00000002
+RIEGO_APAGADO                     0000007A
+RIEGO_FUERTE                      00000076
+RP0                               00000005
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE 14
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RP1                               00000006
+RSEN                              00000001
+RX9                               00000006
+RX9D                              00000000
+R_NOT_W                           00000002
+R_W                               00000002
+S                                 00000003
+SBOREN                            00000004
+SCKP                              00000004
+SCS                               00000000
+SEN                               00000000
+SENDB                             00000003
+SET_PWM                           00000038
+SKIP_EEPROM_INIT                  000000C6
+SMP                               00000007
+SPBRG                             00000099
+SPBRGH                            0000009A
+SPEN                              00000007
+SR0                               00000006
+SR1                               00000007
+SRCON                             00000185
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPMSK                            00000093
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+STRA                              00000000
+STRB                              00000001
+STRC                              00000002
+STRD                              00000003
+STRSYNC                           00000004
+SWDTEN                            00000000
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1GINV                            00000007
+T1GIV                             00000007
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+T1GSS                             00000001
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TEMP_STATUS                       00000027
+TEMP_W                            00000026
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1GE                            00000006
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISA6                            00000006
+TRISA7                            00000007
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TRISC6                            00000006
+TRISC7                            00000007
+TRISD                             00000088
+TRISD0                            00000000
+TRISD1                            00000001
+TRISD2                            00000002
+TRISD3                            00000003
+TRISD4                            00000004
+TRISD5                            00000005
+TRISD6                            00000006
+TRISD7                            00000007
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRISE3                            00000003
+TRMT                              00000001
+TUN0                              00000000
+TUN1                              00000001
+TUN2                              00000002
+TUN3                              00000003
+TUN4                              00000004
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+ULPWUE                            00000005
+ULPWUIE                           00000002
+ULPWUIF                           00000002
+VCFG0                             00000004
+VCFG1                             00000005
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             00000097
+VREN                              00000007
+VROE                              00000006
+VRR                               00000005
+VRSS                              00000004
+W                                 00000000
+WAIT_ADC_DONE                     0000002F
+WAIT_DOWN_RELEASE                 00000064
+WAIT_EEPROM_WRITE                 00000026
+WAIT_UP_RELEASE                   00000056
+WCOL                              00000007
+WDTCON                            00000105
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+WDTPS0                            00000001
+WDTPS1                            00000002
+WDTPS2                            00000003
+WDTPS3                            00000004
+WPUB                              00000095
+WPUB0                             00000000
+WPUB1                             00000001
+WPUB2                             00000002
+WPUB3                             00000003
+WPUB4                             00000004
+WPUB5                             00000005
+WPUB6                             00000006
+WPUB7                             00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+WRITE_MAX_TO_EEPROM               00000015
+WRITE_MIN_TO_EEPROM               0000000D
+WUE                               00000001
+Z                                 00000002
+_BOR21V                           00003EFF
+_BOR40V                           00003FFF
+_BOR4V_BOR21V                     00003EFF
+_BOR4V_BOR40V                     00003FFF
+_BOREN_NSLEEP                     00003EFF
+_BOREN_OFF                        00003CFF
+_BOREN_ON                         00003FFF
+_BOREN_SBODEN                     00003DFF
+_BOR_NSLEEP                       00003EFF
+_BOR_OFF                          00003CFF
+_BOR_ON                           00003FFF
+_BOR_SBODEN                       00003DFF
+_CONFIG1                          00002007
+_CONFIG2                          00002008
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003F7F
+_CP_OFF                           00003FFF
+_CP_ON                            00003FBF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         00001FFF
+_DEVID1                           00002006
+_EC_OSC                           00003FFB
+_EXTRC                            00003FFF
+_EXTRCIO                          00003FFE
+_EXTRC_OSC_CLKOUT                 00003FFF
+_EXTRC_OSC_NOCLKOUT               00003FFE
+_FCMEN_OFF                        000037FF
+_FCMEN_ON                         00003FFF
+_FOSC_EC                          00003FFB
+_FOSC_EXTRC_CLKOUT                00003FFF
+_FOSC_EXTRC_NOCLKOUT              00003FFE
+_FOSC_HS                          00003FFA
+_FOSC_INTRC_CLKOUT                00003FFD
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_FOSC_INTRC_NOCLKOUT              00003FFC
+_FOSC_LP                          00003FF8
+_FOSC_XT                          00003FF9
+_HS_OSC                           00003FFA
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_IESO_OFF                         00003BFF
+_IESO_ON                          00003FFF
+_INTOSC                           00003FFD
+_INTOSCIO                         00003FFC
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FF8
+_LVP_OFF                          00002FFF
+_LVP_ON                           00003FFF
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FEF
+_WDTE_OFF                         00003FF7
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FF7
+_WDT_ON                           00003FFF
+_WRT_1FOURTH                      00003BFF
+_WRT_256                          00003DFF
+_WRT_HALF                         000039FF
+_WRT_OFF                          00003FFF
+_XT_OSC                           00003FF9
+__16F887                          00000001
+__DEBUG                           1
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00C0 : XXXXXXXXXXXXXXXX XXXXXXXXX------- ---------------- ----------------
+2000 : -------XX------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   214
+Program Memory Words Free:  7978
+
+
+MPASM  5.51                 PROYECTOFINAL.ASM   10-3-2025  23:02:19         PAGE 19
+
+
+
+
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :    24 reported,     0 suppressed
+
+
