@@ -33,7 +33,7 @@ REGU  EQU 0X33
     GOTO INICIO
 
 ;=====================
-; CONFIGURACI覰 LCD
+; CONFIGURACI脫N LCD
 ;=====================
 ;=== CONFIGURACION LDC ===
 LCD_INIT
@@ -87,14 +87,14 @@ SIGO2
 RETURN
 
 ;=====================
-; CONFIGURACI覰 ADC
+; CONFIGURACI脫N ADC
 ;=====================
 SETUP_ADC
 	BANKSEL ANSEL ;selecciono el banco 3
 	CLRF ANSELH
 	CLRF ANSEL    
-	BSF ANSEL,0   ;limpio los anal骻icos, menos el RA0/AN0
-	BSF ANSEL,1	  ;limpio los anal骻icos, menos el RA1/AN1
+	BSF ANSEL,0   ;limpio los anal贸gicos, menos el RA0/AN0
+	BSF ANSEL,1	  ;limpio los anal贸gicos, menos el RA1/AN1
 
 	BANKSEL TRISA
 	CLRF TRISA
@@ -104,13 +104,13 @@ SETUP_ADC
 	CLRF TRISE    ; declaro como salida los pines de control RW RS y E
 
 	BANKSEL ADCON1
-	MOVLW b'10000000'      ; Justificaci髇 derecha
+	MOVLW b'10000000'      ; Justificaci贸n derecha
 	MOVWF ADCON1
 
 	BANKSEL ADCON0
 	MOVLW b'01000001'      ; Canal AN0 (por defecto), ADC ON
 	MOVWF ADCON0
-	CLRF PORTD      ;LIMPIO VALORES PARA EL M覦ULO LCD (BUS Y PINES CONTROL)
+	CLRF PORTD      ;LIMPIO VALORES PARA EL M脫DULO LCD (BUS Y PINES CONTROL)
 	CLRF PORTE
 	RETURN
 
@@ -129,7 +129,7 @@ ESPERA
 ;=====================
 INICIO
 	BANKSEL TRISB
-	BSF TRISB,2            ; Bot髇 guardar
+	BSF TRISB,2            ; Bot贸n guardar
 	CLRF TRISD
 	CLRF TRISE
 
@@ -159,7 +159,7 @@ PRINCIPAL
 	; Mostrar valores
 	CALL MOSTRAR_LCD
 
-	; Si se presiona bot髇, guardar EEPROM
+	; Si se presiona bot贸n, guardar EEPROM
 	BANKSEL PORTB
 	BTFSS PORTB,2
 	GOTO PRINCIPAL

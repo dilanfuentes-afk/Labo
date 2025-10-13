@@ -1,12 +1,11 @@
 MPLINK 4.49, Linker
-Linker Map File - Created Fri Oct 03 23:02:21 2025
+Linker Map File - Created Mon Oct 13 00:25:17 2025
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
                 ---------  ---------  ---------  ---------  ---------
                    .org_0       code   0x000000    program   0x000000
-                   .org_1       code   0x000000    program   0x000002
-                   .org_2       code   0x000004    program   0x0001aa
+                   .org_1       code   0x000000    program   0x0001d0
 .config_2007_PROYECTOFINAL.O       code   0x002007    program   0x000002
 .config_2008_PROYECTOFINAL.O       code   0x002008    program   0x000002
 
@@ -15,71 +14,72 @@ Linker Map File - Created Fri Oct 03 23:02:21 2025
                               Program Memory Usage 
                                Start         End      
                            ---------   ---------      
-                            0x000000    0x000000      
-                            0x000004    0x0000d8      
+                            0x000000    0x0000e7      
                             0x002007    0x002008      
-            216 out of 8455 program addresses used, program memory utilization is 2%
+            234 out of 8455 program addresses used, program memory utilization is 2%
 
 
 
                               Symbols - Sorted by Name
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-              BUTTON_DOWN   0x00005b    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                BUTTON_UP   0x000051    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-     CHECK_CONFIG_BUTTONS   0x00004a    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-       CONTROL_AUTOMATICO   0x000069    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                       D1   0x000043    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                       D2   0x000045    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-              DELAY_100MS   0x000041    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-          DO_EEPROM_WRITE   0x00001d    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-           ESPERA_FORZADO   0x0000d7    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                   INICIO   0x00008f    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                      ISR   0x00007d    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                MAIN_LOOP   0x0000cc    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-      MODO_FORZADO_ACTIVO   0x0000d2    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                 READ_ADC   0x00002c    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-         READ_EEPROM_BYTE   0x000005    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-            RIEGO_APAGADO   0x00007a    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-             RIEGO_FUERTE   0x000076    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                  SET_PWM   0x000038    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-         SKIP_EEPROM_INIT   0x0000c6    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-            WAIT_ADC_DONE   0x00002f    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-        WAIT_DOWN_RELEASE   0x000064    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-        WAIT_EEPROM_WRITE   0x000026    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-          WAIT_UP_RELEASE   0x000056    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-      WRITE_MAX_TO_EEPROM   0x000015    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-      WRITE_MIN_TO_EEPROM   0x00000d    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                  CENTENA   0x0000d0    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 COMANDO1   0x000009    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 COMANDO2   0x000006    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 COMANDO3   0x000003    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 COMANDO4   0x00000d    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 COMANDO5   0x000013    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 COMANDOB   0x0000bb    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                   DECENA   0x0000d8    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                  DESCOMP   0x0000cc    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                   ENABLE   0x000019    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 ESCRIBIR   0x00006f    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                   ESPERA   0x00003f    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                ESPERA_WR   0x000077    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+           GUARDAR_EEPROM   0x000064    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                   INICIO   0x000047    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+              LCD_CONFIG2   0x0000b9    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 LCD_INIT   0x000001    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 LEER_ADC   0x00003e    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                   LIMPIO   0x0000b8    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+              MOSTRAR_LCD   0x00007b    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                PRINCIPAL   0x000053    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                SETUP_ADC   0x000026    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                    SIGO2   0x00001f    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                   TIEMPO   0x0000bf    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                  TIEMPO2   0x00001d    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                   UNIDAD   0x0000e0    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
 
 
 
                               Symbols - Sorted by Address
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-         READ_EEPROM_BYTE   0x000005    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-      WRITE_MIN_TO_EEPROM   0x00000d    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-      WRITE_MAX_TO_EEPROM   0x000015    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-          DO_EEPROM_WRITE   0x00001d    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-        WAIT_EEPROM_WRITE   0x000026    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                 READ_ADC   0x00002c    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-            WAIT_ADC_DONE   0x00002f    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                  SET_PWM   0x000038    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-              DELAY_100MS   0x000041    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                       D1   0x000043    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                       D2   0x000045    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-     CHECK_CONFIG_BUTTONS   0x00004a    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                BUTTON_UP   0x000051    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-          WAIT_UP_RELEASE   0x000056    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-              BUTTON_DOWN   0x00005b    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-        WAIT_DOWN_RELEASE   0x000064    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-       CONTROL_AUTOMATICO   0x000069    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-             RIEGO_FUERTE   0x000076    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-            RIEGO_APAGADO   0x00007a    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                      ISR   0x00007d    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                   INICIO   0x00008f    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-         SKIP_EEPROM_INIT   0x0000c6    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-                MAIN_LOOP   0x0000cc    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-      MODO_FORZADO_ACTIVO   0x0000d2    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
-           ESPERA_FORZADO   0x0000d7    program     static C:\Users\dilan\Desktop\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 LCD_INIT   0x000001    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 COMANDO3   0x000003    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 COMANDO2   0x000006    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 COMANDO1   0x000009    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 COMANDO4   0x00000d    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 COMANDO5   0x000013    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                   ENABLE   0x000019    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                  TIEMPO2   0x00001d    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                    SIGO2   0x00001f    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                SETUP_ADC   0x000026    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 LEER_ADC   0x00003e    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                   ESPERA   0x00003f    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                   INICIO   0x000047    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                PRINCIPAL   0x000053    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+           GUARDAR_EEPROM   0x000064    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 ESCRIBIR   0x00006f    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                ESPERA_WR   0x000077    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+              MOSTRAR_LCD   0x00007b    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                   LIMPIO   0x0000b8    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+              LCD_CONFIG2   0x0000b9    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                 COMANDOB   0x0000bb    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                   TIEMPO   0x0000bf    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                  DESCOMP   0x0000cc    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                  CENTENA   0x0000d0    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                   DECENA   0x0000d8    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
+                   UNIDAD   0x0000e0    program     static C:\Users\dilan\OneDrive\Escritorio\Labo\PROYECTO FINAL\ProyectoFinal.asm
 
 
