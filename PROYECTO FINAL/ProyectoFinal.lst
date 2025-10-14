@@ -1,11 +1,11 @@
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE  1
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
                       00001 ;=====================
-                      00002 ; EEPROM + 2 POTENCIOMETROS + LCD (PORTD y PORTE)
+                      00002 ; EEPROM + 2 POTENCIOMETROS + LCD (PORTD y PORTE) (MAS ORDENADO)
                       00003 ;=====================
                       00004 
                       00005     #INCLUDE "P16F887.INC"
@@ -23,639 +23,1232 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 2008   3EFF           00008     __CONFIG _CONFIG2, _BOR21V
                       00009 
                       00010 ;===== REGISTROS =====
-  00000020            00011 POT1L      EQU 0x20
-  00000021            00012 POT1H      EQU 0x21
-  00000022            00013 REG1      EQU 0x22
-  00000023            00014 REG2     EQU 0x23  
-  00000024            00015 REG3     EQU 0x24  
-  00000025            00016 REG4     EQU 0x25
-  00000026            00017 REG5      EQU 0X26
-  00000027            00018 REGSL     EQU 0X27
-  00000028            00019 REGSH     EQU 0X28
-  0000002A            00020 REGC1 EQU 0X2A
-  0000002B            00021 REGD1 EQU 0X2B
-  0000002C            00022 REGU1 EQU 0X2C
-  0000002D            00023 REGC2 EQU 0X2D
-  0000002E            00024 REGD2 EQU 0X2E
-  0000002F            00025 REGU2 EQU 0X2F
-  00000030            00026 REGM  EQU 0X30
-  00000031            00027 REGC  EQU 0X31
-  00000032            00028 REGD  EQU 0X32
-  00000033            00029 REGU  EQU 0X33
-  00000034            00030 POT2H EQU 0X34
-  00000035            00031 POT2L EQU 0X35
-  00000036            00032 REGM1 EQU 0X36
-  00000037            00033 REGM2 EQU 0X37
-  00000038            00034 REG6 EQU 0X38
-                      00035 
-                      00036 ;===== INICIO =====
-0000                  00037     ORG 0x00
-0000   286A           00038     GOTO INICIO
-                      00039 
-0001                  00040 TABLA1
-0001   0782           00041         ADDWF PCL,1
-0002   3430           00042         RETLW '0'
-0003   3431           00043         RETLW '1'
-0004   3432           00044         RETLW '2'
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE  2
+  00000020            00011 POT1L  EQU 0x20
+  00000021            00012 POT1H  EQU 0x21
+  00000022            00013 REG1   EQU 0x22
+  00000023            00014 REG2   EQU 0x23  
+  00000024            00015 REG3   EQU 0x24  
+  00000025            00016 REG4   EQU 0x25
+  00000026            00017 REG5   EQU 0X26
+  00000027            00018 REGSL  EQU 0X27
+  00000028            00019 REGSH  EQU 0X28
+  0000002A            00020 REGC1  EQU 0X2A
+  0000002B            00021 REGD1  EQU 0X2B
+  0000002C            00022 REGU1  EQU 0X2C
+  0000002D            00023 REGC2  EQU 0X2D
+  0000002E            00024 REGD2  EQU 0X2E
+  0000002F            00025 REGU2  EQU 0X2F
+  00000030            00026 REGM   EQU 0X30
+  00000031            00027 REGC   EQU 0X31
+  00000032            00028 REGD   EQU 0X32
+  00000033            00029 REGU   EQU 0X33
+  00000034            00030 POT2H  EQU 0X34
+  00000035            00031 POT2L  EQU 0X35
+  00000036            00032 REGM1  EQU 0X36
+  00000037            00033 REGM2  EQU 0X37
+  00000038            00034 REG6   EQU 0X38
+  00000039            00035 POT3L  EQU 0X39
+  0000003A            00036 POT3H  EQU 0X3A
+  0000003B            00037 REGDAT EQU 0X3B
+  0000003C            00038 REGADR EQU 0X3C
+  0000003D            00039 REGM3  EQU 0X3D
+  0000003E            00040 REGC3  EQU 0X3E
+  0000003F            00041 REGD3  EQU 0X3F
+  00000040            00042 REGU3  EQU 0X40
+                      00043 
+                      00044 ;===== INICIO =====
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0005   3433           00045         RETLW '3'
-0006   3434           00046         RETLW '4' 
-0007   3435           00047         RETLW '5'
-0008   3436           00048         RETLW '6' 
-0009   3437           00049         RETLW '7'
-000A   3438           00050         RETLW '8'
-000B   3439           00051         RETLW '9'
+0000                  00045     ORG 0x00
+0000   280D           00046     GOTO INICIO
+                      00047 
+0001                  00048 TABLA1 ; Ponelo al principio para que funcione la tabla
+0001   0782           00049         ADDWF PCL,1
+0002   3430           00050         RETLW '0'
+0003   3431           00051         RETLW '1'
+0004   3432           00052         RETLW '2'
+0005   3433           00053         RETLW '3'
+0006   3434           00054         RETLW '4' 
+0007   3435           00055         RETLW '5'
+0008   3436           00056         RETLW '6' 
+0009   3437           00057         RETLW '7'
+000A   3438           00058         RETLW '8'
+000B   3439           00059         RETLW '9'
 Warning[203]: Found opcode in column 1. (RETURN)
-000C   0008           00052 RETURN 
-                      00053 
-                      00054 ;=====================
-                      00055 ; CONFIGURACIÓN LCD
-                      00056 ;=====================
-                      00057 ;=== CONFIGURACION LDC ===
-000D                  00058 LCD_INIT
-000D   1089           00059         BCF PORTE,1;RS
-000E   1009           00060         BCF PORTE,0;RW
-000F                  00061 COMANDO3
-000F   3006           00062         MOVLW B'00000110'
-0010   0088           00063         MOVWF PORTD
-0011   2025           00064         CALL ENABLE
-0012                  00065 COMANDO2
-0012   300C           00066         MOVLW B'00001100'
-0013   0088           00067         MOVWF PORTD
-0014   2025           00068         CALL ENABLE
-0015                  00069 COMANDO1
-0015   303C           00070         MOVLW B'00111100'
-0016   0088           00071         MOVWF PORTD
-0017   2025           00072         CALL ENABLE
-Warning[203]: Found opcode in column 1. (RETURN)
-0018   0008           00073 RETURN
-0019                  00074 COMANDO4 ;######CURSOR HOME#####
-0019   1009           00075         BCF PORTE,0
-001A   1089           00076         BCF PORTE,1
-001B   3002           00077         MOVLW B'00000010'
-001C   0088           00078         MOVWF PORTD
-001D   2025           00079         CALL ENABLE
-001E   0008           00080         RETURN
-001F                  00081 COMANDO5 ;####BORRADO DE PANTALLA
-001F   1009           00082         BCF PORTE,0
-0020   1089           00083         BCF PORTE,1
-0021   3001           00084         MOVLW B'00000001'
-0022   0088           00085         MOVWF PORTD
-0023   2025           00086         CALL ENABLE
-0024   0008           00087         RETURN  
-                      00088 
-0025                  00089 ENABLE
-0025   1509           00090         BSF PORTE,2
-0026   2029           00091         CALL TIEMPO2
-0027   1109           00092         BCF PORTE,2
-0028   0008           00093         RETURN
-                      00094 
-0029                  00095 TIEMPO2
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE  3
+000C   0008           00060 RETURN 
+                      00061 
+                      00062 ;=====================
+                      00063 ; PROGRAMA PRINCIPAL
+                      00064 ;=====================
+000D                  00065 INICIO
+000D   1683 1303      00066         BANKSEL TRISB
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000F   1506           00067         BSF TRISB,2            ; Botón guardar
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0010   0188           00068         CLRF TRISD
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0011   0189           00069         CLRF TRISE
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0012   0187           00070         CLRF TRISC
+                      00071 
+0013   1283 1303      00072         BANKSEL PORTB
+0015   0186           00073         CLRF PORTB
+0016   0188           00074         CLRF PORTD
+0017   0189           00075         CLRF PORTE
+0018   1007           00076         BCF PORTC,0      ; Motor inicialmente apagado
+                      00077 
+0019   205C           00078         CALL LCD_INIT
+001A   2081           00079         CALL SETUP_ADC
+001B   209B           00080         CALL SETUP_PWM
+                      00081 
+001C                  00082 PRINCIPAL
+                      00083         ; Leer POT 1 (AN0)
+001C   111F           00084         BCF ADCON0,CHS0
+001D   119F           00085         BCF ADCON0,CHS1
+001E   121F           00086         BCF ADCON0,CHS2
+001F   2267           00087         CALL DELAY_ADC
+0020   20AE           00088         CALL LEER_POT1
+                      00089 
+                      00090         ; Leer POT 2 (AN1)
+0021   151F           00091         BSF ADCON0,CHS0
+0022   119F           00092         BCF ADCON0,CHS1
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0029   300D           00096         MOVLW .13
-002A   00A5           00097         MOVWF REG4
-002B                  00098 SIGO2
-002B   30FF           00099         MOVLW .255
-002C   00A6           00100         MOVWF REG5
-Message[305]: Using default destination of 1 (file).
-002D   0BA6           00101         DECFSZ REG5
-002E   282D           00102         GOTO $-.1
-Message[305]: Using default destination of 1 (file).
-002F   0BA5           00103         DECFSZ REG4
-0030   282B           00104         GOTO SIGO2
-                      00105 
-Warning[203]: Found opcode in column 1. (RETURN)
-0031   0008           00106 RETURN
-                      00107 
-                      00108 ;=====================
-                      00109 ; CONFIGURACIÓN ADC
-                      00110 ;=====================
-0032                  00111 SETUP_ADC
-0032   1683 1703      00112         BANKSEL ANSEL ;selecciono el banco 3
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0034   0189           00113         CLRF ANSELH
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0035   0188           00114         CLRF ANSEL    
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0036   1408           00115         BSF ANSEL,0   ;limpio los analógicos, menos el RA0/AN0
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0037   1488           00116         BSF ANSEL,1       ;limpio los analógicos, menos el RA1/AN1
+0023   121F           00093         BCF ADCON0,CHS2
+0024   2267           00094         CALL DELAY_ADC
+0025   20BE           00095         CALL LEER_POT2
+                      00096 
+                      00097         ; Mostrar valores
+0026   215B           00098         CALL MOSTRAR_LCD
+                      00099 
+                      00100         ; Si se presiona botón, guardar EEPROM
+0027   1283 1303      00101         BANKSEL PORTB
+0029   1D06           00102         BTFSS PORTB,2
+002A   281C           00103         GOTO PRINCIPAL
+002B   2127           00104         CALL GUARDAR_EEPROM
+002C   282D           00105         GOTO LEER_UMBRALES
+                      00106 
+                      00107 ;===========================================
+                      00108 ; CARGAR UMBRALES DESDE EEPROM
+                      00109 ;===========================================
+002D                  00110 LEER_UMBRALES
+                      00111     ; Leer POT1H (0x00)
+002D   3000           00112     MOVLW 0x00
+002E   00BC           00113     MOVWF REGADR
+002F   2042           00114     CALL LEEREEPROM
+0030   083B           00115     MOVF REGDAT, W
+0031   00A1           00116     MOVWF POT1H
                       00117 
-0038   1683 1303      00118         BANKSEL TRISA
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-003A   0185           00119         CLRF TRISA
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-003B   1405           00120         BSF TRISA,0            ; RA0 entrada
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-003C   1485           00121         BSF TRISA,1            ; RA1 entrada
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-003D   0188           00122         CLRF TRISD    ; declaro como salida los pines del bus de datos 8 bits
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-003E   0189           00123         CLRF TRISE    ; declaro como salida los pines de control RW RS y E
+                      00118     ; Leer POT1L (0x01)
+0032   3001           00119     MOVLW 0x01
+0033   00BC           00120     MOVWF REGADR
+0034   2042           00121     CALL LEEREEPROM
+0035   083B           00122     MOVF REGDAT, W
+0036   00A0           00123     MOVWF POT1L
                       00124 
-003F   1683 1303      00125         BANKSEL ADCON1
-0041   3080           00126         MOVLW b'10000000'      ; Justificación derecha
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0042   009F           00127         MOVWF ADCON1
-                      00128 
-0043   1283 1303      00129         BANKSEL ADCON0
-0045   3041           00130         MOVLW b'01000001'      ; Canal AN0 (por defecto), ADC ON
-0046   009F           00131         MOVWF ADCON0
-0047   0188           00132         CLRF PORTD      ;LIMPIO VALORES PARA EL MÓDULO LCD (BUS Y PINES CONTROL)
-0048   0189           00133         CLRF PORTE
-0049   0008           00134         RETURN
-                      00135 
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE  4
+                      00125     ; Leer POT2H (0x02)
+0037   3002           00126     MOVLW 0x02
+0038   00BC           00127     MOVWF REGADR
+0039   2042           00128     CALL LEEREEPROM
+003A   083B           00129     MOVF REGDAT, W
+003B   00B4           00130     MOVWF POT2H
+                      00131 
+                      00132     ; Leer POT2L (0x03)
+003C   3003           00133     MOVLW 0x03
+003D   00BC           00134     MOVWF REGADR
+003E   2042           00135     CALL LEEREEPROM
+003F   083B           00136     MOVF REGDAT, W
+0040   00B5           00137     MOVWF POT2L
+0041   2853           00138     GOTO RUTINA 
+                      00139 ;===========================================
+                      00140 ; LEEREEPROM — Lee EEPROM[REGADR] ? REGDAT
+                      00141 ;===========================================
+0042                  00142 LEEREEPROM
+                      00143     ; Cargar dirección a leer
+0042   1283 1303      00144     BANKSEL PORTA
+0044   083C           00145     MOVF REGADR, W
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-004A                  00136 LEER_POT1
-004A   149F           00137     BSF ADCON0,GO_DONE
-004B                  00138 ESPERA1
-004B   189F           00139     BTFSC ADCON0,GO_DONE
-004C   284B           00140     GOTO ESPERA1
-004D   1683 1303      00141     BANKSEL ADRESL
+0045   1283 1703      00146     BANKSEL EEADR
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-004F   081E           00142     MOVF ADRESL,W
-0050   1283 1303      00143     BANKSEL PORTC
-0052   00A0           00144     MOVWF POT1L
-0053   1283 1303      00145     BANKSEL ADRESH
-0055   081E           00146     MOVF ADRESH,W
-0056   1283 1303      00147     BANKSEL PORTC
-0058   00A1           00148     MOVWF POT1H
-0059   0008           00149         RETURN
-                      00150         
-005A                  00151 LEER_POT2
-005A   149F           00152     BSF ADCON0,GO_DONE
-005B                  00153 ESPERA2
-005B   189F           00154     BTFSC ADCON0,GO_DONE
-005C   285B           00155     GOTO ESPERA2
-005D   1683 1303      00156     BANKSEL ADRESL
+0047   008D           00147     MOVWF EEADR
+                      00148 
+                      00149     ; Seleccionar EEPROM de datos y comenzar lectura
+0048   1683 1703      00150     BANKSEL EECON1
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-005F   081E           00157     MOVF ADRESL,W
-0060   1283 1303      00158     BANKSEL PORTC
-0062   00B5           00159     MOVWF POT2L
-0063   1283 1303      00160     BANKSEL ADRESH
-0065   081E           00161     MOVF ADRESH,W
-0066   1283 1303      00162     BANKSEL PORTC
-0068   00B4           00163     MOVWF POT2H
-0069   0008           00164         RETURN
-                      00165 
-                      00166 
-                      00167 ;=====================
-                      00168 ; PROGRAMA PRINCIPAL
-                      00169 ;=====================
-006A                  00170 INICIO
-006A   1683 1303      00171         BANKSEL TRISB
+004A   138C           00151     BCF EECON1, EEPGD      ; 0 = EEPROM de datos
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-006C   1506           00172         BSF TRISB,2            ; Botón guardar
+004B   140C           00152     BSF EECON1, RD          ; Iniciar lectura
+                      00153 
+                      00154     ; Mover el dato leído desde EEDATA a REGDAT
+004C   1283 1703      00155     BANKSEL EEDATA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-006D   0188           00173         CLRF TRISD
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-006E   0189           00174         CLRF TRISE
-                      00175 
-006F   1283 1303      00176         BANKSEL PORTB
-0071   0186           00177         CLRF PORTB
-0072   0188           00178         CLRF PORTD
-0073   0189           00179         CLRF PORTE
-                      00180 
-0074   200D           00181         CALL LCD_INIT
-0075   2032           00182         CALL SETUP_ADC
-                      00183 
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE  5
+004E   080C           00156     MOVF EEDATA, W
+004F   1283 1303      00157     BANKSEL PORTA
+0051   00BB           00158     MOVWF REGDAT
+0052   0008           00159     RETURN
+                      00160 
+                      00161 
+0053                  00162 RUTINA 
+                      00163         ; Leer POT3 (An2)
+0053   159F           00164         BSF ADCON0,CHS1
+0054   111F           00165         BCF ADCON0,CHS0
+0055   121F           00166         BCF ADCON0,CHS2
+0056   2267           00167         CALL DELAY_ADC
+0057   20CE           00168         CALL LEER_POT3
+                      00169 
+0058   2196           00170         CALL MOSTRAR_LCD_SENSOR
+                      00171         ; Comparar valor de POT3 con umbrales cargados
+0059   20DE           00172         CALL COMPARAR_POT3_CON_EEPROM
+005A   20F7           00173         CALL ACTUALIZAR_PWM
+                      00174 
+005B   2853           00175         GOTO RUTINA
+                      00176 
+                      00177 ;=====================
+                      00178 ; CONFIGURACIÓN LCD
+                      00179 ;=====================
+                      00180 ;=== CONFIGURACION LDC ===
+005C                  00181 LCD_INIT
+005C   1089           00182         BCF PORTE,1;RS
+005D   1009           00183         BCF PORTE,0;RW
+005E                  00184 COMANDO3
+005E   3006           00185         MOVLW B'00000110'
+005F   0088           00186         MOVWF PORTD
+0060   2074           00187         CALL ENABLE
+0061                  00188 COMANDO2
+0061   300C           00189         MOVLW B'00001100'
+0062   0088           00190         MOVWF PORTD
+0063   2074           00191         CALL ENABLE
+0064                  00192 COMANDO1
+0064   303C           00193         MOVLW B'00111100'
+0065   0088           00194         MOVWF PORTD
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0076                  00184 PRINCIPAL
-                      00185         ; Leer POT 1 (AN1)
-0076   111F           00186         BCF ADCON0,CHS0
-0077   119F           00187         BCF ADCON0,CHS1
-0078   121F           00188         BCF ADCON0,CHS2
-0079   215F           00189         CALL DELAY_ADC
-007A   204A           00190         CALL LEER_POT1
-                      00191 
-                      00192         ; Leer POT 2 (AN2)
-007B   151F           00193         BSF ADCON0,CHS0
-007C   119F           00194         BCF ADCON0,CHS1
-007D   121F           00195         BCF ADCON0,CHS2
-007E   215F           00196         CALL DELAY_ADC
-007F   205A           00197         CALL LEER_POT2
-                      00198 
-                      00199         ; Mostrar valores
-0080   2095           00200         CALL MOSTRAR_LCD
-                      00201 
-                      00202         ; Si se presiona botón, guardar EEPROM
-0081   1283 1303      00203         BANKSEL PORTB
-0083   1D06           00204         BTFSS PORTB,2
-0084   2876           00205         GOTO PRINCIPAL
-0085   2087           00206         CALL GUARDAR_EEPROM
-0086   2876           00207         GOTO PRINCIPAL
-                      00208 
-                      00209 ;=====================
-                      00210 ; GUARDAR EEPROM
-                      00211 ;=====================
-0087                  00212 GUARDAR_EEPROM
-0087   0000           00213         NOP
-0088   2887           00214         GOTO GUARDAR_EEPROM
-                      00215 
-0089                  00216 ESCRIBIR
-0089   1683 1703      00217         BANKSEL EECON1
+0066   2074           00195         CALL ENABLE
+Warning[203]: Found opcode in column 1. (RETURN)
+0067   0008           00196 RETURN
+0068                  00197 COMANDO4 ;######CURSOR HOME#####
+0068   1009           00198         BCF PORTE,0
+0069   1089           00199         BCF PORTE,1
+006A   3002           00200         MOVLW B'00000010'
+006B   0088           00201         MOVWF PORTD
+006C   2074           00202         CALL ENABLE
+006D   0008           00203         RETURN
+006E                  00204 COMANDO5 ;####BORRADO DE PANTALLA
+006E   1009           00205         BCF PORTE,0
+006F   1089           00206         BCF PORTE,1
+0070   3001           00207         MOVLW B'00000001'
+0071   0088           00208         MOVWF PORTD
+0072   2074           00209         CALL ENABLE
+0073   0008           00210         RETURN  
+                      00211 
+0074                  00212 ENABLE
+0074   1509           00213         BSF PORTE,2
+0075   2078           00214         CALL TIEMPO2
+0076   1109           00215         BCF PORTE,2
+0077   0008           00216         RETURN
+                      00217 
+0078                  00218 TIEMPO2
+0078   300D           00219         MOVLW .13
+0079   00A5           00220         MOVWF REG4
+007A                  00221 SIGO2
+007A   30FF           00222         MOVLW .255
+007B   00A6           00223         MOVWF REG5
+Message[305]: Using default destination of 1 (file).
+007C   0BA6           00224         DECFSZ REG5
+007D   287C           00225         GOTO $-.1
+Message[305]: Using default destination of 1 (file).
+007E   0BA5           00226         DECFSZ REG4
+007F   287A           00227         GOTO SIGO2
+                      00228 
+Warning[203]: Found opcode in column 1. (RETURN)
+0080   0008           00229 RETURN
+                      00230 
+                      00231 ;=====================
+                      00232 ; CONFIGURACIÓN ADC
+                      00233 ;=====================
+0081                  00234 SETUP_ADC
+0081   1683 1703      00235         BANKSEL ANSEL ;selecciono el banco 3
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-008B   150C           00218         BSF EECON1,WREN
-008C   3055           00219         MOVLW 0x55
+0083   0189           00236         CLRF ANSELH
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-008D   008D           00220         MOVWF EECON2
-008E   30AA           00221         MOVLW 0xAA
+0084   0188           00237         CLRF ANSEL    
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-008F   008D           00222         MOVWF EECON2
+0085   1408           00238         BSF ANSEL,0   ;limpio los analógicos, menos el RA0/AN0
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0090   148C           00223         BSF EECON1,WR
-0091                  00224 ESPERA_WR
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0091   188C           00225         BTFSC EECON1,WR
-0092   2891           00226         GOTO ESPERA_WR
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0093   110C           00227         BCF EECON1,WREN
-0094   0008           00228         RETURN
-                      00229 
-                      00230 ;=====================
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE  6
+0086   1488           00239         BSF ANSEL,1       ;limpio los analógicos, menos el RA1/AN1
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00231 ; MOSTRAR EN LCD
-                      00232 ;=====================
-0095                  00233 MOSTRAR_LCD
-0095   1409           00234         BSF PORTE,0     ; RS=1 (datos)
-0096   1089           00235         BCF PORTE,1     ; RW=0
-                      00236 
-                      00237         ; --- Mostrar "B:" ---
-0097   3042           00238         MOVLW 'B'
-0098   0088           00239         MOVWF PORTD
-0099   2025           00240         CALL ENABLE
-009A   303A           00241         MOVLW ':'
-009B   0088           00242         MOVWF PORTD
-009C   2025           00243         CALL ENABLE
-                      00244 
-                      00245         ; --- Descomponer VAL1 ---
-009D   0820           00246         MOVF POT1L,W
-009E   00A7           00247         MOVWF REGSL
-009F   0821           00248         MOVF POT1H,W
-00A0   00A8           00249         MOVWF REGSH
-00A1   20FA           00250         CALL DESCOMP
-00A2   2116           00251         CALL REVCAS
-00A3   2143           00252         CALL ARREGLO
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0087   1508           00240         BSF ANSEL,2       ;limpio los analógicos, menos el RA2/AN2
+                      00241 
+0088   1683 1303      00242         BANKSEL TRISA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+008A   0185           00243         CLRF TRISA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+008B   1405           00244         BSF TRISA,0            ; RA0 entrada
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+008C   1485           00245         BSF TRISA,1            ; RA1 entrada
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+008D   1505           00246         BSF TRISA,2            ; RA2 entrada
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+008E   0188           00247         CLRF TRISD    ; declaro como salida los pines del bus de datos 8 bits
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+008F   0189           00248         CLRF TRISE    ; declaro como salida los pines de control RW RS y E
+                      00249 
+0090   1683 1303      00250         BANKSEL ADCON1
+0092   3080           00251         MOVLW b'10000000'      ; Justificación derecha
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0093   009F           00252         MOVWF ADCON1
                       00253 
-                      00254 
-                      00255         ; Copiar resultados
-00A4   0830           00256         MOVF REGM,W
-00A5   00B6           00257         MOVWF REGM1
-00A6   0831           00258         MOVF REGC,W
-00A7   00AA           00259         MOVWF REGC1
-00A8   0832           00260         MOVF REGD,W
-00A9   00AB           00261         MOVWF REGD1
-00AA   0833           00262         MOVF REGU,W
-00AB   00AC           00263         MOVWF REGU1
-                      00264 
-                      00265         ; --- Descomponer VAL2 ---
-00AC   0835           00266         MOVF POT2L,W
-00AD   00A7           00267         MOVWF REGSL
-00AE   0834           00268         MOVF POT2H,W
-00AF   00A8           00269         MOVWF REGSH
-00B0   20FA           00270         CALL DESCOMP
-00B1   2116           00271         CALL REVCAS
-00B2   2143           00272         CALL ARREGLO
-                      00273 
-                      00274 
-                      00275         ; Copiar resultados
-00B3   0830           00276         MOVF REGM,W
-00B4   00B7           00277         MOVWF REGM2
-00B5   0831           00278         MOVF REGC,W
-00B6   00AD           00279         MOVWF REGC2
-00B7   0832           00280         MOVF REGD,W
-00B8   00AE           00281         MOVWF REGD2
-00B9   0833           00282         MOVF REGU,W
-00BA   00AF           00283         MOVWF REGU2
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE  7
+0094   1283 1303      00254         BANKSEL ADCON0
+0096   3041           00255         MOVLW b'01000001'      ; Canal AN0 (por defecto), ADC ON
+0097   009F           00256         MOVWF ADCON0
+0098   0188           00257         CLRF PORTD      ;LIMPIO VALORES PARA EL MÓDULO LCD (BUS Y PINES CONTROL)
+0099   0189           00258         CLRF PORTE
+009A   0008           00259         RETURN
+                      00260 
+                      00261 ;=====================
+                      00262 ; CONFIGURAR PWM (CCP1 en RC2)
+                      00263 ;=====================
+009B                  00264 SETUP_PWM
+009B   1683 1303      00265     BANKSEL TRISC
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+009D   1107           00266     BCF TRISC,2          ; RC2 = salida del CCP1
+                      00267 
+009E   1683 1303      00268     BANKSEL PR2
+00A0   30FF           00269     MOVLW .255           ; Periodo PWM (frecuencia ˜ 490 Hz con Fosc=4MHz)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00A1   0092           00270     MOVWF PR2
+                      00271 
+                      00272     ; Configurar CCP1 en modo PWM
+00A2   1283 1303      00273     BANKSEL CCP1CON
+00A4   300C           00274     MOVLW b'00001100'    ; CCP1M3:CCP1M0 = 1100 ? PWM mode
+00A5   0097           00275     MOVWF CCP1CON
+                      00276 
+                      00277     ; Inicializar Duty Cycle = 0
+00A6   0195           00278     CLRF CCPR1L
+00A7   1217           00279     BCF CCP1CON, DC1B0
+00A8   1297           00280     BCF CCP1CON, DC1B1
+                      00281 
+                      00282     ; Configurar Timer2
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00284 
-                      00285         ; --- Mostrar VAL1 ---
-00BB   0836           00286         MOVF REGM1,W
-00BC   2001           00287         CALL TABLA1
-00BD   0088           00288         MOVWF PORTD
-00BE   2025           00289         CALL ENABLE
-                      00290 
-00BF   082A           00291         MOVF REGC1,W
-00C0   2001           00292         CALL TABLA1
-00C1   0088           00293         MOVWF PORTD
-00C2   2025           00294         CALL ENABLE
-                      00295 
-00C3   082B           00296         MOVF REGD1,W
-00C4   2001           00297         CALL TABLA1
-00C5   0088           00298         MOVWF PORTD
-00C6   2025           00299         CALL ENABLE
-                      00300 
-00C7   082C           00301         MOVF REGU1,W
-00C8   2001           00302         CALL TABLA1
-00C9   0088           00303         MOVWF PORTD
-00CA   2025           00304         CALL ENABLE
-                      00305 
-                      00306         ; Espacio
-00CB   3020           00307         MOVLW ' '
-00CC   0088           00308         MOVWF PORTD
-00CD   2025           00309         CALL ENABLE
-                      00310 
-                      00311         ; --- Mostrar "A:" ---
-00CE   3041           00312         MOVLW 'A'
-00CF   0088           00313         MOVWF PORTD
-00D0   2025           00314         CALL ENABLE
-00D1   303A           00315         MOVLW ':'
-00D2   0088           00316         MOVWF PORTD
-00D3   2025           00317         CALL ENABLE
-                      00318 
-                      00319         ; --- Mostrar VAL2 ---
-00D4   0837           00320         MOVF REGM2,W
-00D5   2001           00321         CALL TABLA1
-00D6   0088           00322         MOVWF PORTD
-00D7   2025           00323         CALL ENABLE
-                      00324 
-00D8   082D           00325         MOVF REGC2,W
-00D9   2001           00326         CALL TABLA1
-00DA   0088           00327         MOVWF PORTD
-00DB   2025           00328         CALL ENABLE
-                      00329 
-00DC   082E           00330         MOVF REGD2,W
-00DD   2001           00331         CALL TABLA1
-00DE   0088           00332         MOVWF PORTD
-00DF   2025           00333         CALL ENABLE
+00A9   1283 1303      00283     BANKSEL T2CON
+00AB   3004           00284     MOVLW b'00000100'    ; Prescaler 1:1, encender Timer2 (TMR2ON=1)
+00AC   0092           00285     MOVWF T2CON
+                      00286 
+00AD   0008           00287     RETURN
+                      00288 
+                      00289 
+00AE                  00290 LEER_POT1
+00AE   149F           00291     BSF ADCON0,GO_DONE
+00AF                  00292 ESPERA1
+00AF   189F           00293     BTFSC ADCON0,GO_DONE
+00B0   28AF           00294     GOTO ESPERA1
+00B1   1683 1303      00295     BANKSEL ADRESL
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00B3   081E           00296     MOVF ADRESL,W
+00B4   1283 1303      00297     BANKSEL PORTC
+00B6   00A0           00298     MOVWF POT1L
+00B7   1283 1303      00299     BANKSEL ADRESH
+00B9   081E           00300     MOVF ADRESH,W
+00BA   1283 1303      00301     BANKSEL PORTC
+00BC   00A1           00302     MOVWF POT1H
+00BD   0008           00303         RETURN
+                      00304         
+00BE                  00305 LEER_POT2
+00BE   149F           00306     BSF ADCON0,GO_DONE
+00BF                  00307 ESPERA2
+00BF   189F           00308     BTFSC ADCON0,GO_DONE
+00C0   28BF           00309     GOTO ESPERA2
+00C1   1683 1303      00310     BANKSEL ADRESL
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00C3   081E           00311     MOVF ADRESL,W
+00C4   1283 1303      00312     BANKSEL PORTC
+00C6   00B5           00313     MOVWF POT2L
+00C7   1283 1303      00314     BANKSEL ADRESH
+00C9   081E           00315     MOVF ADRESH,W
+00CA   1283 1303      00316     BANKSEL PORTC
+00CC   00B4           00317     MOVWF POT2H
+00CD   0008           00318         RETURN
+                      00319 
+00CE                  00320 LEER_POT3
+00CE   149F           00321     BSF ADCON0,GO_DONE
+00CF                  00322 ESPERA3
+00CF   189F           00323     BTFSC ADCON0,GO_DONE
+00D0   28CF           00324     GOTO ESPERA3
+00D1   1683 1303      00325     BANKSEL ADRESL
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00D3   081E           00326     MOVF ADRESL,W
+00D4   1283 1303      00327     BANKSEL PORTC
+00D6   00B9           00328     MOVWF POT3L
+00D7   1283 1303      00329     BANKSEL ADRESH
+00D9   081E           00330     MOVF ADRESH,W
+00DA   1283 1303      00331     BANKSEL PORTC
+00DC   00BA           00332     MOVWF POT3H
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00DD   0008           00333         RETURN
                       00334 
-00E0   082F           00335         MOVF REGU2,W
-00E1   2001           00336         CALL TABLA1
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE  8
+00DE                  00335 COMPARAR_POT3_CON_EEPROM
+                      00336 ;===========================================
+                      00337 ; COMPARAR POT3 CON UMBRALES EEPROM
+                      00338 ;===========================================
+                      00339     ; --- Comparar con UMBRAL BAJO (POT1H:L) ---
+                      00340     ; Si POT3 < POT1 ? MOTOR_ON
+00DE   0821           00341     MOVF POT1H, W
+00DF   023A           00342     SUBWF POT3H, W           ; W = POT3H - POT1H
+00E0   1C03           00343     BTFSS STATUS, C          ; C=0 si POT3H < POT1H
+00E1   28F3           00344     GOTO MOTOR_ON
+                      00345 
+00E2   1D03           00346     BTFSS STATUS, Z          ; si no son iguales, continuar
+00E3   28E8           00347     GOTO CHECK_HIGH          ; POT3H > POT1H, no hace falta comparar low
+                      00348 
+                      00349     ; Si los altos son iguales, comparar los bajos
+00E4   0820           00350     MOVF POT1L, W
+00E5   0239           00351     SUBWF POT3L, W           ; W = POT3L - POT1L
+00E6   1C03           00352     BTFSS STATUS, C          ; C=0 si POT3L < POT1L
+00E7   28F3           00353     GOTO MOTOR_ON
+                      00354 
+00E8                  00355 CHECK_HIGH
+                      00356     ; --- Comparar con UMBRAL ALTO (POT2H:L) ---
+                      00357     ; Si POT3 > POT2 ? MOTOR_OFF
+00E8   083A           00358     MOVF POT3H, W
+00E9   0234           00359     SUBWF POT2H, W           ; W = POT2H - POT3H
+00EA   1C03           00360     BTFSS STATUS, C          ; C=0 si POT3H > POT2H
+00EB   28F5           00361     GOTO MOTOR_OFF
+                      00362 
+00EC   1D03           00363     BTFSS STATUS, Z
+00ED   28F2           00364     GOTO END_COMPARE
+                      00365 
+                      00366     ; Si los altos son iguales, comparar los bajos
+00EE   0839           00367     MOVF POT3L, W
+00EF   0235           00368     SUBWF POT2L, W           ; W = POT2L - POT3L
+00F0   1C03           00369     BTFSS STATUS, C          ; C=0 si POT3L > POT2L
+00F1   28F5           00370     GOTO MOTOR_OFF
+                      00371 
+00F2                  00372 END_COMPARE
+00F2   0008           00373     RETURN
+                      00374 
+00F3                  00375 MOTOR_ON
+00F3   1407           00376     BSF PORTC,0      ; Enciende motor
+00F4   0008           00377     RETURN
+                      00378 
+00F5                  00379 MOTOR_OFF
+00F5   1007           00380     BCF PORTC,0      ; Apaga motor
+00F6   0008           00381     RETURN
+                      00382 
+                      00383 ;=====================
+                      00384 ; ACTUALIZAR PWM SEGÚN POT3
+                      00385 ;=====================
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-00E2   0088           00337         MOVWF PORTD
-00E3   2025           00338         CALL ENABLE
-                      00339 
-00E4   20E6           00340         CALL LIMPIO
-                      00341 
-00E5   0008           00342         RETURN
-                      00343 
-00E6                  00344 LIMPIO
-00E6   20ED           00345         CALL TIEMPO
-Warning[207]: Found label after column 1. (LCD_CONFIG2)
-00E7                  00346         LCD_CONFIG2
-00E7   1089           00347                 BCF PORTE,1;RS
-00E8   1009           00348                 BCF PORTE,0;RW
-Warning[207]: Found label after column 1. (COMANDOB)
-00E9                  00349         COMANDOB
-00E9   3002           00350                 MOVLW B'0000010';b'00000001' para borrar en vez de escribir
-00EA   0088           00351                 MOVWF PORTD
-00EB   2025           00352                 CALL ENABLE
-                      00353 
-Warning[203]: Found opcode in column 1. (RETURN)
-00EC   0008           00354 RETURN
-                      00355 
-00ED                  00356 TIEMPO
-00ED   3003           00357         MOVLW .3
-00EE   00A2           00358         MOVWF REG1
-00EF   301A           00359         MOVLW .26
-00F0   00A3           00360         MOVWF REG2
-00F1   30FF           00361         MOVLW .255
-00F2   00A4           00362         MOVWF REG3
-Message[305]: Using default destination of 1 (file).
-00F3   0BA4           00363         DECFSZ REG3
-00F4   28F3           00364         GOTO $-.1
-Message[305]: Using default destination of 1 (file).
-00F5   0BA3           00365         DECFSZ REG2
-00F6   28F1           00366         GOTO $-.5
-Message[305]: Using default destination of 1 (file).
-00F7   0BA2           00367         DECFSZ REG1
-00F8   28F0           00368         GOTO $-.8
-00F9   0008           00369         RETURN
-                      00370 
-00FA                  00371 DESCOMP
-00FA   01B1           00372         CLRF REGC
-00FB   01B2           00373         CLRF REGD
-00FC   01B3           00374         CLRF REGU
-00FD   01B0           00375         CLRF REGM
-                      00376 
-00FE                  00377 CENTENA 
-00FE   3064           00378         MOVLW .100
-00FF   02A7           00379         SUBWF REGSL,F
-0100   1803           00380         BTFSC STATUS,C
-0101   2904           00381         GOTO $+.3
-Message[305]: Using default destination of 1 (file).
-0102   07A7           00382         ADDWF REGSL
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE  9
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-0103   2906           00383         GOTO DECENA
-0104   0AB1           00384         INCF REGC,F
-0105   28FF           00385         GOTO $-.6
-                      00386 
-0106                  00387 DECENA
-0106   300A           00388         MOVLW .10
-0107   02A7           00389         SUBWF REGSL,F
-0108   1803           00390         BTFSC STATUS,C
-0109   290C           00391         GOTO $+.3
-Message[305]: Using default destination of 1 (file).
-010A   07A7           00392         ADDWF REGSL
-010B   290E           00393         GOTO UNIDAD
-010C   0AB2           00394         INCF REGD,F
-010D   2907           00395         GOTO $-.6
-                      00396 
-010E                  00397 UNIDAD
-010E   3001           00398         MOVLW .1
-010F   02A7           00399         SUBWF REGSL,F
-0110   1803           00400         BTFSC STATUS,C
-0111   2914           00401         GOTO $+.3
-Message[305]: Using default destination of 1 (file).
-0112   07A7           00402         ADDWF REGSL
-0113   0008           00403         RETURN
-0114   0AB3           00404         INCF REGU,F
-0115   290F           00405         GOTO $-.6
-                      00406 
-0116                  00407 REVCAS
-0116   3000           00408         MOVLW .0
-0117   0628           00409         XORWF REGSH,W ;PREGUNTO "REGSH == 0?"
-0118   1903           00410         BTFSC STATUS,Z;EN CASO DE SER IGUALES ENTRA EN CAS0
-0119   2927           00411         GOTO CAS0
-                      00412         
-011A   3001           00413         MOVLW .1
-011B   0628           00414         XORWF REGSH,W
-011C   1903           00415         BTFSC STATUS,Z
-011D   292E           00416         GOTO CAS1
-                      00417 
-011E   3002           00418         MOVLW .2
-011F   0628           00419         XORWF REGSH,W
-0120   1903           00420         BTFSC STATUS,Z
-0121   2935           00421         GOTO CAS2
-                      00422         
-0122   3003           00423         MOVLW .3
-0123   0628           00424         XORWF REGSH,W
-0124   1903           00425         BTFSC STATUS,Z
-0125   293C           00426         GOTO CAS3
-Warning[203]: Found opcode in column 1. (RETURN)
-0126   0008           00427 RETURN
-                      00428                 
-                      00429 ;################# CASOS DE REGSH ##########    
-                      00430 ;####  sumo las literales correspondientes en los Ru Rd Rc 
-0127                  00431 CAS0
-                      00432 
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 10
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-0127   3000           00433         MOVLW .0
-0128   07B3           00434         ADDWF REGU,F
+00F7                  00386 ACTUALIZAR_PWM
+                      00387     ; Rango: POT1 ? POT2  ? PWM: 255 ? 0
+                      00388 
+                      00389     ; Si POT3 <= POT1 ? PWM = 255 (100%)
+00F7   0821           00390     MOVF POT1H, W
+00F8   023A           00391     SUBWF POT3H, W
+00F9   1C03           00392     BTFSS STATUS, C
+00FA   2922           00393     GOTO PWM_MAX
+00FB   1D03           00394     BTFSS STATUS, Z
+00FC   2901           00395     GOTO CHECK_LOW_L
+00FD   0820           00396     MOVF POT1L, W
+00FE   0239           00397     SUBWF POT3L, W
+00FF   1C03           00398     BTFSS STATUS, C
+0100   2922           00399     GOTO PWM_MAX
+                      00400 
+0101                  00401 CHECK_LOW_L
+                      00402     ; Si POT3 >= POT2 ? PWM = 0
+0101   083A           00403     MOVF POT3H, W
+0102   0234           00404     SUBWF POT2H, W
+0103   1C03           00405     BTFSS STATUS, C
+0104   2925           00406     GOTO PWM_ZERO
+0105   1D03           00407     BTFSS STATUS, Z
+0106   290B           00408     GOTO CALC_PWM
+0107   0839           00409     MOVF POT3L, W
+0108   0235           00410     SUBWF POT2L, W
+0109   1C03           00411     BTFSS STATUS, C
+010A   2925           00412     GOTO PWM_ZERO
+                      00413 
+010B                  00414 CALC_PWM
+                      00415     ; --- Escalar proporcionalmente ---
+                      00416     ; PWM = 255 * (POT2 - POT3) / (POT2 - POT1)
+                      00417     ; Nota: cálculo simplificado para PIC16 sin división exacta
+                      00418 
+                      00419     ; Diferencia total = (POT2H:L - POT1H:L)
+010B   0835           00420     MOVF POT2L, W
+010C   00A2           00421     MOVWF REG1
+010D   0834           00422     MOVF POT2H, W
+010E   00A3           00423     MOVWF REG2
+                      00424 
+010F   0820           00425     MOVF POT1L, W
+0110   02A2           00426     SUBWF REG1, F
+0111   0821           00427     MOVF POT1H, W
+0112   02A3           00428     SUBWF REG2, F
+                      00429 
+                      00430     ; Diferencia actual = (POT2H:L - POT3H:L)
+0113   0835           00431     MOVF POT2L, W
+0114   00A4           00432     MOVWF REG3
+0115   0834           00433     MOVF POT2H, W
+0116   00A5           00434     MOVWF REG4
                       00435 
-0129   3000           00436         MOVLW .0
-012A   07B2           00437         ADDWF REGD,F
-                      00438 
-012B   3000           00439         MOVLW .0
-012C   07B1           00440         ADDWF REGC,F
-                      00441 
-Warning[203]: Found opcode in column 1. (RETURN)
-012D   0008           00442 RETURN
-                      00443 
-012E                  00444 CAS1
-012E   3006           00445         MOVLW .6
-012F   07B3           00446         ADDWF REGU,F
-                      00447 
-0130   3005           00448         MOVLW .5
-0131   07B2           00449         ADDWF REGD,F
-                      00450 
-0132   3002           00451         MOVLW .2
-0133   07B1           00452         ADDWF REGC,F
-                      00453 
-Warning[203]: Found opcode in column 1. (RETURN)
-0134   0008           00454 RETURN
-                      00455 
-0135                  00456 CAS2
-0135   3002           00457         MOVLW .2
-0136   07B3           00458         ADDWF REGU,F
+0117   0839           00436     MOVF POT3L, W
+0118   02A4           00437     SUBWF REG3, F
+0119   083A           00438     MOVF POT3H, W
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+011A   02A5           00439     SUBWF REG4, F
+                      00440 
+                      00441     ; Escalamiento burdo: REG3 * 255 / REG1  (solo parte baja)
+011B   0822           00442     MOVF REG1, W
+011C   00A6           00443     MOVWF REG5
+011D   0824           00444     MOVF REG3, W
+011E   00B8           00445     MOVWF REG6
+                      00446 
+                      00447     ; Evitar divisiones, usar desplazamientos aproximados
+011F   0838           00448     MOVF REG6, W
+0120   0095           00449     MOVWF CCPR1L      ; Simple: duty proporcional directo a REG6
+0121   2926           00450     GOTO END_PWM
+                      00451 
+0122                  00452 PWM_MAX
+0122   30FF           00453     MOVLW 0xFF
+0123   0095           00454     MOVWF CCPR1L
+0124   2926           00455     GOTO END_PWM
+                      00456 
+0125                  00457 PWM_ZERO
+0125   0195           00458     CLRF CCPR1L
                       00459 
-0137   3001           00460         MOVLW .1
-0138   07B2           00461         ADDWF REGD,F
+0126                  00460 END_PWM
+0126   0008           00461     RETURN
                       00462 
-0139   3005           00463         MOVLW .5
-013A   07B1           00464         ADDWF REGC,F
-                      00465 
-Warning[203]: Found opcode in column 1. (RETURN)
-013B   0008           00466 RETURN
-                      00467 
-013C                  00468 CAS3
-013C   3008           00469         MOVLW .8
-013D   07B3           00470         ADDWF REGU,F
-                      00471 
-013E   3006           00472         MOVLW .6
-013F   07B2           00473         ADDWF REGD,F
+                      00463 
+                      00464 ;=====================
+                      00465 ; GUARDAR EEPROM (usando tu método comprobado)
+                      00466 ;=====================
+0127                  00467 GUARDAR_EEPROM
+                      00468     ; --- Guarda POT1H en dirección 0x00 ---
+0127   0821           00469     MOVF POT1H, W
+0128   00BB           00470     MOVWF REGDAT          ; Dato
+0129   3000           00471     MOVLW 0x00
+012A   00BC           00472     MOVWF REGADR          ; Dirección
+012B   213C           00473     CALL ESCRIBIREEPROM
                       00474 
-0140   3007           00475         MOVLW .7
-0141   07B1           00476         ADDWF REGC,F
-                      00477 
-Warning[203]: Found opcode in column 1. (RETURN)
-0142   0008           00478 RETURN 
-                      00479 
-                      00480 ;##################### REPARO VALORES < 9 #########
-0143                  00481 ARREGLO
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 11
+                      00475     ; --- Guarda POT1L en dirección 0x01 ---
+012C   0820           00476     MOVF POT1L, W
+012D   00BB           00477     MOVWF REGDAT
+012E   3001           00478     MOVLW 0x01
+012F   00BC           00479     MOVWF REGADR
+0130   213C           00480     CALL ESCRIBIREEPROM
+                      00481 
+                      00482     ; --- Guarda POT2H en dirección 0x02 ---
+0131   0834           00483     MOVF POT2H, W
+0132   00BB           00484     MOVWF REGDAT
+0133   3002           00485     MOVLW 0x02
+0134   00BC           00486     MOVWF REGADR
+0135   213C           00487     CALL ESCRIBIREEPROM
+                      00488 
+                      00489     ; --- Guarda POT2L en dirección 0x03 ---
+0136   0835           00490     MOVF POT2L, W
+0137   00BB           00491     MOVWF REGDAT
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 11
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0143   30F6           00482         MOVLW .246 ;cargo el acumulador para carry si se le suma =< 10
-0144   0733           00483         ADDWF REGU,W;sumo el contenido del registro al acumulador
-0145   1803           00484         BTFSC STATUS,C;pregunto si ocurre acarreo, si ocurre, call correxu
-0146   2150           00485         CALL CORREXU
-                      00486         
-0147   30F6           00487         MOVLW .246
-0148   0732           00488         ADDWF REGD,W
-0149   1803           00489         BTFSC STATUS,C
-014A   2155           00490         CALL CORREXD
-                      00491         
-014B   30F6           00492         MOVLW .246
-014C   0731           00493         ADDWF REGC,W
-014D   1803           00494         BTFSC STATUS,C
-014E   215A           00495         CALL CORREXC
-                      00496         
-Warning[203]: Found opcode in column 1. (RETURN)
-014F   0008           00497 RETURN
-                      00498 ;###################### CORRECTORES
-                      00499 ;## muevo 10 al acumulador y proximamente le resto la literal al registro registro
-                      00500 ;## remplazo el valor del registro con el resultado de la resta 
-                      00501 ;## Cargo la literal "1" al workfile y la sumo al registro siguiente
-0150                  00502 CORREXU
-0150   300A           00503         MOVLW .10
-0151   02B3           00504         SUBWF REGU,F
-0152   3001           00505         MOVLW .1
-0153   07B2           00506         ADDWF REGD,F
-Warning[203]: Found opcode in column 1. (RETURN)
-0154   0008           00507 RETURN
-                      00508 
-0155                  00509 CORREXD
-0155   300A           00510         MOVLW .10
-0156   02B2           00511         SUBWF REGD,F
-0157   3001           00512         MOVLW .1
-0158   07B1           00513         ADDWF REGC,F
-Warning[203]: Found opcode in column 1. (RETURN)
-0159   0008           00514 RETURN
-                      00515 
-015A                  00516 CORREXC
-015A   300A           00517         MOVLW .10
-015B   02B1           00518         SUBWF REGC,F
-015C   3001           00519         MOVLW .1
-015D   07B0           00520         ADDWF REGM,F ;Añade 1 al RegMillares
-Warning[203]: Found opcode in column 1. (RETURN)
-015E   0008           00521 RETURN
-                      00522 
-015F                  00523 DELAY_ADC
-015F   3019           00524     MOVLW .25       ; 25 ciclos aprox = 25 µs a 4 MHz
-0160   00B8           00525     MOVWF REG6
-0161                  00526 ESPERA_ADC
-0161   0000           00527     NOP
-0162   0BB8           00528     DECFSZ REG6,F
-0163   2961           00529     GOTO ESPERA_ADC
-0164   0008           00530     RETURN
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 12
+0138   3003           00492     MOVLW 0x03
+0139   00BC           00493     MOVWF REGADR
+013A   213C           00494     CALL ESCRIBIREEPROM
+                      00495 
+013B   0008           00496     RETURN
+                      00497 
+                      00498 ;=====================
+                      00499 ; RUTINA DE ESCRITURA EEPROM (ya comprobada)
+                      00500 ;=====================
+013C                  00501 ESCRIBIREEPROM
+                      00502     ; Cargar el dato a escribir
+013C   1283 1303      00503     BANKSEL PORTA
+013E   083B           00504     MOVF    REGDAT, W
+013F   1283 1703      00505     BANKSEL EEDATA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0141   008C           00506     MOVWF   EEDATA
+                      00507 
+                      00508     ; Cargar la dirección destino
+0142   1283 1303      00509     BANKSEL PORTA
+0144   083C           00510     MOVF    REGADR, W
+0145   1283 1703      00511     BANKSEL EEADR
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0147   008D           00512     MOVWF   EEADR
+                      00513 
+                      00514     ; Configurar para escribir en EEPROM de datos
+0148   1683 1703      00515     BANKSEL EECON1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+014A   138C           00516     BCF     EECON1, EEPGD      ; 0 = apunta a Data EEPROM
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+014B   150C           00517     BSF     EECON1, WREN       ; habilita escritura
+                      00518 
+                      00519     ; Deshabilitar interrupciones
+014C   138B           00520     BCF     INTCON, GIE
+014D                  00521 WAIT_GIE_CLEAR
+014D   1B8B           00522     BTFSC   INTCON, GIE        ; asegura que GIE=0 antes de continuar
+014E   294D           00523     GOTO    WAIT_GIE_CLEAR
+                      00524 
+                      00525     ; Secuencia obligatoria de desbloqueo (AN576)
+014F   3055           00526     MOVLW   0x55
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0150   008D           00527     MOVWF   EECON2
+0151   30AA           00528     MOVLW   0xAA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0152   008D           00529     MOVWF   EECON2
+                      00530 
+                      00531     ; Comienza la escritura
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0153   148C           00532     BSF     EECON1, WR
+                      00533 
+0154                  00534 WAIT_WRITE
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0154   188C           00535     BTFSC   EECON1, WR         ; espera hasta que WR=0
+0155   2954           00536     GOTO    WAIT_WRITE
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 12
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00531 
-                      00532         END
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 13
+                      00537 
+                      00538     ; Rehabilita interrupciones
+0156   178B           00539     BSF     INTCON, GIE
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0157   110C           00540     BCF     EECON1, WREN       ; desactiva permiso de escritura
+                      00541 
+0158   1283 1303      00542     BANKSEL PORTA
+015A   0008           00543     RETURN
+                      00544 
+                      00545 ;=====================
+                      00546 ; MOSTRAR EN LCD
+                      00547 ;=====================
+015B                  00548 MOSTRAR_LCD
+015B   1409           00549         BSF PORTE,0     ; RS=1 (datos)
+015C   1089           00550         BCF PORTE,1     ; RW=0
+                      00551 
+015D   226D           00552         CALL DESCOMPONERVALORES
+                      00553 
+                      00554         ; --- Mostrar "B:" ---
+015E   3042           00555         MOVLW 'B'
+015F   0088           00556         MOVWF PORTD
+0160   2074           00557         CALL ENABLE
+0161   303A           00558         MOVLW ':'
+0162   0088           00559         MOVWF PORTD
+0163   2074           00560         CALL ENABLE
+                      00561 
+                      00562 
+                      00563         ; --- Mostrar VAL1 ---
+0164   0836           00564         MOVF REGM1,W
+0165   2001           00565         CALL TABLA1
+0166   0088           00566         MOVWF PORTD
+0167   2074           00567         CALL ENABLE
+                      00568 
+0168   082A           00569         MOVF REGC1,W
+0169   2001           00570         CALL TABLA1
+016A   0088           00571         MOVWF PORTD
+016B   2074           00572         CALL ENABLE
+                      00573 
+016C   082B           00574         MOVF REGD1,W
+016D   2001           00575         CALL TABLA1
+016E   0088           00576         MOVWF PORTD
+016F   2074           00577         CALL ENABLE
+                      00578 
+0170   082C           00579         MOVF REGU1,W
+0171   2001           00580         CALL TABLA1
+0172   0088           00581         MOVWF PORTD
+0173   2074           00582         CALL ENABLE
+                      00583 
+                      00584         ; Espacio
+0174   3020           00585         MOVLW ' '
+0175   0088           00586         MOVWF PORTD
+0176   2074           00587         CALL ENABLE
+                      00588 
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00589         ; --- Mostrar "A:" ---
+0177   3041           00590         MOVLW 'A'
+0178   0088           00591         MOVWF PORTD
+0179   2074           00592         CALL ENABLE
+017A   303A           00593         MOVLW ':'
+017B   0088           00594         MOVWF PORTD
+017C   2074           00595         CALL ENABLE
+                      00596 
+                      00597         ; --- Mostrar VAL2 ---
+017D   0837           00598         MOVF REGM2,W
+017E   2001           00599         CALL TABLA1
+017F   0088           00600         MOVWF PORTD
+0180   2074           00601         CALL ENABLE
+                      00602 
+0181   082D           00603         MOVF REGC2,W
+0182   2001           00604         CALL TABLA1
+0183   0088           00605         MOVWF PORTD
+0184   2074           00606         CALL ENABLE
+                      00607 
+0185   082E           00608         MOVF REGD2,W
+0186   2001           00609         CALL TABLA1
+0187   0088           00610         MOVWF PORTD
+0188   2074           00611         CALL ENABLE
+                      00612 
+0189   082F           00613         MOVF REGU2,W
+018A   2001           00614         CALL TABLA1
+018B   0088           00615         MOVWF PORTD
+018C   2074           00616         CALL ENABLE
+                      00617 
+018D   218F           00618         CALL LIMPIO
+                      00619 
+018E   0008           00620         RETURN
+                      00621 
+018F                  00622 LIMPIO
+018F   21F5           00623         CALL TIEMPO
+Warning[207]: Found label after column 1. (LCD_CONFIG2)
+0190                  00624         LCD_CONFIG2
+0190   1089           00625                 BCF PORTE,1;RS
+0191   1009           00626                 BCF PORTE,0;RW
+Warning[207]: Found label after column 1. (COMANDOB)
+0192                  00627         COMANDOB
+0192   3002           00628                 MOVLW B'0000010';b'00000001' para borrar en vez de escribir
+0193   0088           00629                 MOVWF PORTD
+0194   2074           00630                 CALL ENABLE
+                      00631 
+0195   0008           00632         RETURN
+                      00633 
+                      00634 ;=====================
+                      00635 ; MOSTRAR EN LCD EL SENSOR
+                      00636 ;=====================
+0196                  00637 MOSTRAR_LCD_SENSOR
+0196   1409           00638         BSF PORTE,0     ; RS=1 (datos)
+0197   1089           00639         BCF PORTE,1     ; RW=0
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 14
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00640 
+0198   228C           00641         CALL DESCOMPONERVALORESSENSOR
+                      00642 
+                      00643         ; --- Mostrar "B:" ---
+0199   3042           00644         MOVLW 'B'
+019A   0088           00645         MOVWF PORTD
+019B   2074           00646         CALL ENABLE
+019C   303A           00647         MOVLW ':'
+019D   0088           00648         MOVWF PORTD
+019E   2074           00649         CALL ENABLE
+                      00650 
+                      00651         ; --- Mostrar VAL1 ---
+019F   0836           00652         MOVF REGM1,W
+01A0   2001           00653         CALL TABLA1
+01A1   0088           00654         MOVWF PORTD
+01A2   2074           00655         CALL ENABLE
+                      00656 
+01A3   082A           00657         MOVF REGC1,W
+01A4   2001           00658         CALL TABLA1
+01A5   0088           00659         MOVWF PORTD
+01A6   2074           00660         CALL ENABLE
+                      00661 
+01A7   082B           00662         MOVF REGD1,W
+01A8   2001           00663         CALL TABLA1
+01A9   0088           00664         MOVWF PORTD
+01AA   2074           00665         CALL ENABLE
+                      00666 
+01AB   082C           00667         MOVF REGU1,W
+01AC   2001           00668         CALL TABLA1
+01AD   0088           00669         MOVWF PORTD
+01AE   2074           00670         CALL ENABLE
+                      00671 
+                      00672         ; Espacio
+01AF   3020           00673         MOVLW ' '
+01B0   0088           00674         MOVWF PORTD
+01B1   2074           00675         CALL ENABLE
+                      00676 
+                      00677         ; --- Mostrar "A:" ---
+01B2   3041           00678         MOVLW 'A'
+01B3   0088           00679         MOVWF PORTD
+01B4   2074           00680         CALL ENABLE
+01B5   303A           00681         MOVLW ':'
+01B6   0088           00682         MOVWF PORTD
+01B7   2074           00683         CALL ENABLE
+                      00684 
+                      00685         ; --- Mostrar VAL2 ---
+01B8   0837           00686         MOVF REGM2,W
+01B9   2001           00687         CALL TABLA1
+01BA   0088           00688         MOVWF PORTD
+01BB   2074           00689         CALL ENABLE
+                      00690 
+01BC   082D           00691         MOVF REGC2,W
+01BD   2001           00692         CALL TABLA1
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 15
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01BE   0088           00693         MOVWF PORTD
+01BF   2074           00694         CALL ENABLE
+                      00695 
+01C0   082E           00696         MOVF REGD2,W
+01C1   2001           00697         CALL TABLA1
+01C2   0088           00698         MOVWF PORTD
+01C3   2074           00699         CALL ENABLE
+                      00700 
+01C4   082F           00701         MOVF REGU2,W
+01C5   2001           00702         CALL TABLA1
+01C6   0088           00703         MOVWF PORTD
+01C7   2074           00704         CALL ENABLE
+                      00705 
+                      00706         ;=====================
+                      00707         ; AHORA ESCRIBIR EN SEGUNDA LÍNEA
+                      00708         ;=====================
+                      00709 
+                      00710         ; Modo instrucción (RS=0, RW=0)
+01C8   1009           00711         BCF PORTE,0     
+01C9   1089           00712         BCF PORTE,1     
+                      00713 
+                      00714         ; Dirección de la segunda línea (0xC0)
+01CA   30C0           00715         MOVLW 0xC0
+01CB   0088           00716         MOVWF PORTD
+01CC   2074           00717         CALL ENABLE
+                      00718 
+                      00719         ; Modo datos otra vez (RS=1)
+01CD   1409           00720         BSF PORTE,0     
+                      00721 
+                      00722         ; --- Escribir "SENSOR" ---
+01CE   3053           00723         MOVLW 'S'
+01CF   0088           00724         MOVWF PORTD
+01D0   2074           00725         CALL ENABLE
+01D1   3045           00726         MOVLW 'E'
+01D2   0088           00727         MOVWF PORTD
+01D3   2074           00728         CALL ENABLE
+01D4   304E           00729         MOVLW 'N'
+01D5   0088           00730         MOVWF PORTD
+01D6   2074           00731         CALL ENABLE
+01D7   3053           00732         MOVLW 'S'
+01D8   0088           00733         MOVWF PORTD
+01D9   2074           00734         CALL ENABLE
+01DA   304F           00735         MOVLW 'O'
+01DB   0088           00736         MOVWF PORTD
+01DC   2074           00737         CALL ENABLE
+01DD   3052           00738         MOVLW 'R'
+01DE   0088           00739         MOVWF PORTD
+01DF   2074           00740         CALL ENABLE
+01E0   303A           00741         MOVLW ':'
+01E1   0088           00742         MOVWF PORTD
+01E2   2074           00743         CALL ENABLE
+                      00744         ; --- Mostrar VAL3 ---
+01E3   083D           00745         MOVF REGM3,W
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 16
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01E4   2001           00746         CALL TABLA1
+01E5   0088           00747         MOVWF PORTD
+01E6   2074           00748         CALL ENABLE
+                      00749 
+01E7   083E           00750         MOVF REGC3,W
+01E8   2001           00751         CALL TABLA1
+01E9   0088           00752         MOVWF PORTD
+01EA   2074           00753         CALL ENABLE
+                      00754 
+01EB   083F           00755         MOVF REGD3,W
+01EC   2001           00756         CALL TABLA1
+01ED   0088           00757         MOVWF PORTD
+01EE   2074           00758         CALL ENABLE
+                      00759 
+01EF   0840           00760         MOVF REGU3,W
+01F0   2001           00761         CALL TABLA1
+01F1   0088           00762         MOVWF PORTD
+01F2   2074           00763         CALL ENABLE
+                      00764 
+                      00765 
+01F3   218F           00766         CALL LIMPIO
+                      00767 
+01F4   0008           00768         RETURN
+                      00769 
+01F5                  00770 TIEMPO
+01F5   3003           00771         MOVLW .3
+01F6   00A2           00772         MOVWF REG1
+01F7   301A           00773         MOVLW .26
+01F8   00A3           00774         MOVWF REG2
+01F9   30FF           00775         MOVLW .255
+01FA   00A4           00776         MOVWF REG3
+Message[305]: Using default destination of 1 (file).
+01FB   0BA4           00777         DECFSZ REG3
+01FC   29FB           00778         GOTO $-.1
+Message[305]: Using default destination of 1 (file).
+01FD   0BA3           00779         DECFSZ REG2
+01FE   29F9           00780         GOTO $-.5
+Message[305]: Using default destination of 1 (file).
+01FF   0BA2           00781         DECFSZ REG1
+0200   29F8           00782         GOTO $-.8
+0201   0008           00783         RETURN
+                      00784 
+0202                  00785 DESCOMP
+0202   01B1           00786         CLRF REGC
+0203   01B2           00787         CLRF REGD
+0204   01B3           00788         CLRF REGU
+0205   01B0           00789         CLRF REGM
+                      00790 
+0206                  00791 CENTENA 
+0206   3064           00792         MOVLW .100
+0207   02A7           00793         SUBWF REGSL,F
+0208   1803           00794         BTFSC STATUS,C
+0209   2A0C           00795         GOTO $+.3
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 17
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Message[305]: Using default destination of 1 (file).
+020A   07A7           00796         ADDWF REGSL
+020B   2A0E           00797         GOTO DECENA
+020C   0AB1           00798         INCF REGC,F
+020D   2A07           00799         GOTO $-.6
+                      00800 
+020E                  00801 DECENA
+020E   300A           00802         MOVLW .10
+020F   02A7           00803         SUBWF REGSL,F
+0210   1803           00804         BTFSC STATUS,C
+0211   2A14           00805         GOTO $+.3
+Message[305]: Using default destination of 1 (file).
+0212   07A7           00806         ADDWF REGSL
+0213   2A16           00807         GOTO UNIDAD
+0214   0AB2           00808         INCF REGD,F
+0215   2A0F           00809         GOTO $-.6
+                      00810 
+0216                  00811 UNIDAD
+0216   3001           00812         MOVLW .1
+0217   02A7           00813         SUBWF REGSL,F
+0218   1803           00814         BTFSC STATUS,C
+0219   2A1C           00815         GOTO $+.3
+Message[305]: Using default destination of 1 (file).
+021A   07A7           00816         ADDWF REGSL
+021B   0008           00817         RETURN
+021C   0AB3           00818         INCF REGU,F
+021D   2A17           00819         GOTO $-.6
+                      00820 
+021E                  00821 REVCAS
+021E   3000           00822         MOVLW .0
+021F   0628           00823         XORWF REGSH,W ;PREGUNTO "REGSH == 0?"
+0220   1903           00824         BTFSC STATUS,Z;EN CASO DE SER IGUALES ENTRA EN CAS0
+0221   2A2F           00825         GOTO CAS0
+                      00826         
+0222   3001           00827         MOVLW .1
+0223   0628           00828         XORWF REGSH,W
+0224   1903           00829         BTFSC STATUS,Z
+0225   2A36           00830         GOTO CAS1
+                      00831 
+0226   3002           00832         MOVLW .2
+0227   0628           00833         XORWF REGSH,W
+0228   1903           00834         BTFSC STATUS,Z
+0229   2A3D           00835         GOTO CAS2
+                      00836         
+022A   3003           00837         MOVLW .3
+022B   0628           00838         XORWF REGSH,W
+022C   1903           00839         BTFSC STATUS,Z
+022D   2A44           00840         GOTO CAS3
+Warning[203]: Found opcode in column 1. (RETURN)
+022E   0008           00841 RETURN
+                      00842                 
+                      00843 ;################# CASOS DE REGSH ##########    
+                      00844 ;####  sumo las literales correspondientes en los Ru Rd Rc 
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 18
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+022F                  00845 CAS0
+                      00846 
+022F   3000           00847         MOVLW .0
+0230   07B3           00848         ADDWF REGU,F
+                      00849 
+0231   3000           00850         MOVLW .0
+0232   07B2           00851         ADDWF REGD,F
+                      00852 
+0233   3000           00853         MOVLW .0
+0234   07B1           00854         ADDWF REGC,F
+                      00855 
+Warning[203]: Found opcode in column 1. (RETURN)
+0235   0008           00856 RETURN
+                      00857 
+0236                  00858 CAS1
+0236   3006           00859         MOVLW .6
+0237   07B3           00860         ADDWF REGU,F
+                      00861 
+0238   3005           00862         MOVLW .5
+0239   07B2           00863         ADDWF REGD,F
+                      00864 
+023A   3002           00865         MOVLW .2
+023B   07B1           00866         ADDWF REGC,F
+                      00867 
+Warning[203]: Found opcode in column 1. (RETURN)
+023C   0008           00868 RETURN
+                      00869 
+023D                  00870 CAS2
+023D   3002           00871         MOVLW .2
+023E   07B3           00872         ADDWF REGU,F
+                      00873 
+023F   3001           00874         MOVLW .1
+0240   07B2           00875         ADDWF REGD,F
+                      00876 
+0241   3005           00877         MOVLW .5
+0242   07B1           00878         ADDWF REGC,F
+                      00879 
+Warning[203]: Found opcode in column 1. (RETURN)
+0243   0008           00880 RETURN
+                      00881 
+0244                  00882 CAS3
+0244   3008           00883         MOVLW .8
+0245   07B3           00884         ADDWF REGU,F
+                      00885 
+0246   3006           00886         MOVLW .6
+0247   07B2           00887         ADDWF REGD,F
+                      00888 
+0248   3007           00889         MOVLW .7
+0249   07B1           00890         ADDWF REGC,F
+                      00891 
+Warning[203]: Found opcode in column 1. (RETURN)
+024A   0008           00892 RETURN 
+                      00893 
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 19
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00894 ;##################### REPARO VALORES < 9 #########
+024B                  00895 ARREGLO
+024B   30F6           00896         MOVLW .246 ;cargo el acumulador para carry si se le suma =< 10
+024C   0733           00897         ADDWF REGU,W;sumo el contenido del registro al acumulador
+024D   1803           00898         BTFSC STATUS,C;pregunto si ocurre acarreo, si ocurre, call correxu
+024E   2258           00899         CALL CORREXU
+                      00900         
+024F   30F6           00901         MOVLW .246
+0250   0732           00902         ADDWF REGD,W
+0251   1803           00903         BTFSC STATUS,C
+0252   225D           00904         CALL CORREXD
+                      00905         
+0253   30F6           00906         MOVLW .246
+0254   0731           00907         ADDWF REGC,W
+0255   1803           00908         BTFSC STATUS,C
+0256   2262           00909         CALL CORREXC
+                      00910         
+Warning[203]: Found opcode in column 1. (RETURN)
+0257   0008           00911 RETURN
+                      00912 ;###################### CORRECTORES
+                      00913 ;## muevo 10 al acumulador y proximamente le resto la literal al registro registro
+                      00914 ;## remplazo el valor del registro con el resultado de la resta 
+                      00915 ;## Cargo la literal "1" al workfile y la sumo al registro siguiente
+0258                  00916 CORREXU
+0258   300A           00917         MOVLW .10
+0259   02B3           00918         SUBWF REGU,F
+025A   3001           00919         MOVLW .1
+025B   07B2           00920         ADDWF REGD,F
+Warning[203]: Found opcode in column 1. (RETURN)
+025C   0008           00921 RETURN
+                      00922 
+025D                  00923 CORREXD
+025D   300A           00924         MOVLW .10
+025E   02B2           00925         SUBWF REGD,F
+025F   3001           00926         MOVLW .1
+0260   07B1           00927         ADDWF REGC,F
+Warning[203]: Found opcode in column 1. (RETURN)
+0261   0008           00928 RETURN
+                      00929 
+0262                  00930 CORREXC
+0262   300A           00931         MOVLW .10
+0263   02B1           00932         SUBWF REGC,F
+0264   3001           00933         MOVLW .1
+0265   07B0           00934         ADDWF REGM,F ;Añade 1 al RegMillares
+Warning[203]: Found opcode in column 1. (RETURN)
+0266   0008           00935 RETURN
+                      00936 
+0267                  00937 DELAY_ADC
+0267   3019           00938     MOVLW .25       ; 25 ciclos aprox = 25 µs a 4 MHz
+0268   00B8           00939     MOVWF REG6
+0269                  00940 ESPERA_ADC
+0269   0000           00941     NOP
+026A   0BB8           00942     DECFSZ REG6,F
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 20
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+026B   2A69           00943     GOTO ESPERA_ADC
+026C   0008           00944     RETURN
+                      00945 
+026D                  00946 DESCOMPONERVALORES
+                      00947 ; --- Descomponer VAL1 ---
+026D   0820           00948         MOVF POT1L,W
+026E   00A7           00949         MOVWF REGSL
+026F   0821           00950         MOVF POT1H,W
+0270   00A8           00951         MOVWF REGSH
+0271   2202           00952         CALL DESCOMP
+0272   221E           00953         CALL REVCAS
+0273   224B           00954         CALL ARREGLO
+                      00955 
+                      00956 
+                      00957         ; Copiar resultados
+0274   0830           00958         MOVF REGM,W
+0275   00B6           00959         MOVWF REGM1
+0276   0831           00960         MOVF REGC,W
+0277   00AA           00961         MOVWF REGC1
+0278   0832           00962         MOVF REGD,W
+0279   00AB           00963         MOVWF REGD1
+027A   0833           00964         MOVF REGU,W
+027B   00AC           00965         MOVWF REGU1
+                      00966 
+                      00967         ; --- Descomponer VAL2 ---
+027C   0835           00968         MOVF POT2L,W
+027D   00A7           00969         MOVWF REGSL
+027E   0834           00970         MOVF POT2H,W
+027F   00A8           00971         MOVWF REGSH
+0280   2202           00972         CALL DESCOMP
+0281   221E           00973         CALL REVCAS
+0282   224B           00974         CALL ARREGLO
+                      00975 
+                      00976 
+                      00977         ; Copiar resultados
+0283   0830           00978         MOVF REGM,W
+0284   00B7           00979         MOVWF REGM2
+0285   0831           00980         MOVF REGC,W
+0286   00AD           00981         MOVWF REGC2
+0287   0832           00982         MOVF REGD,W
+0288   00AE           00983         MOVWF REGD2
+0289   0833           00984         MOVF REGU,W
+028A   00AF           00985         MOVWF REGU2
+028B   0008           00986         RETURN
+                      00987 
+028C                  00988 DESCOMPONERVALORESSENSOR
+                      00989 ; --- Descomponer VAL1 ---
+028C   0820           00990         MOVF POT1L,W
+028D   00A7           00991         MOVWF REGSL
+028E   0821           00992         MOVF POT1H,W
+028F   00A8           00993         MOVWF REGSH
+0290   2202           00994         CALL DESCOMP
+0291   221E           00995         CALL REVCAS
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 21
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0292   224B           00996         CALL ARREGLO
+                      00997 
+                      00998 
+                      00999         ; Copiar resultados
+0293   0830           01000         MOVF REGM,W
+0294   00B6           01001         MOVWF REGM1
+0295   0831           01002         MOVF REGC,W
+0296   00AA           01003         MOVWF REGC1
+0297   0832           01004         MOVF REGD,W
+0298   00AB           01005         MOVWF REGD1
+0299   0833           01006         MOVF REGU,W
+029A   00AC           01007         MOVWF REGU1
+                      01008 
+                      01009         ; --- Descomponer VAL2 ---
+029B   0835           01010         MOVF POT2L,W
+029C   00A7           01011         MOVWF REGSL
+029D   0834           01012         MOVF POT2H,W
+029E   00A8           01013         MOVWF REGSH
+029F   2202           01014         CALL DESCOMP
+02A0   221E           01015         CALL REVCAS
+02A1   224B           01016         CALL ARREGLO
+                      01017 
+                      01018 
+                      01019         ; Copiar resultados
+02A2   0830           01020         MOVF REGM,W
+02A3   00B7           01021         MOVWF REGM2
+02A4   0831           01022         MOVF REGC,W
+02A5   00AD           01023         MOVWF REGC2
+02A6   0832           01024         MOVF REGD,W
+02A7   00AE           01025         MOVWF REGD2
+02A8   0833           01026         MOVF REGU,W
+02A9   00AF           01027         MOVWF REGU2 
+                      01028 
+                      01029 ; --- Descomponer VAL3 ---
+02AA   0839           01030         MOVF POT3L,W
+02AB   00A7           01031         MOVWF REGSL
+02AC   083A           01032         MOVF POT3H,W
+02AD   00A8           01033         MOVWF REGSH
+02AE   2202           01034         CALL DESCOMP
+02AF   221E           01035         CALL REVCAS
+02B0   224B           01036         CALL ARREGLO
+                      01037 
+                      01038 
+                      01039         ; Copiar resultados
+02B1   0830           01040         MOVF REGM,W
+02B2   00BD           01041         MOVWF REGM3
+02B3   0831           01042         MOVF REGC,W
+02B4   00BE           01043         MOVWF REGC3
+02B5   0832           01044         MOVF REGD,W
+02B6   00BF           01045         MOVWF REGD3
+02B7   0833           01046         MOVF REGU,W
+02B8   00C0           01047         MOVWF REGU3
+                      01048 
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 22
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+02B9   0008           01049         RETURN
+                      01050 
+                      01051 
+                      01052 
+                      01053         END
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 23
 
 
 SYMBOL TABLE
@@ -666,6 +1259,7 @@ ABDOVF                            00000007
 ACKDT                             00000005
 ACKEN                             00000004
 ACKSTAT                           00000006
+ACTUALIZAR_PWM                    000000F7
 ADCON0                            0000001F
 ADCON1                            0000009F
 ADCS0                             00000006
@@ -693,7 +1287,7 @@ ANS8                              00000000
 ANS9                              00000001
 ANSEL                             00000188
 ANSELH                            00000189
-ARREGLO                           00000143
+ARREGLO                           0000024B
 BAUDCTL                           00000187
 BCLIE                             00000003
 BCLIF                             00000003
@@ -713,13 +1307,13 @@ BRG4                              00000004
 BRG5                              00000005
 BRG6                              00000006
 BRG7                              00000007
-BRG8                              00000000
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 14
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 24
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+BRG8                              00000000
 BRG9                              00000001
 BRGH                              00000002
 C                                 00000000
@@ -746,10 +1340,11 @@ C2R                               00000002
 C2REN                             00000004
 C2RSEL                            00000004
 C2SYNC                            00000000
-CAS0                              00000127
-CAS1                              0000012E
-CAS2                              00000135
-CAS3                              0000013C
+CALC_PWM                          0000010B
+CAS0                              0000022F
+CAS1                              00000236
+CAS2                              0000023D
+CAS3                              00000244
 CCP1CON                           00000017
 CCP1IE                            00000002
 CCP1IF                            00000002
@@ -771,16 +1366,18 @@ CCP2Y                             00000004
 CCPR1                             00000015
 CCPR1H                            00000016
 CCPR1L                            00000015
-CCPR2                             0000001B
-CCPR2H                            0000001C
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 15
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 25
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+CCPR2                             0000001B
+CCPR2H                            0000001C
 CCPR2L                            0000001B
-CENTENA                           000000FE
+CENTENA                           00000206
+CHECK_HIGH                        000000E8
+CHECK_LOW_L                       00000101
 CHS0                              00000002
 CHS1                              00000003
 CHS2                              00000004
@@ -790,15 +1387,16 @@ CKP                               00000004
 CM1CON0                           00000107
 CM2CON0                           00000108
 CM2CON1                           00000109
-COMANDO1                          00000015
-COMANDO2                          00000012
-COMANDO3                          0000000F
-COMANDO4                          00000019
-COMANDO5                          0000001F
-COMANDOB                          000000E9
-CORREXC                           0000015A
-CORREXD                           00000155
-CORREXU                           00000150
+COMANDO1                          00000064
+COMANDO2                          00000061
+COMANDO3                          0000005E
+COMANDO4                          00000068
+COMANDO5                          0000006E
+COMANDOB                          00000192
+COMPARAR_POT3_CON_EEPROM          000000DE
+CORREXC                           00000262
+CORREXD                           0000025D
+CORREXU                           00000258
 CREN                              00000004
 CSRC                              00000007
 D                                 00000005
@@ -808,9 +1406,11 @@ DC1B0                             00000004
 DC1B1                             00000005
 DC2B0                             00000004
 DC2B1                             00000005
-DECENA                            00000106
-DELAY_ADC                         0000015F
-DESCOMP                           000000FA
+DECENA                            0000020E
+DELAY_ADC                         00000267
+DESCOMP                           00000202
+DESCOMPONERVALORES                0000026D
+DESCOMPONERVALORESSENSOR          0000028C
 D_A                               00000005
 D_NOT_A                           00000005
 ECCPAS                            0000009C
@@ -825,21 +1425,23 @@ EECON2                            0000018D
 EEDAT                             0000010C
 EEDATA                            0000010C
 EEDATH                            0000010E
-EEIE                              00000004
-EEIF                              00000004
-EEPGD                             00000007
-ENABLE                            00000025
-ESCRIBIR                          00000089
-ESPERA1                           0000004B
-ESPERA2                           0000005B
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 16
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 26
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-ESPERA_ADC                        00000161
-ESPERA_WR                         00000091
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+ENABLE                            00000074
+END_COMPARE                       000000F2
+END_PWM                           00000126
+ESCRIBIREEPROM                    0000013C
+ESPERA1                           000000AF
+ESPERA2                           000000BF
+ESPERA3                           000000CF
+ESPERA_ADC                        00000269
 F                                 00000001
 FERR                              00000002
 FSR                               00000004
@@ -849,14 +1451,14 @@ GIE                               00000007
 GO                                00000001
 GO_DONE                           00000001
 GO_NOT_DONE                       00000001
-GUARDAR_EEPROM                    00000087
+GUARDAR_EEPROM                    00000127
 HTS                               00000002
 I2C_DATA                          00000005
 I2C_READ                          00000002
 I2C_START                         00000003
 I2C_STOP                          00000004
 INDF                              00000000
-INICIO                            0000006A
+INICIO                            0000000D
 INTCON                            0000000B
 INTE                              00000004
 INTEDG                            00000006
@@ -874,15 +1476,27 @@ IRCF0                             00000004
 IRCF1                             00000005
 IRCF2                             00000006
 IRP                               00000007
-LCD_CONFIG2                       000000E7
-LCD_INIT                          0000000D
-LEER_POT1                         0000004A
-LEER_POT2                         0000005A
-LIMPIO                            000000E6
+LCD_CONFIG2                       00000190
+LCD_INIT                          0000005C
+LEEREEPROM                        00000042
+LEER_POT1                         000000AE
+LEER_POT2                         000000BE
+LEER_POT3                         000000CE
+LEER_UMBRALES                     0000002D
+LIMPIO                            0000018F
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 27
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 LTS                               00000001
 MC1OUT                            00000007
 MC2OUT                            00000006
-MOSTRAR_LCD                       00000095
+MOSTRAR_LCD                       0000015B
+MOSTRAR_LCD_SENSOR                00000196
+MOTOR_OFF                         000000F5
+MOTOR_ON                          000000F3
 MSK                               00000093
 MSK0                              00000000
 MSK1                              00000001
@@ -891,12 +1505,6 @@ MSK3                              00000003
 MSK4                              00000004
 MSK5                              00000005
 MSK6                              00000006
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 17
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 MSK7                              00000007
 NOT_A                             00000005
 NOT_ADDRESS                       00000005
@@ -935,6 +1543,12 @@ PDC6                              00000006
 PEIE                              00000006
 PEN                               00000002
 PIE1                              0000008C
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 28
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PIE2                              0000008D
 PIR1                              0000000C
 PIR2                              0000000D
@@ -947,15 +1561,11 @@ POT1H                             00000021
 POT1L                             00000020
 POT2H                             00000034
 POT2L                             00000035
+POT3H                             0000003A
+POT3L                             00000039
 PR2                               00000092
-PRINCIPAL                         00000076
+PRINCIPAL                         0000001C
 PRSEN                             00000007
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 18
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PS0                               00000000
 PS1                               00000001
 PS2                               00000002
@@ -968,6 +1578,8 @@ PSTRCON                           0000009D
 PULSR                             00000002
 PULSS                             00000003
 PWM1CON                           0000009B
+PWM_MAX                           00000122
+PWM_ZERO                          00000125
 R                                 00000002
 RA0                               00000000
 RA1                               00000001
@@ -990,6 +1602,12 @@ RBIF                              00000000
 RC0                               00000000
 RC1                               00000001
 RC2                               00000002
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 29
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 RC3                               00000003
 RC4                               00000004
 RC5                               00000005
@@ -1009,12 +1627,6 @@ RD0                               00000000
 RD1                               00000001
 RD2                               00000002
 RD3                               00000003
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 19
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 RD4                               00000004
 RD5                               00000005
 RD6                               00000006
@@ -1030,24 +1642,37 @@ REG3                              00000024
 REG4                              00000025
 REG5                              00000026
 REG6                              00000038
+REGADR                            0000003C
 REGC                              00000031
 REGC1                             0000002A
 REGC2                             0000002D
+REGC3                             0000003E
 REGD                              00000032
 REGD1                             0000002B
 REGD2                             0000002E
+REGD3                             0000003F
+REGDAT                            0000003B
 REGM                              00000030
 REGM1                             00000036
 REGM2                             00000037
+REGM3                             0000003D
 REGSH                             00000028
 REGSL                             00000027
 REGU                              00000033
 REGU1                             0000002C
 REGU2                             0000002F
-REVCAS                            00000116
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 30
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+REGU3                             00000040
+REVCAS                            0000021E
 RP0                               00000005
 RP1                               00000006
 RSEN                              00000001
+RUTINA                            00000053
 RX9                               00000006
 RX9D                              00000000
 R_NOT_W                           00000002
@@ -1058,8 +1683,9 @@ SCKP                              00000004
 SCS                               00000000
 SEN                               00000000
 SENDB                             00000003
-SETUP_ADC                         00000032
-SIGO2                             0000002B
+SETUP_ADC                         00000081
+SETUP_PWM                         0000009B
+SIGO2                             0000007A
 SMP                               00000007
 SPBRG                             00000099
 SPBRGH                            0000009A
@@ -1068,12 +1694,6 @@ SR0                               00000006
 SR1                               00000007
 SRCON                             00000185
 SREN                              00000005
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 20
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 SSPADD                            00000093
 SSPBUF                            00000013
 SSPCON                            00000014
@@ -1100,6 +1720,12 @@ T0CS                              00000005
 T0IE                              00000005
 T0IF                              00000002
 T0SE                              00000004
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 31
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 T1CKPS0                           00000004
 T1CKPS1                           00000005
 T1CON                             00000010
@@ -1113,8 +1739,8 @@ T2CKPS0                           00000000
 T2CKPS1                           00000001
 T2CON                             00000012
 TABLA1                            00000001
-TIEMPO                            000000ED
-TIEMPO2                           00000029
+TIEMPO                            000001F5
+TIEMPO2                           00000078
 TMR0                              00000001
 TMR0IE                            00000005
 TMR0IF                            00000002
@@ -1127,12 +1753,6 @@ TMR1IF                            00000000
 TMR1L                             0000000E
 TMR1ON                            00000000
 TMR2                              00000011
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 21
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 TMR2IE                            00000001
 TMR2IF                            00000001
 TMR2ON                            00000002
@@ -1159,6 +1779,12 @@ TRISB5                            00000005
 TRISB6                            00000006
 TRISB7                            00000007
 TRISC                             00000087
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 32
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 TRISC0                            00000000
 TRISC1                            00000001
 TRISC2                            00000002
@@ -1186,12 +1812,6 @@ TUN0                              00000000
 TUN1                              00000001
 TUN2                              00000002
 TUN3                              00000003
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 22
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 TUN4                              00000004
 TX8_9                             00000006
 TX9                               00000006
@@ -1206,7 +1826,7 @@ UA                                00000001
 ULPWUE                            00000005
 ULPWUIE                           00000002
 ULPWUIF                           00000002
-UNIDAD                            0000010E
+UNIDAD                            00000216
 VCFG0                             00000004
 VCFG1                             00000005
 VR0                               00000000
@@ -1218,7 +1838,15 @@ VREN                              00000007
 VROE                              00000006
 VRR                               00000005
 VRSS                              00000004
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 33
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 W                                 00000000
+WAIT_GIE_CLEAR                    0000014D
+WAIT_WRITE                        00000154
 WCOL                              00000007
 WDTCON                            00000105
 WDTPS0                            00000001
@@ -1245,12 +1873,6 @@ _BOR4V_BOR21V                     00003EFF
 _BOR4V_BOR40V                     00003FFF
 _BOREN_NSLEEP                     00003EFF
 _BOREN_OFF                        00003CFF
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 23
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 _BOREN_ON                         00003FFF
 _BOREN_SBODEN                     00003DFF
 _BOR_NSLEEP                       00003EFF
@@ -1275,6 +1897,12 @@ _FCMEN_OFF                        000037FF
 _FCMEN_ON                         00003FFF
 _FOSC_EC                          00003FFB
 _FOSC_EXTRC_CLKOUT                00003FFF
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 34
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 _FOSC_EXTRC_NOCLKOUT              00003FFE
 _FOSC_HS                          00003FFA
 _FOSC_INTRC_CLKOUT                00003FFD
@@ -1304,12 +1932,6 @@ _WDTE_ON                          00003FFF
 _WDT_OFF                          00003FF7
 _WDT_ON                           00003FFF
 _WRT_1FOURTH                      00003BFF
-MPASM  5.51                 PROYECTOFINAL.ASM   10-13-2025  1:09:04         PAGE 24
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 _WRT_256                          00003DFF
 _WRT_HALF                         000039FF
 _WRT_OFF                          00003FFF
@@ -1325,17 +1947,28 @@ MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
 0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0100 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
-0140 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXX----------- ----------------
+0140 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0180 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+MPASM  5.51                 PROYECTOFINAL.ASM   10-14-2025  15:20:47         PAGE 35
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+
+01C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0200 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0240 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0280 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXX------
 2000 : -------XX------- ---------------- ---------------- ----------------
 
 All other memory blocks unused.
 
-Program Memory Words Used:   357
-Program Memory Words Free:  7835
+Program Memory Words Used:   698
+Program Memory Words Free:  7494
 
 
 Errors   :     0
-Warnings :    15 reported,     0 suppressed
-Messages :    29 reported,     0 suppressed
+Warnings :    14 reported,     0 suppressed
+Messages :    42 reported,     0 suppressed
 
 

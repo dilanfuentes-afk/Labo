@@ -1,44 +1,56 @@
-Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 52 : Found opcode in column 1. (RETURN)
-Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 73 : Found opcode in column 1. (RETURN)
-Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 101 : Using default destination of 1 (file).
-Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 103 : Using default destination of 1 (file).
-Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 106 : Found opcode in column 1. (RETURN)
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 113 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 114 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 115 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 116 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 119 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 120 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 121 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 122 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 123 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 127 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 142 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 157 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 172 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 173 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 174 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 218 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 220 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 222 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 223 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 225 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 227 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[207] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 346 : Found label after column 1. (LCD_CONFIG2)
-Warning[207] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 349 : Found label after column 1. (COMANDOB)
-Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 354 : Found opcode in column 1. (RETURN)
-Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 363 : Using default destination of 1 (file).
-Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 365 : Using default destination of 1 (file).
-Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 367 : Using default destination of 1 (file).
-Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 382 : Using default destination of 1 (file).
-Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 392 : Using default destination of 1 (file).
-Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 402 : Using default destination of 1 (file).
-Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 427 : Found opcode in column 1. (RETURN)
-Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 442 : Found opcode in column 1. (RETURN)
-Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 454 : Found opcode in column 1. (RETURN)
-Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 466 : Found opcode in column 1. (RETURN)
-Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 478 : Found opcode in column 1. (RETURN)
-Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 497 : Found opcode in column 1. (RETURN)
-Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 507 : Found opcode in column 1. (RETURN)
-Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 514 : Found opcode in column 1. (RETURN)
-Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 521 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 60 : Found opcode in column 1. (RETURN)
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 67 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 68 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 69 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 70 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 147 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 151 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 152 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 156 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 196 : Found opcode in column 1. (RETURN)
+Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 224 : Using default destination of 1 (file).
+Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 226 : Using default destination of 1 (file).
+Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 229 : Found opcode in column 1. (RETURN)
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 236 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 237 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 238 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 239 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 240 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 243 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 244 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 245 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 246 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 247 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 248 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 252 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 266 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 270 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 296 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 311 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 326 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 506 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 512 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 516 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 517 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 527 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 529 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 532 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 535 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 540 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 624 : Found label after column 1. (LCD_CONFIG2)
+Warning[207] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 627 : Found label after column 1. (COMANDOB)
+Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 777 : Using default destination of 1 (file).
+Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 779 : Using default destination of 1 (file).
+Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 781 : Using default destination of 1 (file).
+Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 796 : Using default destination of 1 (file).
+Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 806 : Using default destination of 1 (file).
+Message[305] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 816 : Using default destination of 1 (file).
+Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 841 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 856 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 868 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 880 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 892 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 911 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 921 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 928 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\DILAN\ONEDRIVE\ESCRITORIO\LABO\PROYECTO FINAL\PROYECTOFINAL.ASM 935 : Found opcode in column 1. (RETURN)

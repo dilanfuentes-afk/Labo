@@ -1,5 +1,5 @@
 ;=====================
-; EEPROM + 2 POTENCIOMETROS + LCD (PORTD y PORTE)
+; EEPROM + 2 POTENCIOMETROS + LCD (PORTD y PORTE) (MAS ORDENADO)
 ;=====================
 
     #INCLUDE "P16F887.INC"
@@ -8,36 +8,44 @@
     __CONFIG _CONFIG2, _BOR21V
 
 ;===== REGISTROS =====
-POT1L      EQU 0x20
-POT1H      EQU 0x21
-REG1      EQU 0x22
-REG2     EQU 0x23  
-REG3     EQU 0x24  
-REG4     EQU 0x25
-REG5      EQU 0X26
-REGSL	  EQU 0X27
-REGSH     EQU 0X28
-REGC1 EQU 0X2A
-REGD1 EQU 0X2B
-REGU1 EQU 0X2C
-REGC2 EQU 0X2D
-REGD2 EQU 0X2E
-REGU2 EQU 0X2F
-REGM  EQU 0X30
-REGC  EQU 0X31
-REGD  EQU 0X32
-REGU  EQU 0X33
-POT2H EQU 0X34
-POT2L EQU 0X35
-REGM1 EQU 0X36
-REGM2 EQU 0X37
-REG6 EQU 0X38
+POT1L  EQU 0x20
+POT1H  EQU 0x21
+REG1   EQU 0x22
+REG2   EQU 0x23  
+REG3   EQU 0x24  
+REG4   EQU 0x25
+REG5   EQU 0X26
+REGSL  EQU 0X27
+REGSH  EQU 0X28
+REGC1  EQU 0X2A
+REGD1  EQU 0X2B
+REGU1  EQU 0X2C
+REGC2  EQU 0X2D
+REGD2  EQU 0X2E
+REGU2  EQU 0X2F
+REGM   EQU 0X30
+REGC   EQU 0X31
+REGD   EQU 0X32
+REGU   EQU 0X33
+POT2H  EQU 0X34
+POT2L  EQU 0X35
+REGM1  EQU 0X36
+REGM2  EQU 0X37
+REG6   EQU 0X38
+POT3L  EQU 0X39
+POT3H  EQU 0X3A
+REGDAT EQU 0X3B
+REGADR EQU 0X3C
+REGM3  EQU 0X3D
+REGC3  EQU 0X3E
+REGD3  EQU 0X3F
+REGU3  EQU 0X40
 
 ;===== INICIO =====
     ORG 0x00
     GOTO INICIO
 
-TABLA1
+TABLA1 ; Ponelo al principio para que funcione la tabla
 	ADDWF PCL,1
 	RETLW '0'
 	RETLW '1'
@@ -50,6 +58,121 @@ TABLA1
 	RETLW '8'
 	RETLW '9'
 RETURN 
+
+;=====================
+; PROGRAMA PRINCIPAL
+;=====================
+INICIO
+	BANKSEL TRISB
+	BSF TRISB,2            ; Botón guardar
+	CLRF TRISD
+	CLRF TRISE
+	CLRF TRISC
+
+	BANKSEL PORTB
+	CLRF PORTB
+	CLRF PORTD
+	CLRF PORTE
+	BCF PORTC,0      ; Motor inicialmente apagado
+
+	CALL LCD_INIT
+	CALL SETUP_ADC
+	CALL SETUP_PWM
+
+PRINCIPAL
+	; Leer POT 1 (AN0)
+	BCF ADCON0,CHS0
+	BCF ADCON0,CHS1
+	BCF ADCON0,CHS2
+	CALL DELAY_ADC
+	CALL LEER_POT1
+
+	; Leer POT 2 (AN1)
+	BSF ADCON0,CHS0
+	BCF ADCON0,CHS1
+	BCF ADCON0,CHS2
+	CALL DELAY_ADC
+	CALL LEER_POT2
+
+	; Mostrar valores
+	CALL MOSTRAR_LCD
+
+	; Si se presiona botón, guardar EEPROM
+	BANKSEL PORTB
+	BTFSS PORTB,2
+	GOTO PRINCIPAL
+	CALL GUARDAR_EEPROM
+	GOTO LEER_UMBRALES
+
+;===========================================
+; CARGAR UMBRALES DESDE EEPROM
+;===========================================
+LEER_UMBRALES
+    ; Leer POT1H (0x00)
+    MOVLW 0x00
+    MOVWF REGADR
+    CALL LEEREEPROM
+    MOVF REGDAT, W
+    MOVWF POT1H
+
+    ; Leer POT1L (0x01)
+    MOVLW 0x01
+    MOVWF REGADR
+    CALL LEEREEPROM
+    MOVF REGDAT, W
+    MOVWF POT1L
+
+    ; Leer POT2H (0x02)
+    MOVLW 0x02
+    MOVWF REGADR
+    CALL LEEREEPROM
+    MOVF REGDAT, W
+    MOVWF POT2H
+
+    ; Leer POT2L (0x03)
+    MOVLW 0x03
+    MOVWF REGADR
+    CALL LEEREEPROM
+    MOVF REGDAT, W
+    MOVWF POT2L
+    GOTO RUTINA 
+;===========================================
+; LEEREEPROM — Lee EEPROM[REGADR] ? REGDAT
+;===========================================
+LEEREEPROM
+    ; Cargar dirección a leer
+    BANKSEL PORTA
+    MOVF REGADR, W
+    BANKSEL EEADR
+    MOVWF EEADR
+
+    ; Seleccionar EEPROM de datos y comenzar lectura
+    BANKSEL EECON1
+    BCF EECON1, EEPGD      ; 0 = EEPROM de datos
+    BSF EECON1, RD          ; Iniciar lectura
+
+    ; Mover el dato leído desde EEDATA a REGDAT
+    BANKSEL EEDATA
+    MOVF EEDATA, W
+    BANKSEL PORTA
+    MOVWF REGDAT
+    RETURN
+
+
+RUTINA 
+	; Leer POT3 (An2)
+	BSF ADCON0,CHS1
+	BCF ADCON0,CHS0
+	BCF ADCON0,CHS2
+	CALL DELAY_ADC
+	CALL LEER_POT3
+
+	CALL MOSTRAR_LCD_SENSOR
+	; Comparar valor de POT3 con umbrales cargados
+	CALL COMPARAR_POT3_CON_EEPROM
+	CALL ACTUALIZAR_PWM
+
+	GOTO RUTINA
 
 ;=====================
 ; CONFIGURACIÓN LCD
@@ -114,11 +237,13 @@ SETUP_ADC
 	CLRF ANSEL    
 	BSF ANSEL,0   ;limpio los analógicos, menos el RA0/AN0
 	BSF ANSEL,1	  ;limpio los analógicos, menos el RA1/AN1
+	BSF ANSEL,2	  ;limpio los analógicos, menos el RA2/AN2
 
 	BANKSEL TRISA
 	CLRF TRISA
 	BSF TRISA,0            ; RA0 entrada
 	BSF TRISA,1            ; RA1 entrada
+	BSF TRISA,2            ; RA2 entrada
 	CLRF TRISD    ; declaro como salida los pines del bus de datos 8 bits
 	CLRF TRISE    ; declaro como salida los pines de control RW RS y E
 
@@ -132,6 +257,35 @@ SETUP_ADC
 	CLRF PORTD      ;LIMPIO VALORES PARA EL MÓDULO LCD (BUS Y PINES CONTROL)
 	CLRF PORTE
 	RETURN
+
+;=====================
+; CONFIGURAR PWM (CCP1 en RC2)
+;=====================
+SETUP_PWM
+    BANKSEL TRISC
+    BCF TRISC,2          ; RC2 = salida del CCP1
+
+    BANKSEL PR2
+    MOVLW .255           ; Periodo PWM (frecuencia ˜ 490 Hz con Fosc=4MHz)
+    MOVWF PR2
+
+    ; Configurar CCP1 en modo PWM
+    BANKSEL CCP1CON
+    MOVLW b'00001100'    ; CCP1M3:CCP1M0 = 1100 ? PWM mode
+    MOVWF CCP1CON
+
+    ; Inicializar Duty Cycle = 0
+    CLRF CCPR1L
+    BCF CCP1CON, DC1B0
+    BCF CCP1CON, DC1B1
+
+    ; Configurar Timer2
+    BANKSEL T2CON
+    MOVLW b'00000100'    ; Prescaler 1:1, encender Timer2 (TMR2ON=1)
+    MOVWF T2CON
+
+    RETURN
+
 
 LEER_POT1
     BSF ADCON0,GO_DONE
@@ -163,69 +317,230 @@ ESPERA2
     MOVWF POT2H
 	RETURN
 
+LEER_POT3
+    BSF ADCON0,GO_DONE
+ESPERA3
+    BTFSC ADCON0,GO_DONE
+    GOTO ESPERA3
+    BANKSEL ADRESL
+    MOVF ADRESL,W
+    BANKSEL PORTC
+    MOVWF POT3L
+    BANKSEL ADRESH
+    MOVF ADRESH,W
+    BANKSEL PORTC
+    MOVWF POT3H
+	RETURN
+
+COMPARAR_POT3_CON_EEPROM
+;===========================================
+; COMPARAR POT3 CON UMBRALES EEPROM
+;===========================================
+    ; --- Comparar con UMBRAL BAJO (POT1H:L) ---
+    ; Si POT3 < POT1 ? MOTOR_ON
+    MOVF POT1H, W
+    SUBWF POT3H, W           ; W = POT3H - POT1H
+    BTFSS STATUS, C          ; C=0 si POT3H < POT1H
+    GOTO MOTOR_ON
+
+    BTFSS STATUS, Z          ; si no son iguales, continuar
+    GOTO CHECK_HIGH          ; POT3H > POT1H, no hace falta comparar low
+
+    ; Si los altos son iguales, comparar los bajos
+    MOVF POT1L, W
+    SUBWF POT3L, W           ; W = POT3L - POT1L
+    BTFSS STATUS, C          ; C=0 si POT3L < POT1L
+    GOTO MOTOR_ON
+
+CHECK_HIGH
+    ; --- Comparar con UMBRAL ALTO (POT2H:L) ---
+    ; Si POT3 > POT2 ? MOTOR_OFF
+    MOVF POT3H, W
+    SUBWF POT2H, W           ; W = POT2H - POT3H
+    BTFSS STATUS, C          ; C=0 si POT3H > POT2H
+    GOTO MOTOR_OFF
+
+    BTFSS STATUS, Z
+    GOTO END_COMPARE
+
+    ; Si los altos son iguales, comparar los bajos
+    MOVF POT3L, W
+    SUBWF POT2L, W           ; W = POT2L - POT3L
+    BTFSS STATUS, C          ; C=0 si POT3L > POT2L
+    GOTO MOTOR_OFF
+
+END_COMPARE
+    RETURN
+
+MOTOR_ON
+    BSF PORTC,0      ; Enciende motor
+    RETURN
+
+MOTOR_OFF
+    BCF PORTC,0      ; Apaga motor
+    RETURN
 
 ;=====================
-; PROGRAMA PRINCIPAL
+; ACTUALIZAR PWM SEGÚN POT3
 ;=====================
-INICIO
-	BANKSEL TRISB
-	BSF TRISB,2            ; Botón guardar
-	CLRF TRISD
-	CLRF TRISE
+ACTUALIZAR_PWM
+    ; Rango: POT1 ? POT2  ? PWM: 255 ? 0
 
-	BANKSEL PORTB
-	CLRF PORTB
-	CLRF PORTD
-	CLRF PORTE
+    ; Si POT3 <= POT1 ? PWM = 255 (100%)
+    MOVF POT1H, W
+    SUBWF POT3H, W
+    BTFSS STATUS, C
+    GOTO PWM_MAX
+    BTFSS STATUS, Z
+    GOTO CHECK_LOW_L
+    MOVF POT1L, W
+    SUBWF POT3L, W
+    BTFSS STATUS, C
+    GOTO PWM_MAX
 
-	CALL LCD_INIT
-	CALL SETUP_ADC
+CHECK_LOW_L
+    ; Si POT3 >= POT2 ? PWM = 0
+    MOVF POT3H, W
+    SUBWF POT2H, W
+    BTFSS STATUS, C
+    GOTO PWM_ZERO
+    BTFSS STATUS, Z
+    GOTO CALC_PWM
+    MOVF POT3L, W
+    SUBWF POT2L, W
+    BTFSS STATUS, C
+    GOTO PWM_ZERO
 
-PRINCIPAL
-	; Leer POT 1 (AN1)
-	BCF ADCON0,CHS0
-	BCF ADCON0,CHS1
-	BCF ADCON0,CHS2
-	CALL DELAY_ADC
-	CALL LEER_POT1
+CALC_PWM
+    ; --- Escalar proporcionalmente ---
+    ; PWM = 255 * (POT2 - POT3) / (POT2 - POT1)
+    ; Nota: cálculo simplificado para PIC16 sin división exacta
 
-	; Leer POT 2 (AN2)
-	BSF ADCON0,CHS0
-	BCF ADCON0,CHS1
-	BCF ADCON0,CHS2
-	CALL DELAY_ADC
-	CALL LEER_POT2
+    ; Diferencia total = (POT2H:L - POT1H:L)
+    MOVF POT2L, W
+    MOVWF REG1
+    MOVF POT2H, W
+    MOVWF REG2
 
-	; Mostrar valores
-	CALL MOSTRAR_LCD
+    MOVF POT1L, W
+    SUBWF REG1, F
+    MOVF POT1H, W
+    SUBWF REG2, F
 
-	; Si se presiona botón, guardar EEPROM
-	BANKSEL PORTB
-	BTFSS PORTB,2
-	GOTO PRINCIPAL
-	CALL GUARDAR_EEPROM
-	GOTO PRINCIPAL
+    ; Diferencia actual = (POT2H:L - POT3H:L)
+    MOVF POT2L, W
+    MOVWF REG3
+    MOVF POT2H, W
+    MOVWF REG4
+
+    MOVF POT3L, W
+    SUBWF REG3, F
+    MOVF POT3H, W
+    SUBWF REG4, F
+
+    ; Escalamiento burdo: REG3 * 255 / REG1  (solo parte baja)
+    MOVF REG1, W
+    MOVWF REG5
+    MOVF REG3, W
+    MOVWF REG6
+
+    ; Evitar divisiones, usar desplazamientos aproximados
+    MOVF REG6, W
+    MOVWF CCPR1L      ; Simple: duty proporcional directo a REG6
+    GOTO END_PWM
+
+PWM_MAX
+    MOVLW 0xFF
+    MOVWF CCPR1L
+    GOTO END_PWM
+
+PWM_ZERO
+    CLRF CCPR1L
+
+END_PWM
+    RETURN
+
 
 ;=====================
-; GUARDAR EEPROM
+; GUARDAR EEPROM (usando tu método comprobado)
 ;=====================
 GUARDAR_EEPROM
-	NOP
-	GOTO GUARDAR_EEPROM
+    ; --- Guarda POT1H en dirección 0x00 ---
+    MOVF POT1H, W
+    MOVWF REGDAT          ; Dato
+    MOVLW 0x00
+    MOVWF REGADR          ; Dirección
+    CALL ESCRIBIREEPROM
 
-ESCRIBIR
-	BANKSEL EECON1
-	BSF EECON1,WREN
-	MOVLW 0x55
-	MOVWF EECON2
-	MOVLW 0xAA
-	MOVWF EECON2
-	BSF EECON1,WR
-ESPERA_WR
-	BTFSC EECON1,WR
-	GOTO ESPERA_WR
-	BCF EECON1,WREN
-	RETURN
+    ; --- Guarda POT1L en dirección 0x01 ---
+    MOVF POT1L, W
+    MOVWF REGDAT
+    MOVLW 0x01
+    MOVWF REGADR
+    CALL ESCRIBIREEPROM
+
+    ; --- Guarda POT2H en dirección 0x02 ---
+    MOVF POT2H, W
+    MOVWF REGDAT
+    MOVLW 0x02
+    MOVWF REGADR
+    CALL ESCRIBIREEPROM
+
+    ; --- Guarda POT2L en dirección 0x03 ---
+    MOVF POT2L, W
+    MOVWF REGDAT
+    MOVLW 0x03
+    MOVWF REGADR
+    CALL ESCRIBIREEPROM
+
+    RETURN
+
+;=====================
+; RUTINA DE ESCRITURA EEPROM (ya comprobada)
+;=====================
+ESCRIBIREEPROM
+    ; Cargar el dato a escribir
+    BANKSEL PORTA
+    MOVF    REGDAT, W
+    BANKSEL EEDATA
+    MOVWF   EEDATA
+
+    ; Cargar la dirección destino
+    BANKSEL PORTA
+    MOVF    REGADR, W
+    BANKSEL EEADR
+    MOVWF   EEADR
+
+    ; Configurar para escribir en EEPROM de datos
+    BANKSEL EECON1
+    BCF     EECON1, EEPGD      ; 0 = apunta a Data EEPROM
+    BSF     EECON1, WREN       ; habilita escritura
+
+    ; Deshabilitar interrupciones
+    BCF     INTCON, GIE
+WAIT_GIE_CLEAR
+    BTFSC   INTCON, GIE        ; asegura que GIE=0 antes de continuar
+    GOTO    WAIT_GIE_CLEAR
+
+    ; Secuencia obligatoria de desbloqueo (AN576)
+    MOVLW   0x55
+    MOVWF   EECON2
+    MOVLW   0xAA
+    MOVWF   EECON2
+
+    ; Comienza la escritura
+    BSF     EECON1, WR
+
+WAIT_WRITE
+    BTFSC   EECON1, WR         ; espera hasta que WR=0
+    GOTO    WAIT_WRITE
+
+    ; Rehabilita interrupciones
+    BSF     INTCON, GIE
+    BCF     EECON1, WREN       ; desactiva permiso de escritura
+
+    BANKSEL PORTA
+    RETURN
 
 ;=====================
 ; MOSTRAR EN LCD
@@ -233,6 +548,8 @@ ESPERA_WR
 MOSTRAR_LCD
 	BSF PORTE,0     ; RS=1 (datos)
 	BCF PORTE,1     ; RW=0
+
+	CALL DESCOMPONERVALORES
 
 	; --- Mostrar "B:" ---
 	MOVLW 'B'
@@ -242,45 +559,6 @@ MOSTRAR_LCD
 	MOVWF PORTD
 	CALL ENABLE
 
-	; --- Descomponer VAL1 ---
-	MOVF POT1L,W
-	MOVWF REGSL
-	MOVF POT1H,W
-	MOVWF REGSH
-	CALL DESCOMP
-	CALL REVCAS
-	CALL ARREGLO
-
-
-	; Copiar resultados
-	MOVF REGM,W
-	MOVWF REGM1
-	MOVF REGC,W
-	MOVWF REGC1
-	MOVF REGD,W
-	MOVWF REGD1
-	MOVF REGU,W
-	MOVWF REGU1
-
-	; --- Descomponer VAL2 ---
-	MOVF POT2L,W
-	MOVWF REGSL
-	MOVF POT2H,W
-	MOVWF REGSH
-	CALL DESCOMP
-	CALL REVCAS
-	CALL ARREGLO
-
-
-	; Copiar resultados
-	MOVF REGM,W
-	MOVWF REGM2
-	MOVF REGC,W
-	MOVWF REGC2
-	MOVF REGD,W
-	MOVWF REGD2
-	MOVF REGU,W
-	MOVWF REGU2
 
 	; --- Mostrar VAL1 ---
 	MOVF REGM1,W
@@ -351,7 +629,143 @@ LIMPIO
 		MOVWF PORTD
 		CALL ENABLE
 
-RETURN
+	RETURN
+
+;=====================
+; MOSTRAR EN LCD EL SENSOR
+;=====================
+MOSTRAR_LCD_SENSOR
+	BSF PORTE,0     ; RS=1 (datos)
+	BCF PORTE,1     ; RW=0
+
+	CALL DESCOMPONERVALORESSENSOR
+
+	; --- Mostrar "B:" ---
+	MOVLW 'B'
+	MOVWF PORTD
+	CALL ENABLE
+	MOVLW ':'
+	MOVWF PORTD
+	CALL ENABLE
+
+	; --- Mostrar VAL1 ---
+	MOVF REGM1,W
+	CALL TABLA1
+	MOVWF PORTD
+	CALL ENABLE
+
+	MOVF REGC1,W
+	CALL TABLA1
+	MOVWF PORTD
+	CALL ENABLE
+
+	MOVF REGD1,W
+	CALL TABLA1
+	MOVWF PORTD
+	CALL ENABLE
+
+	MOVF REGU1,W
+	CALL TABLA1
+	MOVWF PORTD
+	CALL ENABLE
+
+	; Espacio
+	MOVLW ' '
+	MOVWF PORTD
+	CALL ENABLE
+
+	; --- Mostrar "A:" ---
+	MOVLW 'A'
+	MOVWF PORTD
+	CALL ENABLE
+	MOVLW ':'
+	MOVWF PORTD
+	CALL ENABLE
+
+	; --- Mostrar VAL2 ---
+	MOVF REGM2,W
+	CALL TABLA1
+	MOVWF PORTD
+	CALL ENABLE
+
+	MOVF REGC2,W
+	CALL TABLA1
+	MOVWF PORTD
+	CALL ENABLE
+
+	MOVF REGD2,W
+	CALL TABLA1
+	MOVWF PORTD
+	CALL ENABLE
+
+	MOVF REGU2,W
+	CALL TABLA1
+	MOVWF PORTD
+	CALL ENABLE
+
+	;=====================
+	; AHORA ESCRIBIR EN SEGUNDA LÍNEA
+	;=====================
+
+	; Modo instrucción (RS=0, RW=0)
+	BCF PORTE,0     
+	BCF PORTE,1     
+
+	; Dirección de la segunda línea (0xC0)
+	MOVLW 0xC0
+	MOVWF PORTD
+	CALL ENABLE
+
+	; Modo datos otra vez (RS=1)
+	BSF PORTE,0     
+
+	; --- Escribir "SENSOR" ---
+	MOVLW 'S'
+	MOVWF PORTD
+	CALL ENABLE
+	MOVLW 'E'
+	MOVWF PORTD
+	CALL ENABLE
+	MOVLW 'N'
+	MOVWF PORTD
+	CALL ENABLE
+	MOVLW 'S'
+	MOVWF PORTD
+	CALL ENABLE
+	MOVLW 'O'
+	MOVWF PORTD
+	CALL ENABLE
+	MOVLW 'R'
+	MOVWF PORTD
+	CALL ENABLE
+	MOVLW ':'
+	MOVWF PORTD
+	CALL ENABLE
+	; --- Mostrar VAL3 ---
+	MOVF REGM3,W
+	CALL TABLA1
+	MOVWF PORTD
+	CALL ENABLE
+
+	MOVF REGC3,W
+	CALL TABLA1
+	MOVWF PORTD
+	CALL ENABLE
+
+	MOVF REGD3,W
+	CALL TABLA1
+	MOVWF PORTD
+	CALL ENABLE
+
+	MOVF REGU3,W
+	CALL TABLA1
+	MOVWF PORTD
+	CALL ENABLE
+
+
+	CALL LIMPIO
+
+	RETURN
 
 TIEMPO
 	MOVLW .3
@@ -528,5 +942,112 @@ ESPERA_ADC
     DECFSZ REG6,F
     GOTO ESPERA_ADC
     RETURN
+
+DESCOMPONERVALORES
+; --- Descomponer VAL1 ---
+	MOVF POT1L,W
+	MOVWF REGSL
+	MOVF POT1H,W
+	MOVWF REGSH
+	CALL DESCOMP
+	CALL REVCAS
+	CALL ARREGLO
+
+
+	; Copiar resultados
+	MOVF REGM,W
+	MOVWF REGM1
+	MOVF REGC,W
+	MOVWF REGC1
+	MOVF REGD,W
+	MOVWF REGD1
+	MOVF REGU,W
+	MOVWF REGU1
+
+	; --- Descomponer VAL2 ---
+	MOVF POT2L,W
+	MOVWF REGSL
+	MOVF POT2H,W
+	MOVWF REGSH
+	CALL DESCOMP
+	CALL REVCAS
+	CALL ARREGLO
+
+
+	; Copiar resultados
+	MOVF REGM,W
+	MOVWF REGM2
+	MOVF REGC,W
+	MOVWF REGC2
+	MOVF REGD,W
+	MOVWF REGD2
+	MOVF REGU,W
+	MOVWF REGU2
+	RETURN
+
+DESCOMPONERVALORESSENSOR
+; --- Descomponer VAL1 ---
+	MOVF POT1L,W
+	MOVWF REGSL
+	MOVF POT1H,W
+	MOVWF REGSH
+	CALL DESCOMP
+	CALL REVCAS
+	CALL ARREGLO
+
+
+	; Copiar resultados
+	MOVF REGM,W
+	MOVWF REGM1
+	MOVF REGC,W
+	MOVWF REGC1
+	MOVF REGD,W
+	MOVWF REGD1
+	MOVF REGU,W
+	MOVWF REGU1
+
+	; --- Descomponer VAL2 ---
+	MOVF POT2L,W
+	MOVWF REGSL
+	MOVF POT2H,W
+	MOVWF REGSH
+	CALL DESCOMP
+	CALL REVCAS
+	CALL ARREGLO
+
+
+	; Copiar resultados
+	MOVF REGM,W
+	MOVWF REGM2
+	MOVF REGC,W
+	MOVWF REGC2
+	MOVF REGD,W
+	MOVWF REGD2
+	MOVF REGU,W
+	MOVWF REGU2 
+
+; --- Descomponer VAL3 ---
+	MOVF POT3L,W
+	MOVWF REGSL
+	MOVF POT3H,W
+	MOVWF REGSH
+	CALL DESCOMP
+	CALL REVCAS
+	CALL ARREGLO
+
+
+	; Copiar resultados
+	MOVF REGM,W
+	MOVWF REGM3
+	MOVF REGC,W
+	MOVWF REGC3
+	MOVF REGD,W
+	MOVWF REGD3
+	MOVF REGU,W
+	MOVWF REGU3
+
+	RETURN
+
+
 
 	END
